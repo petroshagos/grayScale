@@ -5,11 +5,13 @@
  */
 package view;
 
+import javafx.application.Application;
+
 /**
  *
  * @author Petros
  */
-public class GameGUI {
+public class GameGUI extends Application{
 
     public static void main(String[] args) {
         // TODO code application logic here
