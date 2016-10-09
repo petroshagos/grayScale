@@ -35,11 +35,27 @@ public class Player {
         return this.ships;
     }
 
-    public void setScore(int score) {
+    private void setScore(int score) {
         this.score = score;
     }
 
     public void addScore(int score) {
         this.score += score;
+    }
+
+    private void setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
+    }
+
+    private void setNrOfLives(int nrOfLives) {
+        this.nrOfLives = nrOfLives;
+    }
+
+    private void setShips(LinkedList<Ship> ships) {
+        this.ships = ships;
+    }
+
+    public void removeHealthPoints(int healthPoints) {
+        this.healthPoints -= healthPoints;
     }
 }
