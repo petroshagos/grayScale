@@ -1,22 +1,28 @@
 package model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * Created by Petros on 2016-10-09.
  */
-public class Player {
-
+public class Player implements Serializable{
+    private String name;
     private int score;
     private int healthPoints;
     private int nrOfLives;
     private LinkedList<Ship> ships;
 
-    public Player(int score, int hP, int lives, LinkedList<Ship> ships) {
+    public Player(String name, int score, int hP, int lives, LinkedList<Ship> ships) {
+        this.name = name;
         this.score = score;
         this.healthPoints = hP;
         this.nrOfLives = lives;
         this.ships = ships;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getScore() {
@@ -61,6 +67,11 @@ public class Player {
 
     private void setShips(LinkedList<Ship> ships) {
         this.ships = ships;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 }
