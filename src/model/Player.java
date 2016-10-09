@@ -35,12 +35,20 @@ public class Player {
         return this.ships;
     }
 
-    private void setScore(int score) {
-        this.score = score;
-    }
-
     public void addScore(int score) {
         this.score += score;
+    }
+
+    public void decreaseHealthPoints(int i) {
+        this.healthPoints -= i;
+    }
+
+    public void decreaseNrOfLives() {
+        this.nrOfLives -=1 ;
+    }
+
+    private void setScore(int score) {
+        this.score = score;
     }
 
     private void setHealthPoints(int healthPoints) {
@@ -55,7 +63,4 @@ public class Player {
         this.ships = ships;
     }
 
-    public void removeHealthPoints(int healthPoints) {
-        this.healthPoints -= healthPoints;
-    }
 }
