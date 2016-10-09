@@ -1,6 +1,8 @@
 
 package view;
 
+import model.GameModel;
+
 /**
  *
  * @author Petros
@@ -8,9 +10,11 @@ package view;
 public class GameGUI {
 
     private ThemeColor themeColor;
+    private GameModel model;
 
-    public GameGUI(ThemeColor themeColor) {
+    public GameGUI(ThemeColor themeColor, GameModel model) {
         this.themeColor = themeColor;
+        this.model = model;
     }
 
     public ThemeColor getThemeColor() {
