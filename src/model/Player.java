@@ -22,13 +22,24 @@ public class Player {
     public int getScore() {
         return this.score;
     }
+
     public int getHealthPoints() {
         return this.healthPoints;
     }
+
     public int getNrOfLives() {
         return this.nrOfLives;
     }
+
     public LinkedList<Ship> getShips() {
         return this.ships;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void addScore(int score) {
+        this.score += score;
     }
 }
