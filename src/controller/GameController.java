@@ -13,5 +13,13 @@ import view.GameGUI;
  * @author Petros
  */
 public class GameController {
+
+    private GameModel model;
+    private GameGUI view;
+
+    public GameController(GameModel model, GameGUI view) {
+        this.model = model;
+        this.view = view;
+    }
     
 }
