@@ -22,6 +22,15 @@ abstract public class Shape {
         this.collidable = collidable;
     }
 
+    protected Shape() {
+        this.x = 0;
+        this.y = 0;
+        this.color = 0;
+        this.filled = true;
+        this.outOfBounds = false;
+        this.collidable = true;
+    }
+
     /**
      * @return x-coordinate of the upper-left corner
      */
