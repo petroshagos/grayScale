@@ -84,11 +84,29 @@ abstract public class Shape {
         return dy;
     }
 
+    public boolean isFilled() {
+        return filled;
+    }
+
     public void setFilled(boolean filled) {
         this.filled = filled;
     }
 
+    public boolean isOutOfBounds() {
+        return outOfBounds;
+    }
 
+    public void setOutOfBounds(boolean outOfBounds) {
+        this.outOfBounds = outOfBounds;
+    }
+
+    public boolean isCollidable() {
+        return collidable;
+    }
+
+    public void setCollidable(boolean collidable) {
+        this.collidable = collidable;
+    }
 
     /**
      * Sets the velocity, pixels/second, to (newDx, newDy).
