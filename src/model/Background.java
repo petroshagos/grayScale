@@ -7,14 +7,15 @@ import java.util.Random;
 /**
  * Created by Petros on 2016-10-09.
  */
-public class Backdrop {
+public class Background {
 
     LinkedList<Shape> terrainList, bgFront,bgBack;
 
-    public Backdrop() {
-        double[] tempX = makeTerrainXPoints(0);
-        double[] tempY = makeTerrainYPoints(50, tempX);
+    public Background() {
+        double[] tempX = makeTerrainPointsX(0);
+        double[] tempY = makeTerrainPointsY(50, tempX);
         terrainList.add(new Terrain(0,350, 0, true, false, false, tempX, tempY));
+        fill();
         for (Shape s: terrainList) {
             s.setVelocity(-60,0);
         }
@@ -22,7 +23,7 @@ public class Backdrop {
         bgBack = makeBG(0,0,2,3,-6);
     }
 
-    public double getLastTerrainxPoint() {
+    public double getLastTerrainPointX() {
         if (terrainList.get(terrainList.size() - 1) instanceof Terrain) {
             Terrain temp = (Terrain) ((Terrain) terrainList.get(terrainList.size() - 1));
             return temp.getLastPoint()[0];
@@ -30,7 +31,7 @@ public class Backdrop {
         return 0;
     }
 
-    public double getLastTerrainyPoint() {
+    public double getLastTerrainPointY() {
         if (terrainList.get(terrainList.size() - 1) instanceof Terrain) {
             Terrain temp = (Terrain) ((Terrain) terrainList.get(terrainList.size() - 1));
             return temp.getLastPoint()[1];
@@ -57,7 +58,7 @@ public class Backdrop {
         return temp;
     }
 
-    public double[] makeTerrainXPoints(double x) {
+    public double[] makeTerrainPointsX(double x) {
         ArrayList<Double> coordinatesX = new ArrayList<>();
         Random random = new Random();
         double xMax = x;
@@ -78,7 +79,7 @@ public class Backdrop {
         return temp;
     }
 
-    public double[] makeTerrainYPoints(double y, double[] xPoints) {
+    public double[] makeTerrainPointsY(double y, double[] xPoints) {
         ArrayList<Double> coordinatesY = new ArrayList<>();
         Random random = new Random();
         coordinatesY.add(y);
@@ -92,6 +93,18 @@ public class Backdrop {
             temp[i]=coordinatesY.get(i);
         }
         return temp;
+    }
+
+    private void fill() {
+        double[] tempX = makeTerrainPointsX(getLastTerrainPointX());
+        double[] tempY = makeTerrainPointsX(getLastTerrainPointY());
+        for ( int i = 0; i<10; i++ ) {
+            terrainList.add(new Terrain(getLastTerrainPointX(), getLastTerrainPointY(),
+                    0, true, false, false, tempX, tempY));
+            tempX = makeTerrainPointsX(getLastTerrainPointX());
+            tempY = makeTerrainPointsX(getLastTerrainPointY());
+        }
+
     }
 
 }
