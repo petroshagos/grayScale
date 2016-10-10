@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 /**
  * Created by Petros on 2016-10-09.
  */
@@ -152,4 +154,29 @@ abstract public class Shape {
         x += dx * elapsedTimeNs / BILLION;
         y += dy * elapsedTimeNs / BILLION;
     }
+
+    /**
+     * Gives a shape the velocity of 500 in
+     * a randomly generated direction (360 degrees).
+     *
+     */
+    public void explode() {
+        Random random = new Random();
+        double x,y;
+        int c = random.nextInt(5);
+        x = (random.nextDouble()*500);
+        y = Math.sqrt(250000-(x*x));
+        switch (c) {
+            case 1:     x=-x;
+                break;
+            case 2:     y=-y;
+                break;
+            case 3:     x=-x;
+                        y=-y;
+                        break;
+            default:    break;
+        }
+        setVelocity(x, y);
+    }
+
 }
