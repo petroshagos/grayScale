@@ -15,13 +15,27 @@ public class Backdrop {
         double[] tempX = makeTerrainXPoints(0);
         double[] tempY = makeTerrainYPoints(50, tempX);
         terrainList.add(new Terrain(0,350, 0, true, false, false, tempX, tempY));
+        for (Shape s: terrainList) {
+            s.setVelocity(-60,0);
+        }
         bgFront = makeBG(0,0,3,2,-9);
         bgBack = makeBG(0,0,2,3,-6);
     }
 
+    public double getLastTerrainxPoint() {
+        if (terrainList.get(terrainList.size() - 1) instanceof Terrain) {
+            Terrain temp = (Terrain) ((Terrain) terrainList.get(terrainList.size() - 1));
+            return temp.getLastPoint()[0];
+        }
+        return 0;
+    }
 
-    private void fill() {
-
+    public double getLastTerrainyPoint() {
+        if (terrainList.get(terrainList.size() - 1) instanceof Terrain) {
+            Terrain temp = (Terrain) ((Terrain) terrainList.get(terrainList.size() - 1));
+            return temp.getLastPoint()[1];
+        }
+        return 0;
     }
 
     public LinkedList makeBG(double x, double y, double size, int color, double velocity) {

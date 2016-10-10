@@ -30,4 +30,15 @@ public class Terrain extends Shape {
         return (new double[]{this.xPoints[xPoints.length-3], this.yPoints[yPoints.length-3]});
     }
 
+    @Override
+    public void move(long elapsedTimeNs) {
+        for (int i=0; i<xPoints.length;i++) {
+            xPoints[i] += super.getDx() * elapsedTimeNs / BILLION;
+        }
+        for (int i=0; i<yPoints.length;i++) {
+            yPoints[i] += super.getDy() * elapsedTimeNs / BILLION;
+        }
+        super.setX(super.getX() + super.getDx() * elapsedTimeNs / BILLION);
+        super.setY(super.getY() + super.getDy() * elapsedTimeNs / BILLION);
+    }
 }
