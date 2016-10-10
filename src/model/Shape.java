@@ -1,7 +1,5 @@
 package model;
 
-import javafx.scene.canvas.GraphicsContext;
-
 /**
  * Created by Petros on 2016-10-09.
  */
@@ -110,7 +108,7 @@ abstract public class Shape {
 
     /**
      * Move the shape a distance depending on the elapsed time in nanoseconds.
-     * NB - the velocitey is measured in pixels/second.
+     * NB - the velocity is measured in pixels/second.
      *
      * @param elapsedTimeNs the elapsed time in nanoseconds.
      */
@@ -118,12 +116,4 @@ abstract public class Shape {
         x += dx * elapsedTimeNs / BILLION;
         y += dy * elapsedTimeNs / BILLION;
     }
-
-    /**
-     * Paint the shape on the screen using the grapchics context. Override this
-     * method in subtypes.
-     *
-     * @param gc the GraphicsContext for drawing
-     */
-    abstract public void paint(GraphicsContext gc);
 }
