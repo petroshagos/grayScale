@@ -84,6 +84,9 @@ abstract public class Shape {
         return dy;
     }
 
+    /**
+     * @return true if the shape in question is filled, otherwise false
+     */
     public boolean isFilled() {
         return filled;
     }
