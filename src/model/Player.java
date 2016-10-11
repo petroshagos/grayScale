@@ -9,21 +9,18 @@ import java.util.LinkedList;
 public class Player implements Serializable{
     private String name;
     private int score;
-    private int healthPoints;
     private int nrOfLives;
     private LinkedList<Ship> ships;
 
     public Player() {
         this.name = "Player";
         this.score = 0;
-        this.healthPoints = 1;
         this.nrOfLives = 3;
     }
 
     public Player(String name, int score, int hP, int lives, LinkedList<Ship> ships) {
         this.name = name;
         this.score = score;
-        this.healthPoints = hP;
         this.nrOfLives = lives;
         this.ships = ships;
     }
@@ -34,10 +31,6 @@ public class Player implements Serializable{
 
     public int getScore() {
         return this.score;
-    }
-
-    public int getHealthPoints() {
-        return this.healthPoints;
     }
 
     public int getNrOfLives() {
@@ -53,7 +46,6 @@ public class Player implements Serializable{
     }
 
     public void decreaseHealthPoints(int i) {
-        this.healthPoints -= i;
     }
 
     public void decreaseNrOfLives() {
@@ -62,10 +54,6 @@ public class Player implements Serializable{
 
     private void setScore(int score) {
         this.score = score;
-    }
-
-    private void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
     }
 
     private void setNrOfLives(int nrOfLives) {
