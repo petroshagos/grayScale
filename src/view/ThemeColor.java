@@ -24,19 +24,6 @@ public enum ThemeColor {
             default: return Color.rgb(0,0,0);
         }
     }
-    public Color getColor2() {
-        return color2;
-    }
-    public Color getColor3() {
-        return color3;
-    }
-    public Color getColor4() {
-        return color4;
-    }
-    public Color getColor5() {
-        return color1;
-    }
-
 
     private final Color color0;
     private final Color color1;
