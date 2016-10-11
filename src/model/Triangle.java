@@ -34,6 +34,10 @@ public class Triangle extends Shape {
         return height;
     }
 
+    public TriangleOrientation getOrientation() {
+        return this.orientation;
+    }
+
     public void setWidth(double width) {
         this.width = width;
     }
