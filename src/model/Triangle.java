@@ -5,7 +5,7 @@ package model;
  */
 public class Triangle extends Shape {
     private double width, height;
-    private String type;
+    private TriangleOrientation orientation;
 
     /**
      * @param x
@@ -16,14 +16,14 @@ public class Triangle extends Shape {
      * @param filled
      * @param outOfBounds
      * @param collidable
-     * @param type
+     * @param orientation
      */
     public Triangle(double x, double y, double width, double height, int color,
-                    boolean filled, boolean outOfBounds, boolean collidable, String type) {
+                    boolean filled, boolean outOfBounds, boolean collidable, TriangleOrientation orientation) {
         super(x,y,color,filled,outOfBounds,collidable);
         this.width = width;
         this.height = height;
-        this.type = type;
+        this.orientation = orientation;
     }
 
     public double getWidth() {
