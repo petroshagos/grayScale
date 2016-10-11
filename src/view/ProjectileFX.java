@@ -11,15 +11,19 @@ import java.util.ArrayList;
 public class ProjectileFX {
 
     private ThemeColor themeColor;
-    private ArrayList<ShapeFX> projectile;
+    private Projectile projectile;
+    private ArrayList<ShapeFX> projectileGeometry = new ArrayList<>();
 
     public ProjectileFX(ThemeColor themeColor, Projectile projectile) {
-        for (Rectangle r: projectile.getProjectile())
-            this.projectile.add(new RectangleFX(themeColor, r));
+        this.themeColor = themeColor;
+        this.projectile = projectile;
+        for (Rectangle r: projectile.getProjectile()) {
+            this.projectileGeometry.add(new RectangleFX(themeColor, r));
+        }
     }
 
-    public ArrayList<ShapeFX> getProjectile() {
-        return projectile;
+    public ArrayList<ShapeFX> getProjectileGeometry() {
+        return projectileGeometry;
     }
 
     public void setThemeColor(ThemeColor themeColor) {

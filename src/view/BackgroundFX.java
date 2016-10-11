@@ -12,9 +12,14 @@ import java.util.ArrayList;
 public class BackgroundFX {
 
     private ThemeColor themeColor;
-    private ArrayList<ShapeFX> bgFront, bgBack, terrainList;
+    private Background background;
+    private ArrayList<ShapeFX> bgFront = new ArrayList<>();
+    private ArrayList<ShapeFX> bgBack = new ArrayList<>();
+    private ArrayList<ShapeFX> terrainList = new ArrayList<>();
 
     public BackgroundFX(ThemeColor themeColor, Background background) {
+        this.themeColor = themeColor;
+        this.background = background;
         for (Rectangle r: background.getBgFront()) {
             this.bgFront.add(new RectangleFX(themeColor,r));
         }
