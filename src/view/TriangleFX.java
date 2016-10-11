@@ -7,23 +7,19 @@ import model.TriangleOrientation;
 /**
  * Created by Petros on 2016-10-11.
  */
-public class TriangleFX {
+public class TriangleFX extends ShapeFX{
 
     private Triangle triangle;
-    private ThemeColor themeColor;
 
-    public TriangleFX(Triangle triangle, ThemeColor themeColor) {
+    public TriangleFX(ThemeColor themeColor,Triangle triangle) {
+        super(themeColor);
         this.triangle = triangle;
-        this.themeColor = themeColor;
     }
 
-    public void setThemeColor(ThemeColor themeColor) {
-        this.themeColor = themeColor;
-    }
-
+    @Override
     public void paint(GraphicsContext gc) {
-        gc.setFill(themeColor.getColor(triangle.getColor()));
-        gc.setStroke(themeColor.getColor(triangle.getColor()));
+        gc.setFill(super.getThemeColor().getColor(triangle.getColor()));
+        gc.setStroke(super.getThemeColor().getColor(triangle.getColor()));
 
         if (triangle.getOrientation() == TriangleOrientation.UpperLeft) {
             if (triangle.isFilled()) {
