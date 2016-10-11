@@ -1,8 +1,9 @@
-package view;
+package view.FX;
 
 import model.Background;
-import model.Rectangle;
-import model.Terrain;
+import model.Shape.Rectangle;
+import model.Shape.Terrain;
+import view.ThemeColor;
 
 import java.util.ArrayList;
 

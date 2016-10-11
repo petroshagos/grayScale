@@ -1,6 +1,7 @@
-package view;
+package view.FX;
 
 import javafx.scene.canvas.GraphicsContext;
+import view.ThemeColor;
 
 /**
  * Created by Petros on 2016-10-11.

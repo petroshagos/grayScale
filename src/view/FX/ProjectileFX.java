@@ -1,7 +1,8 @@
-package view;
+package view.FX;
 
 import model.Projectile;
-import model.Rectangle;
+import model.Shape.Rectangle;
+import view.ThemeColor;
 
 import java.util.ArrayList;
 

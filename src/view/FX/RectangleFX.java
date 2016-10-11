@@ -1,7 +1,8 @@
-package view;
+package view.FX;
 
 import javafx.scene.canvas.GraphicsContext;
-import model.Rectangle;
+import model.Shape.Rectangle;
+import view.ThemeColor;
 
 /**
  * Created by Petros on 2016-10-11.

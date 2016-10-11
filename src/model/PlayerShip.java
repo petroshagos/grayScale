@@ -1,5 +1,9 @@
 package model;
 
+import model.Shape.Shape;
+import model.Shape.Triangle;
+import model.Shape.TriangleOrientation;
+
 import java.util.ArrayList;
 
 /**

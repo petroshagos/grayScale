@@ -1,7 +1,8 @@
-package view;
+package view.FX;
 
 import model.Ship;
-import model.Triangle;
+import model.Shape.Triangle;
+import view.ThemeColor;
 
 import java.util.ArrayList;
 

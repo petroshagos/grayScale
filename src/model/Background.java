@@ -1,5 +1,9 @@
 package model;
 
+import model.Shape.Rectangle;
+import model.Shape.Shape;
+import model.Shape.Terrain;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;

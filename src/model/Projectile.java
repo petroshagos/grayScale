@@ -1,5 +1,8 @@
 package model;
 
+import model.Shape.Rectangle;
+import model.Shape.Shape;
+
 import java.util.LinkedList;
 
 /**

@@ -1,5 +1,8 @@
 package model;
 
+import model.Shape.Shape;
+import model.Shape.Triangle;
+
 import java.util.ArrayList;
 
 /**

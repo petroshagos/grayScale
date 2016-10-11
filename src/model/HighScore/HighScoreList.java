@@ -1,4 +1,6 @@
-package model;
+package model.HighScore;
+
+import model.Player;
 
 import java.util.Collections;
 import java.util.LinkedList;
