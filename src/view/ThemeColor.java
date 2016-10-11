@@ -21,7 +21,7 @@ public enum ThemeColor {
             case 2: return color2;
             case 3: return color3;
             case 4: return color4;
-            default: return color4;
+            default: return Color.rgb(0,0,0);
         }
     }
     public Color getColor2() {
@@ -44,7 +44,7 @@ public enum ThemeColor {
     private final Color color3;
     private final Color color4;
 
-    private ThemeColor(Color color0, Color color1, Color color2, Color color3, Color color4) {
+    ThemeColor(Color color0, Color color1, Color color2, Color color3, Color color4) {
         this.color0 = color0;
         this.color1 = color1;
         this.color2 = color2;
