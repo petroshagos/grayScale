@@ -10,7 +10,7 @@ public class RectangleFX extends ShapeFX {
 
     private Rectangle rectangle;
 
-    public RectangleFX(ThemeColor themeColor,Rectangle rectangle) {
+    public RectangleFX(ThemeColor themeColor, Rectangle rectangle) {
         super(themeColor);
         this.rectangle = rectangle;
     }

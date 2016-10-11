@@ -7,7 +7,7 @@ import java.util.LinkedList;
  */
 public class Projectile {
 
-    private LinkedList<Shape> projectile;
+    private LinkedList<Rectangle> projectile;
 
     public Projectile(double x, double y) {
         for (int i=0;i<3;i++){
@@ -20,7 +20,8 @@ public class Projectile {
         }
     }
 
-    public LinkedList<Shape> getProjectile() {
+    public LinkedList<Rectangle> getProjectile() {
         return this.projectile;
     }
+
 }

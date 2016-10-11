@@ -26,6 +26,10 @@ public class Terrain extends Shape {
         return yPoints;
     }
 
+    public int getNrOfPoints() {
+        return xPoints.length;
+    }
+
     public double[] getLastPoint() {
         return (new double[]{this.xPoints[xPoints.length-3], this.yPoints[yPoints.length-3]});
     }

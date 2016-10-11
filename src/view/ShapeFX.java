@@ -23,5 +23,4 @@ public abstract class ShapeFX {
 
     abstract void paint(GraphicsContext gc);
 
-
 }

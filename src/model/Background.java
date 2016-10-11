@@ -9,7 +9,8 @@ import java.util.Random;
  */
 public class Background {
 
-    LinkedList<Shape> terrainList, bgFront,bgBack;
+    LinkedList<Terrain> terrainList;
+    LinkedList<Rectangle> bgFront,bgBack;
 
     public Background() {
         double[] tempX = makeTerrainPointsX(0);
@@ -93,6 +94,18 @@ public class Background {
             temp[i]=coordinatesY.get(i);
         }
         return temp;
+    }
+
+    public LinkedList<Rectangle> getBgFront() {
+        return bgFront;
+    }
+
+    public LinkedList<Rectangle> getBgBack() {
+        return bgBack;
+    }
+
+    public LinkedList<Terrain> getTerrainList() {
+        return terrainList;
     }
 
     private void fill() {
