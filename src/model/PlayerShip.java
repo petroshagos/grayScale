@@ -19,12 +19,12 @@ public class PlayerShip extends Ship {
     }
 
     @Override
-    public ArrayList<Shape> makeShip() {
+    public ArrayList<Triangle> makeShip() {
         double x = 50;
         double y = 200;
         double x2 = 15;
         double y2 = 15;
-        ArrayList<Shape> temp = new ArrayList<>();
+        ArrayList<Triangle> temp = new ArrayList<>();
         temp.add(new Triangle(x,y,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
         temp.add(new Triangle(x,y+y2,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
         temp.add(new Triangle(x,y+y2,x2,y2, 0, true, false, true, TriangleOrientation.LowerLeft));

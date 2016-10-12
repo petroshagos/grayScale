@@ -1,6 +1,6 @@
 package model;
 
-import model.Shape.Shape;
+import model.Shape.Triangle;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ abstract public class Ship {
     private double x, y;
     private boolean isAlive;
     private int healthPoints;
-    private ArrayList<Shape> shipGeometry;
+    private ArrayList<Triangle> shipGeometry;
 
     protected Ship(double x, double y, int healthPoints) {
         this.x = x;
@@ -38,13 +38,13 @@ abstract public class Ship {
         this.healthPoints = healthPoints;
     }
 
-    public ArrayList<Shape> getShipGeometry() {
+    public ArrayList<Triangle> getShipGeometry() {
         return shipGeometry;
     }
 
-    public void setShipGeometry(ArrayList<Shape> shipGeometry) {
+    public void setShipGeometry(ArrayList<Triangle> shipGeometry) {
         this.shipGeometry = shipGeometry;
     }
 
-    abstract ArrayList<Shape> makeShip();
+    abstract ArrayList<Triangle> makeShip();
 }

@@ -1,7 +1,7 @@
 package model;
 
-import model.Shape.Rectangle;
-import model.Shape.Shape;
+import model.Shape.Triangle;
+import model.Shape.TriangleOrientation;
 
 import java.util.ArrayList;
 
@@ -20,11 +20,11 @@ public class EnemyShip extends Ship {
     }
 
     @Override
-    public ArrayList<Shape> makeShip() {
-        ArrayList<Shape> temp = new ArrayList<>();
+    public ArrayList<Triangle> makeShip() {
+        ArrayList<Triangle> temp = new ArrayList<>();
         for (int i=0;i<3;i++){
             for (int j=0;j<2;j++){
-                temp.add(new Rectangle(super.getX()+6*i,super.getY()+6*j,20,20,0,true,false,true));
+                temp.add(new Triangle(super.getX()+6*i,super.getY()+6*j,20,20,0,true,false,true, TriangleOrientation.UpperLeft));
             }
         }
         return temp;
