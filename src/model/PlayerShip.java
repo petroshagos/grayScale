@@ -11,6 +11,8 @@ import java.util.ArrayList;
  */
 public class PlayerShip extends Ship {
 
+    private ArrayList<Shape> shipGeometry;
+
     public PlayerShip() {
         super(50, 200, 1);
         this.setShipGeometry(makeShip());
