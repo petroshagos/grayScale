@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import view.ThemeColor;
 
 /**
- * Created by Petros on 2016-10-11.
+ * @author Petros Hagos & Dag Oldenburg.
  */
 public abstract class ShapeFX {
 

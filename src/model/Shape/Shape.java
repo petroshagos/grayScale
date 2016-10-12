@@ -3,7 +3,7 @@ package model.Shape;
 import java.util.Random;
 
 /**
- * Created by Petros on 2016-10-09.
+ * @author Petros Hagos & Dag Oldenburg.
  */
 abstract public class Shape {
 

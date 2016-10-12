@@ -5,7 +5,7 @@ import model.Shape.Rectangle;
 import view.ThemeColor;
 
 /**
- * Created by Petros on 2016-10-11.
+ * @author Petros Hagos & Dag Oldenburg.
  */
 public class RectangleFX extends ShapeFX {
 

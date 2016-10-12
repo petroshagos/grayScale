@@ -5,7 +5,7 @@ import model.GameModel;
 
 /**
  *
- * @author Petros
+ * @author Petros Hagos & Dag Oldenburg
  */
 public class GameGUI {
 

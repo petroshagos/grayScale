@@ -3,7 +3,7 @@ package view;
 import javafx.scene.paint.Color;
 
 /**
- * Created by Petros on 2016-10-09.
+ * @author Petros Hagos & Dag Oldenburg.
  */
 public enum ThemeColor {
     THEME_GRAY(Color.rgb(50,50,50), Color.rgb(125,125,125), Color.rgb(200,200,200),

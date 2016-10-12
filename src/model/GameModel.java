@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Petros
+ * @author Petros Hagos & Dag Oldenburg
  */
 public class GameModel {
     

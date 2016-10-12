@@ -1,7 +1,7 @@
 package model.Shape;
 
 /**
- * Created by Petros on 2016-10-09.
+ * @author Petros Hagos & Dag Oldenburg
  */
 public class Terrain extends Shape {
 
@@ -37,12 +37,12 @@ public class Terrain extends Shape {
     @Override
     public void move(long elapsedTimeNs) {
         for (int i=0; i<xPoints.length;i++) {
-            xPoints[i] += super.getDx() * elapsedTimeNs / BILLION;
+            xPoints[i] += getDx() * elapsedTimeNs / BILLION;
         }
         for (int i=0; i<yPoints.length;i++) {
-            yPoints[i] += super.getDy() * elapsedTimeNs / BILLION;
+            yPoints[i] += getDy() * elapsedTimeNs / BILLION;
         }
-        super.setX(super.getX() + super.getDx() * elapsedTimeNs / BILLION);
-        super.setY(super.getY() + super.getDy() * elapsedTimeNs / BILLION);
+        setX(getX() + getDx() * elapsedTimeNs / BILLION);
+        setY(getY() + getDy() * elapsedTimeNs / BILLION);
     }
 }

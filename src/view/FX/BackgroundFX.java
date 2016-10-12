@@ -8,7 +8,7 @@ import view.ThemeColor;
 import java.util.ArrayList;
 
 /**
- * Created by Petros on 2016-10-09.
+ * @author Petros Hagos & Dag Oldenburg.
  */
 public class BackgroundFX {
 

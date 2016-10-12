@@ -10,7 +10,7 @@ import view.GameGUI;
 
 /**
  *
- * @author Petros
+ * @author Petros Hagos & Dag Oldenburg
  */
 public class GameController {
 
