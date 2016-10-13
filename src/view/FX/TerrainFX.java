@@ -20,7 +20,6 @@ public class TerrainFX extends ShapeFX {
     public void paint(GraphicsContext gc) {
         gc.setFill(super.getThemeColor().getColor(terrain.getColor()));
         gc.setStroke(super.getThemeColor().getColor(terrain.getColor()));
-        System.out.println("hej");
         if (terrain.isFilled()) {
             gc.fillPolygon(terrain.getXPoints(), terrain.getYPoints(), terrain.getNrOfPoints());
         }
