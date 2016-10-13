@@ -1,6 +1,7 @@
 package view.FX;
 
 import model.Background;
+import model.Shape.Terrain;
 import model.Shape.Rectangle;
 import view.ThemeColor;
 
@@ -26,9 +27,9 @@ public class BackgroundFX {
         for (Rectangle r: background.getBgBack()) {
             this.bgBack.add(new RectangleFX(themeColor,r));
         }
-/*        for (Terrain t: background.getTerrainList()) {
+        for (Terrain t: background.getTerrainList()) {
             this.bgFront.add(new TerrainFX(themeColor,t));
-        }*/
+        }
     }
 
     public void setThemeColor(ThemeColor themeColor) {

@@ -37,10 +37,11 @@ public class GameGUI extends Application {
     private AnimationTimer timer;
     private boolean timerIsOn;
 
-   /* public GameGUI(GameModel model) {
+   /*public GameGUI(GameModel model) {
         this.gameModel = model;
         this.gameController = new GameController(gameModel, this);
         this.themeColor = ThemeColor.THEME_GRAY;
+        }
         this.bgFX = new BackgroundFX(themeColor, model.getBackground());
         for (Ship s: model.getShips()) {
             this.shipFX.add(new ShipFX(themeColor, s));
