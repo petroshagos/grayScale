@@ -22,6 +22,6 @@ public abstract class ShapeFX {
         this.themeColor = themeColor;
     }
 
-    abstract void paint(GraphicsContext gc);
+    abstract public void paint(GraphicsContext gc);
 
 }

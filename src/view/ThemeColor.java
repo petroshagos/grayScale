@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 public enum ThemeColor {
     THEME_GRAY(Color.rgb(50,50,50), Color.rgb(125,125,125), Color.rgb(200,200,200),
         Color.rgb(160,160,160), Color.rgb(255,255,255)),
-    THEME_BLUE(Color.rgb(0,26,68), Color.rgb(67, 94, 137), Color.rgb(106, 154, 232),
+    THEME_BLUE(Color.rgb(0,26,68), Color.rgb(67, 94, 137), Color.rgb(96, 141, 214),
         Color.rgb(53, 104, 186), Color.rgb(255,255,255)),
     THEME_RED(Color.rgb(73, 3, 11), Color.rgb(160, 85, 93), Color.rgb(234, 53, 75),
         Color.rgb(211, 91, 105), Color.rgb(255,255,255));

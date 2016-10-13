@@ -2,7 +2,6 @@ package model;
 
 import model.Shape.Rectangle;
 import model.Shape.Shape;
-import model.Shape.Terrain;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,36 +12,37 @@ import java.util.Random;
  */
 public class Background {
 
-    LinkedList<Terrain> terrainList;
-    LinkedList<Rectangle> bgFront,bgBack;
+    //LinkedList<Terrain> terrainList = new LinkedList<>();
+    LinkedList<Rectangle> bgFront = new LinkedList<>();
+    LinkedList<Rectangle> bgBack = new LinkedList<>();
 
     public Background() {
         double[] tempX = makeTerrainPointsX(0);
         double[] tempY = makeTerrainPointsY(50, tempX);
-        terrainList.add(new Terrain(0,350, 0, true, false, false, tempX, tempY));
+/*        terrainList.add(new Terrain(0,350, 0, true, false, false, tempX, tempY));
         fill();
         for (Shape s: terrainList) {
             s.setVelocity(-60,0);
-        }
-        bgFront = makeBG(0,0,3,2,-9);
-        bgBack = makeBG(0,0,2,3,-6);
+        }*/
+        bgFront = makeBG(0,0,3,2,9);
+        bgBack = makeBG(0,0,2,3,6);
     }
 
-    public double getLastTerrainPointX() {
-        if (terrainList.get(terrainList.size() - 1) instanceof Terrain) {
-            Terrain temp = (Terrain) ((Terrain) terrainList.get(terrainList.size() - 1));
+/*    public double getLastTerrainPointX() {
+        if (terrainList.size()>0) {
+            Terrain temp = terrainList.get(terrainList.size() - 1);
             return temp.getLastPoint()[0];
         }
         return 0;
-    }
+    }*/
 
-    public double getLastTerrainPointY() {
+/*    public double getLastTerrainPointY() {
         if (terrainList.get(terrainList.size() - 1) instanceof Terrain) {
             Terrain temp = (Terrain) ((Terrain) terrainList.get(terrainList.size() - 1));
             return temp.getLastPoint()[1];
         }
         return 0;
-    }
+    }*/
 
     public LinkedList makeBG(double x, double y, double size, int color, double velocity) {
         LinkedList<Shape> temp = new LinkedList<>();
@@ -108,11 +108,21 @@ public class Background {
         return bgBack;
     }
 
-    public LinkedList<Terrain> getTerrainList() {
-        return terrainList;
+    public void setBgBackVelocity(double dx, double dy) {
+        for (Rectangle r: bgBack)
+            r.setVelocity(dx, dy);
     }
 
-    private void fill() {
+    public void setBgFrontVelocity(double dx, double dy) {
+        for (Rectangle r: bgFront)
+            r.setVelocity(dx, dy);
+    }
+
+    /*public LinkedList<Terrain> getTerrainList() {
+        return terrainList;
+    }*/
+
+/*    private void fill() {
         double[] tempX = makeTerrainPointsX(getLastTerrainPointX());
         double[] tempY = makeTerrainPointsX(getLastTerrainPointY());
         for ( int i = 0; i<10; i++ ) {
@@ -122,6 +132,8 @@ public class Background {
             tempY = makeTerrainPointsX(getLastTerrainPointY());
         }
 
-    }
+    }*/
+
+
 
 }
