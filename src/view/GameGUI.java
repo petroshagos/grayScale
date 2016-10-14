@@ -4,15 +4,12 @@ package view;
 import controller.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.GameModel;
-import model.Player;
 import model.Projectile;
 import model.Ship;
 import view.FX.BackgroundFX;
@@ -83,9 +80,6 @@ public class GameGUI extends Application {
             for (ShapeFX s : bgFX.getBgFront()) {
                 s.paint(gc);
             }
-            /*for (ShapeFX s : bgFX.getTerrainList()) {
-                s.paint(gc);
-            }*/
         }
     }
 
@@ -95,8 +89,8 @@ public class GameGUI extends Application {
     public void start(Stage stage) {
         Group root = new Group();
         Scene scene = new Scene(root, 800, 400);
-        this.gameModel = new GameModel(new Player());
-        for (Ship s: gameModel.getShips()) {
+        this.gameModel = new GameModel();
+        for (Ship s: gameModel.getPlayer().getShips()) {
             this.shipFX.add(new ShipFX(themeColor, s));
         }
         this.themeColor = ThemeColor.THEME_GRAY;
@@ -107,13 +101,13 @@ public class GameGUI extends Application {
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
         root.getChildren().add(canvas);
-        MenuBarTop menuBar = new MenuBarTop(bgFX,themeColor,this);
+        //MenuBarTop menuBar = new MenuBarTop(bgFX,themeColor,this);
         stage.setTitle("grayScale");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.sizeToScene();
-        menuBar.start(stage);
-        root.getChildren().add(menuBar.getHBox());
+        //menuBar.start(stage);
+        //root.getChildren().add(menuBar.getHBox());
         stage.show();
             timer = new SpaceTimer();
             timer.start();

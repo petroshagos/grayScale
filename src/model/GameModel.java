@@ -17,8 +17,16 @@ public class GameModel {
 
     private Player player;
     private Background background;
-    private LinkedList<Ship> ships;
+    private LinkedList<Ship> ships = new LinkedList<>();
     private LinkedList<Projectile> projectiles;
+
+    public GameModel() {
+        this.player = new Player();
+        this.background = new Background();
+        for (Ship s: player.getShips()) {
+            ships.add(s);
+        }
+    }
 
     public GameModel(Player player) {
         this.player = player;
@@ -39,6 +47,10 @@ public class GameModel {
         return projectiles;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void move(long elapsedTimeNs) {
 
         for (Shape s: background.getBgBack()) {
@@ -47,9 +59,9 @@ public class GameModel {
         for (Shape s: background.getBgFront()) {
             s.move(elapsedTimeNs);
         }
-/*        for (Shape s: background.getTerrainList()) {
+        for (Shape s: background.getTerrainList()) {
             s.move(elapsedTimeNs);
-        }*/
+        }
 
     }
     

@@ -1,6 +1,7 @@
 package view.FX;
 
 import javafx.scene.canvas.GraphicsContext;
+import model.Shape.Shape;
 import model.Shape.Triangle;
 import model.Shape.TriangleOrientation;
 import view.ThemeColor;
@@ -12,7 +13,7 @@ public class TriangleFX extends ShapeFX{
 
     private Triangle triangle;
 
-    public TriangleFX(ThemeColor themeColor, Triangle triangle) {
+    public TriangleFX(ThemeColor themeColor, Shape shape) {
         super(themeColor);
         this.triangle = triangle;
     }

@@ -11,20 +11,18 @@ import java.util.ArrayList;
  */
 public class PlayerShip extends Ship {
 
-    private ArrayList<Shape> shipGeometry;
-
     public PlayerShip() {
-        super(50, 200, 1);
+        super(50, 200, 100);
         this.setShipGeometry(makeShip());
     }
 
     @Override
-    public ArrayList<Triangle> makeShip() {
+    public ArrayList<Shape> makeShip() {
         double x = 50;
         double y = 200;
         double x2 = 15;
         double y2 = 15;
-        ArrayList<Triangle> temp = new ArrayList<>();
+        ArrayList<Shape> temp = new ArrayList<>();
         temp.add(new Triangle(x,y,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
         temp.add(new Triangle(x,y+y2,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
         temp.add(new Triangle(x,y+y2,x2,y2, 0, true, false, true, TriangleOrientation.LowerLeft));
