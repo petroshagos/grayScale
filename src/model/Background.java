@@ -42,7 +42,7 @@ public class Background {
             Terrain temp = terrainList.get(terrainList.size() - 1);
             return temp.getLastPoint()[1];
         }
-        return 0;
+        return 350;
     }
 
     public LinkedList makeBG(double x, double y, double size, int color) {
