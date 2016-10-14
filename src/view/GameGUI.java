@@ -12,7 +12,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.GameModel;
-import model.Player;
 import model.Projectile;
 import model.Ship;
 import view.FX.BackgroundFX;
@@ -83,9 +82,12 @@ public class GameGUI extends Application {
             for (ShapeFX s : bgFX.getBgFront()) {
                 s.paint(gc);
             }
-            /*for (ShapeFX s : bgFX.getTerrainList()) {
+            for (ShapeFX s : bgFX.getTerrainList()) {
                 s.paint(gc);
-            }*/
+            }
+            for (ShapeFX s : shipFX.get(0).getShipGeometry()) {
+                s.paint(gc);
+            }
         }
     }
 
@@ -95,31 +97,31 @@ public class GameGUI extends Application {
     public void start(Stage stage) {
         Group root = new Group();
         Scene scene = new Scene(root, 800, 400);
-        this.gameModel = new GameModel(new Player());
-        for (Ship s: gameModel.getShips()) {
-            this.shipFX.add(new ShipFX(themeColor, s));
-        }
-        this.themeColor = ThemeColor.THEME_GRAY;
-        this.bgFX = new BackgroundFX(themeColor, gameModel.getBackground());
 
         canvas = new Canvas();
         // automatically resize the canvas when the stage/scene is resized
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
         root.getChildren().add(canvas);
-        MenuBarTop menuBar = new MenuBarTop(bgFX,themeColor,this);
+
         stage.setTitle("grayScale");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.sizeToScene();
-        menuBar.start(stage);
-        root.getChildren().add(menuBar.getHBox());
         stage.show();
+
+        this.gameModel = new GameModel();
+        this.themeColor = ThemeColor.THEME_GRAY;
+        this.bgFX = new BackgroundFX(themeColor, gameModel.getBackground());
+        for (Ship s: gameModel.getPlayer().getShips()) {
+            this.shipFX.add(new ShipFX(themeColor, s));
+        }
+
             timer = new SpaceTimer();
             timer.start();
             timerIsOn = true;
 
-            /*canvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
+            canvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
                     new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent me) {
@@ -130,14 +132,28 @@ public class GameGUI extends Application {
                                 timerIsOn = !timerIsOn;
                             }
                             else {
-                                gameModel.getBackground().setBgBackVelocity(-6,0);
-                                gameModel.getBackground().setBgFrontVelocity(-9,0);
                                 timer.start();
                                 timerIsOn = !timerIsOn;
+                                gameModel.getBackground().setBgBackVelocity(-6,0);
+                                gameModel.getBackground().setBgFrontVelocity(-9,0);
+                            }
+                            themeColor = ThemeColor.THEME_RED;
+                            for (ShapeFX s : bgFX.getBgBack()) {
+                                s.setThemeColor(themeColor);
+                            }
+
+                            for (ShapeFX s : bgFX.getBgFront()) {
+                                s.setThemeColor(themeColor);
+                            }
+                            for (ShapeFX s : bgFX.getTerrainList()) {
+                                s.setThemeColor(themeColor);
+                            }
+                            for (ShapeFX s : shipFX.get(0).getShipGeometry()) {
+                                s.setThemeColor(themeColor);
                             }
                         }
                     }
-            );*/
+            );
 
 
     }

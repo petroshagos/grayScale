@@ -10,12 +10,13 @@ public class Player implements Serializable{
     private String name;
     private int score;
     private int nrOfLives;
-    private LinkedList<Ship> ships;
+    private LinkedList<Ship> ships = new LinkedList<>();
 
     public Player() {
         this.name = "Player";
         this.score = 0;
         this.nrOfLives = 3;
+        this.ships.add(new PlayerShip());
     }
 
     public Player(String name, int score, int hP, int lives, LinkedList<Ship> ships) {
