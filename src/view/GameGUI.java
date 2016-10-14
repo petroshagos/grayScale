@@ -17,6 +17,7 @@ import view.FX.ShapeFX;
 import view.FX.ShipFX;
 
 import java.util.LinkedList;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -87,7 +88,7 @@ public class GameGUI extends Application {
     // change this code.
     @Override
     public void start(Stage stage) {
-        Group root = new Group();
+        BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 800, 400);
         this.gameModel = new GameModel();
         for (Ship s: gameModel.getPlayer().getShips()) {
@@ -101,13 +102,13 @@ public class GameGUI extends Application {
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
         root.getChildren().add(canvas);
-        //MenuBarTop menuBar = new MenuBarTop(bgFX,themeColor,this);
+        MenuBarTop menuBar = new MenuBarTop(bgFX,themeColor,this);
         stage.setTitle("grayScale");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.sizeToScene();
-        //menuBar.start(stage);
-        //root.getChildren().add(menuBar.getHBox());
+        menuBar.start(stage);
+        root.setTop(menuBar.getMenuBar());
         stage.show();
             timer = new SpaceTimer();
             timer.start();
