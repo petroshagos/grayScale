@@ -1,6 +1,5 @@
 package model;
 
-import model.Shape.Shape;
 import model.Shape.Triangle;
 import model.Shape.TriangleOrientation;
 
@@ -11,18 +10,22 @@ import java.util.ArrayList;
  */
 public class PlayerShip extends Ship {
 
+    private double weaponPosX, weaponPosY;
+
     public PlayerShip() {
         super(50, 200, 100);
         this.setShipGeometry(makeShip());
+        this.weaponPosX = getX()+120;
+        this.weaponPosY = getY()+15;
     }
 
     @Override
-    public ArrayList<Shape> makeShip() {
+    public ArrayList<Triangle> makeShip() {
         double x = 50;
         double y = 200;
         double x2 = 15;
         double y2 = 15;
-        ArrayList<Shape> temp = new ArrayList<>();
+        ArrayList<Triangle> temp = new ArrayList<>();
         temp.add(new Triangle(x,y,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
         temp.add(new Triangle(x,y+y2,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
         temp.add(new Triangle(x,y+y2,x2,y2, 0, true, false, true, TriangleOrientation.LowerLeft));

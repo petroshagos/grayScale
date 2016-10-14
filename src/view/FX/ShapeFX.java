@@ -15,7 +15,7 @@ public abstract class ShapeFX {
     }
 
     public ThemeColor getThemeColor() {
-        return themeColor;
+        return this.themeColor;
     }
 
     public void setThemeColor(ThemeColor themeColor) {

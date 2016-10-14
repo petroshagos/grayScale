@@ -10,9 +10,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import model.GameModel;
-import model.Projectile;
-import model.Ship;
 import view.FX.BackgroundFX;
+import view.FX.ProjectileFX;
 import view.FX.ShapeFX;
 import view.FX.ShipFX;
 
@@ -29,7 +28,7 @@ public class GameGUI extends Application {
     private GameController gameController;
     private BackgroundFX bgFX;
     private LinkedList<ShipFX> shipFX = new LinkedList<>();
-    private LinkedList<Projectile> pFX;
+    private LinkedList<ProjectileFX> pFX = new LinkedList<>();
     private Canvas canvas;
     private AnimationTimer timer;
     private boolean timerIsOn;
@@ -80,6 +79,13 @@ public class GameGUI extends Application {
             for (ShapeFX s : bgFX.getBgFront()) {
                 s.paint(gc);
             }
+
+            for (ShapeFX s : shipFX.getFirst().getShipGeometry()) {
+                s.paint(gc);
+            }
+            for (ShapeFX s : pFX.getFirst().getProjectileGeometry()) {
+                s.paint(gc);
+            }
         }
     }
 
@@ -90,24 +96,25 @@ public class GameGUI extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, 800, 400);
         this.gameModel = new GameModel();
-        for (Ship s: gameModel.getPlayer().getShips()) {
-            this.shipFX.add(new ShipFX(themeColor, s));
-        }
         this.themeColor = ThemeColor.THEME_GRAY;
+        this.shipFX.add(new ShipFX(themeColor, gameModel.getPlayer().getCurrentShip()));
+        gameModel.makeProjectile();
+        ProjectileFX p = new ProjectileFX(themeColor, gameModel.getProjectiles().getFirst());
+        System.out.println(pFX.size());
+        pFX.add(p);
         this.bgFX = new BackgroundFX(themeColor, gameModel.getBackground());
-
         canvas = new Canvas();
         // automatically resize the canvas when the stage/scene is resized
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
         root.getChildren().add(canvas);
-        //MenuBarTop menuBar = new MenuBarTop(bgFX,themeColor,this);
+        MenuBarTop menuBar = new MenuBarTop(bgFX,themeColor,this);
         stage.setTitle("grayScale");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.sizeToScene();
-        //menuBar.start(stage);
-        //root.getChildren().add(menuBar.getHBox());
+        menuBar.start(stage);
+        root.getChildren().add(menuBar.getHBox());
         stage.show();
             timer = new SpaceTimer();
             timer.start();
@@ -142,6 +149,10 @@ public class GameGUI extends Application {
 
     public void setThemeColor(ThemeColor themeColor) {
         this.themeColor = themeColor;
+    }
+
+    public LinkedList<ShipFX> getShipFX() {
+        return shipFX;
     }
 
     /**

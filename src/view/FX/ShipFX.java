@@ -1,6 +1,6 @@
 package view.FX;
 
-import model.Shape.Shape;
+import model.Shape.Triangle;
 import model.Ship;
 import view.ThemeColor;
 
@@ -13,17 +13,18 @@ public class ShipFX {
 
     private ThemeColor themeColor;
     private Ship ship;
-    private ArrayList<ShapeFX> shipGeometry = new ArrayList<>();
+    private ArrayList<TriangleFX> shipGeometry = new ArrayList<>();
 
     public ShipFX(ThemeColor themeColor, Ship ship) {
         this.themeColor = themeColor;
         this.ship = ship;
-        for (Shape s: ship.getShipGeometry()) {
-            shipGeometry.add(new TriangleFX(themeColor, s));
+        for (Triangle t: ship.getShipGeometry()) {
+            shipGeometry.add(new TriangleFX(themeColor, t));
         }
+        System.out.println(themeColor);
     }
 
-    public ArrayList<ShapeFX> getShipGeometry() {
+    public ArrayList<TriangleFX> getShipGeometry() {
         return shipGeometry;
     }
 }

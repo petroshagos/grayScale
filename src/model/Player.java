@@ -53,6 +53,10 @@ public class Player implements Serializable{
         this.score += score;
     }
 
+    public Ship getCurrentShip() {
+        return ships.get(nrOfLives-1);
+    }
+
     public void decreaseHealthPoints(int i) {
     }
 

@@ -1,29 +1,20 @@
 package view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.FX.BackgroundFX;
 import view.FX.ShapeFX;
+import view.FX.ShipFX;
+
+import java.util.LinkedList;
 
 /**
  * @author Petros Hagos & Dag Oldenburg.
@@ -37,11 +28,13 @@ public class MenuBarTop extends Application {
     private ThemeColor themeColor;
     private Canvas canvas;
     private GameGUI game;
+    private LinkedList<ShipFX> shipFX;
 
     public MenuBarTop(BackgroundFX bgFX, ThemeColor themeColor, GameGUI game) {
         this.bgFX = bgFX;
         this.themeColor = themeColor;
         this.game = game;
+        this.shipFX = game.getShipFX();
     }
 
     @Override
@@ -122,6 +115,9 @@ public class MenuBarTop extends Application {
             s.setThemeColor(themeColor);
         }
         for (ShapeFX s : bgFX.getTerrainList()) {
+            s.setThemeColor(themeColor);
+        }
+        for (ShapeFX s : game.getShipFX().get(0).getShipGeometry()) {
             s.setThemeColor(themeColor);
         }
     }
