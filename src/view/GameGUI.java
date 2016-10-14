@@ -12,7 +12,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.GameModel;
-import model.Player;
 import model.Projectile;
 import model.Ship;
 import view.FX.BackgroundFX;
@@ -83,9 +82,12 @@ public class GameGUI extends Application {
             for (ShapeFX s : bgFX.getBgFront()) {
                 s.paint(gc);
             }
-            /*for (ShapeFX s : bgFX.getTerrainList()) {
+            for (ShapeFX s : bgFX.getTerrainList()) {
                 s.paint(gc);
-            }*/
+            }
+            for (ShapeFX s : shipFX.get(0).getShipGeometry()) {
+                s.paint(gc);
+            }
         }
     }
 
@@ -108,10 +110,10 @@ public class GameGUI extends Application {
         stage.sizeToScene();
         stage.show();
 
-        this.gameModel = new GameModel(new Player());
+        this.gameModel = new GameModel();
         this.themeColor = ThemeColor.THEME_GRAY;
         this.bgFX = new BackgroundFX(themeColor, gameModel.getBackground());
-        for (Ship s: gameModel.getShips()) {
+        for (Ship s: gameModel.getPlayer().getShips()) {
             this.shipFX.add(new ShipFX(themeColor, s));
         }
 
@@ -130,12 +132,12 @@ public class GameGUI extends Application {
                                 timerIsOn = !timerIsOn;
                             }
                             else {
-                                gameModel.getBackground().setBgBackVelocity(-6,0);
-                                gameModel.getBackground().setBgFrontVelocity(-9,0);
                                 timer.start();
                                 timerIsOn = !timerIsOn;
+                                gameModel.getBackground().setBgBackVelocity(-6,0);
+                                gameModel.getBackground().setBgFrontVelocity(-9,0);
                             }
-                            themeColor = ThemeColor.THEME_BLUE;
+                            themeColor = ThemeColor.THEME_RED;
                             for (ShapeFX s : bgFX.getBgBack()) {
                                 s.setThemeColor(themeColor);
                             }
@@ -144,6 +146,9 @@ public class GameGUI extends Application {
                                 s.setThemeColor(themeColor);
                             }
                             for (ShapeFX s : bgFX.getTerrainList()) {
+                                s.setThemeColor(themeColor);
+                            }
+                            for (ShapeFX s : shipFX.get(0).getShipGeometry()) {
                                 s.setThemeColor(themeColor);
                             }
                         }

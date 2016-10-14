@@ -20,10 +20,10 @@ public class GameModel {
     private LinkedList<Ship> ships;
     private LinkedList<Projectile> projectiles;
 
-    public GameModel(Player player) {
-        this.player = player;
+    public GameModel() {
+        this.player = new Player();
         this.background = new Background();
-        this.ships = new LinkedList<>();
+        this.ships = player.getShips();
         this.projectiles = new LinkedList<>();
     }
 
@@ -31,12 +31,16 @@ public class GameModel {
         return background;
     }
 
-    public LinkedList<Ship> getShips() {
-        return ships;
+    public Ship getShips(int i) {
+        return ships.get(i);
     }
 
     public LinkedList<Projectile> getProjectiles() {
         return projectiles;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public void move(long elapsedTimeNs) {
