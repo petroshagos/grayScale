@@ -13,6 +13,7 @@ abstract public class Ship {
     private boolean isAlive;
     private int healthPoints;
     private ArrayList<Shape> shipGeometry;
+    private double[] weaponPos;
 
     protected Ship(double x, double y, int healthPoints) {
         this.x = x;
