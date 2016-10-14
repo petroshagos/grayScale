@@ -1,4 +1,3 @@
-
 package view;
 
 import controller.GameController;
@@ -17,6 +16,8 @@ import view.FX.ShapeFX;
 import view.FX.ShipFX;
 
 import java.util.LinkedList;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -35,7 +36,7 @@ public class GameGUI extends Application {
     private AnimationTimer timer;
     private boolean timerIsOn;
 
-   /*public GameGUI(GameModel model) {
+    /*public GameGUI(GameModel model) {
         this.gameModel = model;
         this.gameController = new GameController(gameModel, this);
         this.themeColor = ThemeColor.THEME_GRAY;
@@ -45,7 +46,6 @@ public class GameGUI extends Application {
             this.shipFX.add(new ShipFX(themeColor, s));
         }
     }*/
-
     protected class SpaceTimer extends AnimationTimer {
 
         private long previousNs = 0;
@@ -91,7 +91,7 @@ public class GameGUI extends Application {
         BorderPane root = new BorderPane();
         Scene scene = new Scene(root, 800, 400);
         this.gameModel = new GameModel();
-        for (Ship s: gameModel.getPlayer().getShips()) {
+        for (Ship s : gameModel.getPlayer().getShips()) {
             this.shipFX.add(new ShipFX(themeColor, s));
         }
         this.themeColor = ThemeColor.THEME_GRAY;
@@ -102,19 +102,24 @@ public class GameGUI extends Application {
         canvas.widthProperty().bind(scene.widthProperty());
         canvas.heightProperty().bind(scene.heightProperty());
         root.getChildren().add(canvas);
-        MenuBarTop menuBar = new MenuBarTop(bgFX,themeColor,this);
+        MenuBarTop menuBar = new MenuBarTop(bgFX, themeColor, this);
+        BottomHUD hud = new BottomHUD();
         stage.setTitle("grayScale");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.sizeToScene();
         menuBar.start(stage);
+        StartScreen startscreen = new StartScreen();
+        hud.start(stage, gameModel.getPlayer());
+        root.setBottom(hud.getGroup());
         root.setTop(menuBar.getMenuBar());
+        root.getChildren().add(startscreen);
         stage.show();
-            timer = new SpaceTimer();
-            timer.start();
-            timerIsOn = true;
+        timer = new SpaceTimer();
+        timer.start();
+        timerIsOn = true;
 
-            /*canvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
+        /*canvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
                     new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent me) {
@@ -133,8 +138,6 @@ public class GameGUI extends Application {
                         }
                     }
             );*/
-
-
     }
 
     public ThemeColor getThemeColor() {
