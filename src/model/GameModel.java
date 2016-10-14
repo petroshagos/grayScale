@@ -18,7 +18,7 @@ public class GameModel {
     private Player player;
     private Background background;
     private LinkedList<Ship> ships = new LinkedList<>();
-    private LinkedList<Projectile> projectiles;
+    private LinkedList<Projectile> projectiles = new LinkedList<>();
 
     public GameModel() {
         this.player = new Player();
@@ -49,6 +49,10 @@ public class GameModel {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void makeProjectile() {
+        projectiles.add(new Projectile(getPlayer().getCurrentShip().getX(), getPlayer().getCurrentShip().getY()));
     }
 
     public void move(long elapsedTimeNs) {

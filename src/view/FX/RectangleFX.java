@@ -18,8 +18,8 @@ public class RectangleFX extends ShapeFX {
 
     @Override
     public void paint(GraphicsContext gc) {
-        gc.setFill(super.getThemeColor().getColor(rectangle.getColor()));
-        gc.setStroke(super.getThemeColor().getColor(rectangle.getColor()));
+        gc.setFill(getThemeColor().getColor(rectangle.getColor()));
+        gc.setStroke(getThemeColor().getColor(rectangle.getColor()));
         if (rectangle.isFilled()) {
             gc.fillRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
         }
