@@ -15,8 +15,8 @@ public class PlayerShip extends Ship {
     public PlayerShip() {
         super(50, 200, 100);
         this.setShipGeometry(makeShip());
-        this.weaponPosX = getX()+120;
-        this.weaponPosY = getY()+15;
+        this.weaponPosX = getX()+75;
+        this.weaponPosY = getY()+25;
     }
 
     @Override
@@ -35,5 +35,13 @@ public class PlayerShip extends Ship {
         }
         temp.add(new Triangle(x+(4*x2),y+y2,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
         return temp;
+    }
+
+    public double getWeaponPosX() {
+        return weaponPosX;
+    }
+
+    public double getWeaponPosY() {
+        return weaponPosY;
     }
 }
