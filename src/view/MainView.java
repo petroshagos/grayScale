@@ -92,7 +92,7 @@ public class MainView extends Application {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setFill(view.getThemeColor().getColor(1));
             gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            view.paint(gc);
+            view.paint(gc); //new paint
         }
     }
 }
