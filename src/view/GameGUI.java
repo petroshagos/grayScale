@@ -65,4 +65,8 @@ public class GameGUI {
                 s.paint(gc);
             }*/
     }
+
+    public GameController getGameController() {
+        return gameController;
+    }
 }

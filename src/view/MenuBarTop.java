@@ -25,14 +25,14 @@ public class MenuBarTop extends Application {
     private BackgroundFX bgFX;
     private ThemeColor themeColor;
     private Canvas canvas;
-    private GameGUI game;
+    private GameGUI view;
     private ShipFX shipFX;
 
-    public MenuBarTop(GameGUI game) {
-        this.bgFX = game.getBgFX();
-        this.themeColor = game.getThemeColor();
-        this.game = game;
-        this.shipFX = game.getShipFX();
+    public MenuBarTop(GameGUI view) {
+        this.view = view;
+        this.bgFX = view.getBgFX();
+        this.themeColor = view.getThemeColor();
+        this.shipFX = view.getShipFX();
     }
 
     @Override
@@ -58,11 +58,10 @@ public class MenuBarTop extends Application {
             @Override
             public void handle(ActionEvent event) {
                 MenuItem source = (MenuItem) event.getSource();
-                System.out.println(source.getText());
                 for (ThemeColor tc: ThemeColor.values()) {
                     if(source.getText().equals(tc.getName())) {
-                        game.setThemeColor(tc);
-                        changeColor(game.getThemeColor(), bgFX);
+                        view.setThemeColor(tc);
+                        changeColor(view.getThemeColor(), bgFX);
                     }
                 }
             }
@@ -105,7 +104,7 @@ public class MenuBarTop extends Application {
         for (ShapeFX s : bgFX.getTerrainList()) {
             s.setThemeColor(themeColor);
         }
-        for (ShapeFX s : game.getShipFX().getShipGeometry()) {
+        for (ShapeFX s : view.getShipFX().getShipGeometry()) {
             s.setThemeColor(themeColor);
         }
     }
