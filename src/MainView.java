@@ -1,5 +1,4 @@
-package view;
-
+import controller.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -8,6 +7,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import model.GameModel;
+import view.GameGUI;
+import view.MenuBarTop;
 
 /**
  * @author Petros Hagos & Dag Oldenburg.
@@ -15,10 +16,10 @@ import model.GameModel;
 public class MainView extends Application {
 
     private Canvas canvas;
-    AnimationTimer timer;
-    GameModel model;
-    GameGUI view;
-
+    private AnimationTimer timer;
+    private GameModel model;
+    private GameGUI view;
+    private GameController controller;
 
     /**
      * @param args the command line arguments
@@ -31,6 +32,7 @@ public class MainView extends Application {
     public void start(Stage stage) throws Exception {
         model = new GameModel();
         view = new GameGUI(model);
+        controller = view.getGameController();
 
         Group root = new Group();
         Scene scene = new Scene(root, 800, 400);
