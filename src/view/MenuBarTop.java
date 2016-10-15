@@ -46,14 +46,9 @@ public class MenuBarTop extends Application {
         fileMenu.getItems().add(highScore);
         Menu color = new Menu("THEME");
         fileMenu.getItems().add(color);
-        MenuItem gray = new MenuItem("GRAY");
-        color.getItems().add(gray);
-        MenuItem green = new MenuItem("GREEN");
-        color.getItems().add(green);
-        MenuItem red = new MenuItem("RED");
-        color.getItems().add(red);
-        MenuItem blue = new MenuItem("BLUE");
-        color.getItems().add(blue);
+        for(ThemeColor tc: ThemeColor.values()) {
+            color.getItems().add(new MenuItem(tc.getName()));
+        }
         MenuItem quit = new MenuItem("QUIT");
         fileMenu.getItems().add(quit);
         menuBar.getMenus().addAll(fileMenu);
@@ -76,10 +71,9 @@ public class MenuBarTop extends Application {
                 }
             }
         };
-        gray.setOnAction(colorHandler);
-        red.setOnAction(colorHandler);
-        green.setOnAction(colorHandler);
-        blue.setOnAction(colorHandler);
+        for (MenuItem m: color.getItems()) {
+            m.setOnAction(colorHandler);
+        }
 
         EventHandler gameStateHandler = new EventHandler<ActionEvent>() {
             @Override
