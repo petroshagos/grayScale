@@ -59,15 +59,11 @@ public class MenuBarTop extends Application {
             public void handle(ActionEvent event) {
                 MenuItem source = (MenuItem) event.getSource();
                 System.out.println(source.getText());
-                if (source.getText().equals("GRAY")) {
-                    game.setThemeColor(ThemeColor.THEME_GRAY);
-                    changeColor(game.getThemeColor(), bgFX);
-                } else if (source.getText().equals("RED")) {
-                    game.setThemeColor(ThemeColor.THEME_RED);
-                    changeColor(game.getThemeColor(), bgFX);
-                } else if (source.getText().equals("BLUE")) {
-                    game.setThemeColor(ThemeColor.THEME_BLUE);
-                    changeColor(game.getThemeColor(), bgFX);
+                for (ThemeColor tc: ThemeColor.values()) {
+                    if(source.getText().equals(tc.getName())) {
+                        game.setThemeColor(tc);
+                        changeColor(game.getThemeColor(), bgFX);
+                    }
                 }
             }
         };
