@@ -21,4 +21,5 @@ public class GameController {
         this.model = model;
         this.view = view;
     }
+
 }
