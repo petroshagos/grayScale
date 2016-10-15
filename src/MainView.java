@@ -1,12 +1,19 @@
 import controller.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.stage.Stage;
 import model.GameModel;
+import view.BottomHUD;
 import view.GameGUI;
 import view.MenuBarTop;
 
@@ -16,10 +23,13 @@ import view.MenuBarTop;
 public class MainView extends Application {
 
     private Canvas canvas;
+    private BorderPane borderPane;
     private AnimationTimer timer;
     private GameModel model;
     private GameGUI view;
     private GameController controller;
+    private MenuBarTop menuBar;
+    private BottomHUD bottomHUD;
 
     /**
      * @param args the command line arguments
@@ -28,52 +38,56 @@ public class MainView extends Application {
         launch(args);
     }
 
+    public MenuBarTop menuBarTop() {
+        return menuBar;
+    }
+
+    public BottomHUD getBottomHUD() {
+        return bottomHUD;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         model = new GameModel();
         view = new GameGUI(model);
         controller = view.getGameController();
-
-        Group root = new Group();
-        Scene scene = new Scene(root, 800, 400);
-        canvas = new Canvas();
-        // automatically resize the canvas when the stage/scene is resized
-        canvas.widthProperty().bind(scene.widthProperty());
-        canvas.heightProperty().bind(scene.heightProperty());
-        root.getChildren().add(canvas);
-        MenuBarTop menuBar = new MenuBarTop(view);
+        borderPane = new BorderPane();
+        borderPane.setBackground(new Background(new BackgroundFill(view.getThemeColor().getColor(0),
+                CornerRadii.EMPTY,
+                Insets.EMPTY)));
+        borderPane.setPadding(new Insets(0, 0, 0, 0));
+        canvas = new Canvas(800,400);
+        menuBar = new MenuBarTop(view);
+        bottomHUD = new BottomHUD(model, view.getThemeColor());
+        borderPane.setTop(menuBar.getMenuBar());
+        borderPane.setCenter(canvas);
+        borderPane.setBottom(bottomHUD.getGridPane());
         stage.setTitle("grayScale");
+        Scene scene = new Scene(borderPane, 800, 440);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.sizeToScene();
-        menuBar.start(stage);
-        root.getChildren().add(menuBar.getHBox());
         stage.show();
         timer = new SpaceTimer();
         timer.start();
 
-            /*canvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
+            canvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
                     new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent me) {
-                            if (timerIsOn) {
-                                gameModel.getBackground().setBgBackVelocity(0,0);
-                                gameModel.getBackground().setBgFrontVelocity(0,0);
-                                timer.stop();
-                                timerIsOn = !timerIsOn;
-                            }
-                            else {
-                                gameModel.getBackground().setBgBackVelocity(-6,0);
-                                gameModel.getBackground().setBgFrontVelocity(-9,0);
-                                timer.start();
-                                timerIsOn = !timerIsOn;
-                            }
+                            model.getPlayer().addScore(100);
+                            bottomHUD.updateHUD(model);
+                            borderPane.setBackground(new Background(new BackgroundFill(view.getThemeColor().getColor(0),
+                                    CornerRadii.EMPTY,
+                                    Insets.EMPTY)));
                         }
                     }
-            );*/
+            );
 
 
     }
+
+
+
     private class SpaceTimer extends AnimationTimer {
 
         private long previousNs = 0;
@@ -94,6 +108,7 @@ public class MainView extends Application {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setFill(view.getThemeColor().getColor(1));
             gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            controller.updateView();
             view.paint(gc); //new paint
         }
     }

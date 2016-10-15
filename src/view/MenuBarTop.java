@@ -1,15 +1,12 @@
 package view;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import view.FX.BackgroundFX;
 import view.FX.ShapeFX;
 import view.FX.ShipFX;
@@ -17,10 +14,8 @@ import view.FX.ShipFX;
 /**
  * @author Petros Hagos & Dag Oldenburg.
  */
-public class MenuBarTop extends Application {
+public class MenuBarTop extends MenuBar {
     private HBox topBar = new HBox();
-    
-    private BorderPane border = new BorderPane();
     private MenuBar menuBar = new MenuBar();
     private BackgroundFX bgFX;
     private ThemeColor themeColor;
@@ -33,23 +28,20 @@ public class MenuBarTop extends Application {
         this.bgFX = view.getBgFX();
         this.themeColor = view.getThemeColor();
         this.shipFX = view.getShipFX();
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
+        this.themeColor = view.getThemeColor();
         Menu fileMenu = new Menu("Menu");
-        MenuItem newGame = new MenuItem("NEW GAME");
+        MenuItem newGame = new MenuItem("New Game");
         fileMenu.getItems().add(newGame);
-        MenuItem pause = new MenuItem("PAUSE/UNPAUSE");
+        MenuItem pause = new MenuItem("Pause/Play");
         fileMenu.getItems().add(pause);
-        MenuItem highScore = new MenuItem("HIGHSCORE");
+        MenuItem highScore = new MenuItem("High score");
         fileMenu.getItems().add(highScore);
-        Menu color = new Menu("THEME");
+        Menu color = new Menu("Theme");
         fileMenu.getItems().add(color);
-        for(ThemeColor tc: ThemeColor.values()) {
+        for (ThemeColor tc : ThemeColor.values()) {
             color.getItems().add(new MenuItem(tc.getName()));
         }
-        MenuItem quit = new MenuItem("QUIT");
+        MenuItem quit = new MenuItem("Quit");
         fileMenu.getItems().add(quit);
         menuBar.getMenus().addAll(fileMenu);
         topBar.getChildren().add(menuBar);
@@ -58,15 +50,15 @@ public class MenuBarTop extends Application {
             @Override
             public void handle(ActionEvent event) {
                 MenuItem source = (MenuItem) event.getSource();
-                for (ThemeColor tc: ThemeColor.values()) {
-                    if(source.getText().equals(tc.getName())) {
+                for (ThemeColor tc : ThemeColor.values()) {
+                    if (source.getText().equals(tc.getName())) {
                         view.setThemeColor(tc);
                         changeColor(view.getThemeColor(), bgFX);
                     }
                 }
             }
         };
-        for (MenuItem m: color.getItems()) {
+        for (MenuItem m : color.getItems()) {
             m.setOnAction(colorHandler);
         }
 
@@ -78,8 +70,7 @@ public class MenuBarTop extends Application {
                 boolean paused = false;
                 if (source.getText().equals("QUIT")) {
                     System.exit(0);
-                }
-                else if (source.getText().equals("PAUSE/UNPAUSE")) {
+                } else if (source.getText().equals("PAUSE/UNPAUSE")) {
                     /*Thread pauseThread = new Pause();
                     pauseThread.start();
                     try {
@@ -93,6 +84,7 @@ public class MenuBarTop extends Application {
         quit.setOnAction(gameStateHandler);
         //pause.setOnAction(gameStateHandler);
     }
+
 
     public void changeColor(ThemeColor themeColor, BackgroundFX bgFx) {
         for (ShapeFX s : bgFX.getBgBack()) {
@@ -109,7 +101,7 @@ public class MenuBarTop extends Application {
         }
     }
 
-        class Pause extends Thread {
+    class Pause extends Thread {
         boolean paused = true;
 
         public void run() {
@@ -136,7 +128,7 @@ public class MenuBarTop extends Application {
             return;
         }
     }
-        
+
     public HBox getHBox() {
         return topBar;
     }

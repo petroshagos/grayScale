@@ -51,8 +51,16 @@ public class GameModel {
         return player;
     }
 
-    public void makeProjectile() {
-        projectiles.add(new Projectile(getPlayer().getCurrentShip().getX(), getPlayer().getCurrentShip().getY()));
+    public Projectile makeProjectile() {
+        Ship tempShip = ships.getLast();
+        if (tempShip instanceof PlayerShip) {
+            Projectile temp = new Projectile(((PlayerShip) tempShip).getWeaponPosX(), ((PlayerShip) tempShip).getWeaponPosY());
+            for (Shape s: temp.getProjectile()) {
+                s.setVelocity(40,0);
+            }
+            projectiles.add(temp);
+        }
+        return projectiles.getLast();
     }
 
     public void move(long elapsedTimeNs) {
