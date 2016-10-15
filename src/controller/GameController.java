@@ -5,8 +5,6 @@
  */
 package controller;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
 import model.GameModel;
 import view.GameGUI;
 
@@ -23,17 +21,4 @@ public class GameController {
         this.model = model;
         this.view = view;
     }
-
-    private class KeyHandler implements EventHandler<KeyEvent> {
-
-        @Override
-        public void handle(KeyEvent event) {
-
-            String ch = event.getCharacter();
-            System.out.println(event.getEventType());
-
-            }
-        }
-    }
-    
 }

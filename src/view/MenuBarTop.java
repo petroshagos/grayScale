@@ -14,8 +14,6 @@ import view.FX.BackgroundFX;
 import view.FX.ShapeFX;
 import view.FX.ShipFX;
 
-import java.util.LinkedList;
-
 /**
  * @author Petros Hagos & Dag Oldenburg.
  */
@@ -23,16 +21,16 @@ public class MenuBarTop extends Application {
     private HBox topBar = new HBox();
     
     private BorderPane border = new BorderPane();
-    MenuBar menuBar = new MenuBar();
+    private MenuBar menuBar = new MenuBar();
     private BackgroundFX bgFX;
     private ThemeColor themeColor;
     private Canvas canvas;
     private GameGUI game;
-    private LinkedList<ShipFX> shipFX;
+    private ShipFX shipFX;
 
-    public MenuBarTop(BackgroundFX bgFX, ThemeColor themeColor, GameGUI game) {
-        this.bgFX = bgFX;
-        this.themeColor = themeColor;
+    public MenuBarTop(GameGUI game) {
+        this.bgFX = game.getBgFX();
+        this.themeColor = game.getThemeColor();
         this.game = game;
         this.shipFX = game.getShipFX();
     }
@@ -117,7 +115,7 @@ public class MenuBarTop extends Application {
         for (ShapeFX s : bgFX.getTerrainList()) {
             s.setThemeColor(themeColor);
         }
-        for (ShapeFX s : game.getShipFX().get(0).getShipGeometry()) {
+        for (ShapeFX s : game.getShipFX().getShipGeometry()) {
             s.setThemeColor(themeColor);
         }
     }
@@ -152,6 +150,10 @@ public class MenuBarTop extends Application {
         
     public HBox getHBox() {
         return topBar;
+    }
+
+    public MenuBar getMenuBar() {
+        return menuBar;
     }
 
 }
