@@ -76,10 +76,6 @@ public class Main extends Application {
                         public void handle(MouseEvent me) {
                             model.getPlayer().addScore(100);
                             bottomHUD.updateHUD(model);
-                            borderPane.setBackground(new Background(new BackgroundFill(view.getThemeColor().getColor(0),
-                                    CornerRadii.EMPTY,
-                                    Insets.EMPTY)));
-                            borderPane.setBottom(bottomHUD.getGridPane());
                         }
                     }
             );
