@@ -20,7 +20,7 @@ import view.MenuBarTop;
 /**
  * @author Petros Hagos & Dag Oldenburg.
  */
-public class MainView extends Application {
+public class Main extends Application {
 
     private Canvas canvas;
     private BorderPane borderPane;
@@ -79,6 +79,7 @@ public class MainView extends Application {
                             borderPane.setBackground(new Background(new BackgroundFill(view.getThemeColor().getColor(0),
                                     CornerRadii.EMPTY,
                                     Insets.EMPTY)));
+                            borderPane.setBottom(bottomHUD.getGridPane());
                         }
                     }
             );
