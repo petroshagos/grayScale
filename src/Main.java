@@ -13,10 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.stage.Stage;
 import model.GameModel;
-import view.BottomHUD;
-import view.GameGUI;
-import view.HighScore;
-import view.MenuBarTop;
+import view.*;
 
 /**
  * @author Petros Hagos & Dag Oldenburg.
@@ -69,6 +66,7 @@ public class Main extends Application {
         borderPane.setTop(menuBar.getMenuBar());
         borderPane.setCenter(highScore.getVBox());
         borderPane.setBottom(bottomHUD.getGridPane());
+        StartScreen.startScreen(model.getPlayer());
         stage.setTitle("grayScale");
         Scene scene = new Scene(borderPane, 800, 400);
         canvas.widthProperty().bind(scene.widthProperty());
