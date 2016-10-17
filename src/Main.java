@@ -57,8 +57,10 @@ public class Main extends Application {
                 Insets.EMPTY)));
         borderPane.setPadding(new Insets(0, 0, 0, 0));
         canvas = new Canvas(800,400);
+
         menuBar = new MenuBarTop(view);
         bottomHUD = new BottomHUD(model, view.getThemeColor());
+        bottomHUD.setPadding(new Insets(0,0,0,0));
         borderPane.setTop(menuBar.getMenuBar());
         borderPane.setCenter(canvas);
         borderPane.setBottom(bottomHUD.getGridPane());
