@@ -102,6 +102,7 @@ public class Main extends Application {
             if (previousNs == 0) {
                 previousNs = nowNs;
             }
+
             model.move(nowNs - previousNs); // elapsed time
             previousNs = nowNs;
             GraphicsContext gc = canvas.getGraphicsContext2D();
