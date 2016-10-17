@@ -2,11 +2,11 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import view.FX.BackgroundFX;
 import view.FX.ShapeFX;
 import view.FX.ShipFX;
@@ -19,16 +19,18 @@ public class MenuBarTop extends MenuBar {
     private MenuBar menuBar = new MenuBar();
     private BackgroundFX bgFX;
     private ThemeColor themeColor;
-    private Canvas canvas;
     private GameGUI view;
     private ShipFX shipFX;
+    private VBox vbox;
+    boolean visibility = false;
 
-    public MenuBarTop(GameGUI view) {
+    public MenuBarTop(GameGUI view, VBox vbox) {
         this.view = view;
         this.bgFX = view.getBgFX();
         this.themeColor = view.getThemeColor();
         this.shipFX = view.getShipFX();
         this.themeColor = view.getThemeColor();
+        this.vbox = vbox;
         Menu fileMenu = new Menu("Menu");
         MenuItem newGame = new MenuItem("New Game");
         fileMenu.getItems().add(newGame);
@@ -70,7 +72,9 @@ public class MenuBarTop extends MenuBar {
                 boolean paused = false;
                 if (source.getText().equals("QUIT")) {
                     System.exit(0);
-                } else if (source.getText().equals("PAUSE/UNPAUSE")) {
+                }
+                else if (source.getText().equals("PAUSE/UNPAUSE")) {
+                    System.out.println("pause");
                     /*Thread pauseThread = new Pause();
                     pauseThread.start();
                     try {
@@ -79,12 +83,16 @@ public class MenuBarTop extends MenuBar {
                         ex.printStackTrace();
                     }*/
                 }
+                else if(source.getText().equals("HIGHSCORE")){
+                    visibility = !visibility;
+                    vbox.setVisible(visibility);
+                }
             }
         };
         quit.setOnAction(gameStateHandler);
-        //pause.setOnAction(gameStateHandler);
+        pause.setOnAction(gameStateHandler);
+        highScore.setOnAction(gameStateHandler);
     }
-
 
     public void changeColor(ThemeColor themeColor, BackgroundFX bgFx) {
         for (ShapeFX s : bgFX.getBgBack()) {
@@ -96,7 +104,7 @@ public class MenuBarTop extends MenuBar {
         for (ShapeFX s : bgFX.getTerrainList()) {
             s.setThemeColor(themeColor);
         }
-        for (ShapeFX s : view.getShipFX().getShipGeometry()) {
+        for (ShapeFX s: shipFX.getShipGeometry()) {
             s.setThemeColor(themeColor);
         }
     }

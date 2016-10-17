@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import model.GameModel;
 import view.BottomHUD;
 import view.GameGUI;
+import view.HighScore;
 import view.MenuBarTop;
 
 /**
@@ -57,15 +58,21 @@ public class Main extends Application {
                 Insets.EMPTY)));
         borderPane.setPadding(new Insets(0, 0, 0, 0));
         canvas = new Canvas(800,400);
-
-        menuBar = new MenuBarTop(view);
+        borderPane.getChildren().add(canvas);
+        HighScore highScore = new HighScore();
+        highScore.setPadding(new Insets(10, 200, 50, 200));
+        highScore.getVBox().setVisible(true);
+        menuBar = new MenuBarTop(view, highScore.getVBox());
         bottomHUD = new BottomHUD(model, view.getThemeColor());
         bottomHUD.setPadding(new Insets(0,0,0,0));
+        bottomHUD.setMaxHeight(20);
         borderPane.setTop(menuBar.getMenuBar());
-        borderPane.setCenter(canvas);
+        borderPane.setCenter(highScore.getVBox());
         borderPane.setBottom(bottomHUD.getGridPane());
         stage.setTitle("grayScale");
-        Scene scene = new Scene(borderPane, 800, 440);
+        Scene scene = new Scene(borderPane, 800, 400);
+        canvas.widthProperty().bind(scene.widthProperty());
+        canvas.heightProperty().bind(scene.heightProperty());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -81,11 +88,7 @@ public class Main extends Application {
                         }
                     }
             );
-
-
     }
-
-
 
     private class SpaceTimer extends AnimationTimer {
 

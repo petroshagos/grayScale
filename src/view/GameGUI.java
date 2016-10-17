@@ -24,6 +24,7 @@ public class GameGUI {
     private ShipFX shipFX;
     private LinkedList<ShipFX> enemiesFX = new LinkedList<>();
     private LinkedList<ProjectileFX> pFX = new LinkedList<>();
+    private boolean timerIsOn;
 
    public GameGUI(GameModel model) {
        this.gameModel = model;
