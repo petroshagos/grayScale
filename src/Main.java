@@ -79,14 +79,13 @@ public class Main extends Application {
         timer = new SpaceTimer();
         timer.start();
 
-            canvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                    new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent me) {
-                            model.getPlayer().addScore(100);
-                            bottomHUD.updateHUD(model);
-                        }
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent me) {
+                        model.getPlayer().addScore(100);
+                        bottomHUD.updateHUD(model);
                     }
+                }
             );
     }
 
