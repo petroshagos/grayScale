@@ -1,19 +1,20 @@
 import controller.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import javafx.scene.input.KeyEvent;
+import javafx.event.EventHandler;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.stage.Stage;
 import model.GameModel;
-import view.*;
+import view.BottomHUD;
+import view.GameGUI;
+import view.HighScore;
+import view.MenuBarTop;
+
 
 /**
  * @author Petros Hagos & Dag Oldenburg.
@@ -48,40 +49,26 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         model = new GameModel();
         view = new GameGUI(model);
-        controller = view.getGameController();
-        borderPane = new BorderPane();
-        borderPane.setBackground(new Background(new BackgroundFill(view.getThemeColor().getColor(0),
-                CornerRadii.EMPTY,
-                Insets.EMPTY)));
-        borderPane.setPadding(new Insets(0, 0, 0, 0));
-        canvas = new Canvas(800,400);
-        borderPane.getChildren().add(canvas);
         HighScore highScore = new HighScore();
         highScore.setPadding(new Insets(10, 200, 50, 200));
         highScore.getVBox().setVisible(true);
-        menuBar = new MenuBarTop(view, highScore.getVBox());
-        bottomHUD = new BottomHUD(model, view.getThemeColor());
-        bottomHUD.setPadding(new Insets(0,0,0,0));
-        bottomHUD.setMaxHeight(20);
-        borderPane.setTop(menuBar.getMenuBar());
-        borderPane.setCenter(highScore.getVBox());
-        borderPane.setBottom(bottomHUD.getGridPane());
-        StartScreen.startScreen(model.getPlayer());
+        view.startScreen();
+        controller = view.getGameController();
+        borderPane = new BorderPane();
+        borderPane = view.makeBorderPane(model);
         stage.setTitle("grayScale");
-        Scene scene = new Scene(borderPane, 800, 400);
-        canvas.widthProperty().bind(scene.widthProperty());
-        canvas.heightProperty().bind(scene.heightProperty());
+        Scene scene = new Scene(borderPane, 800, 440);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
         timer = new SpaceTimer();
         timer.start();
 
-        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+        scene.addEventHandler(KeyEvent.KEY_PRESSED,
+                new EventHandler<KeyEvent>() {
                     @Override
-                    public void handle(MouseEvent me) {
-                        model.getPlayer().addScore(100);
-                        bottomHUD.updateHUD(model);
+                    public void handle(KeyEvent ke) {
+                        controller.handleKeyPress(ke);
                     }
                 }
             );
@@ -105,10 +92,10 @@ public class Main extends Application {
 
             model.move(nowNs - previousNs); // elapsed time
             previousNs = nowNs;
-            GraphicsContext gc = canvas.getGraphicsContext2D();
+            GraphicsContext gc = view.getCanvas().getGraphicsContext2D();
             gc.setFill(view.getThemeColor().getColor(1));
-            gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            controller.updateView();
+            gc.fillRect(0, 0, view.getCanvas().getWidth(), view.getCanvas().getHeight());
+            //controller.updateView();
             view.paint(gc); //new paint
         }
     }
