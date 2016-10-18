@@ -34,7 +34,7 @@ public class MenuBarTop extends MenuBar {
         Menu fileMenu = new Menu("Menu");
         MenuItem newGame = new MenuItem("New Game");
         fileMenu.getItems().add(newGame);
-        MenuItem pause = new MenuItem("Pause/Play");
+        MenuItem pause = new MenuItem("Pause/Play (P)");
         fileMenu.getItems().add(pause);
         MenuItem highScore = new MenuItem("High score");
         fileMenu.getItems().add(highScore);
@@ -68,13 +68,13 @@ public class MenuBarTop extends MenuBar {
             @Override
             public void handle(ActionEvent event) {
                 MenuItem source = (MenuItem) event.getSource();
-                System.out.println(source.getText());
+                //System.out.println(source.getText());
                 boolean paused = false;
                 if (source.getText().equals("QUIT")) {
                     System.exit(0);
                 }
                 else if (source.getText().equals("PAUSE/UNPAUSE")) {
-                    System.out.println("pause");
+                    //System.out.println("pause");
                     /*Thread pauseThread = new Pause();
                     pauseThread.start();
                     try {
@@ -109,7 +109,7 @@ public class MenuBarTop extends MenuBar {
         }
     }
 
-    class Pause extends Thread {
+    /*class Pause extends Thread {
         boolean paused = true;
 
         public void run() {
@@ -125,17 +125,17 @@ public class MenuBarTop extends MenuBar {
                     }
                 }
             };
-            /*while (paused) {
+            *//*while (paused) {
                 try {
                     System.out.println("hej");
                     Thread.sleep(200);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
-            }*/
+            }*//*
             return;
         }
-    }
+    }*/
 
     public HBox getHBox() {
         return topBar;

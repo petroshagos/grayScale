@@ -1,5 +1,7 @@
 package model;
 
+import model.Shape.Shape;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -60,6 +62,12 @@ public class Player implements Serializable{
     public void decreaseHealthPoints(int i) {
     }
 
+    public void setShipVelocity(double dx, double dy) {
+        for (Shape s: getCurrentShip().getShipGeometry()) {
+            s.setVelocity(dx,dy);
+        }
+    }
+
     public void decreaseNrOfLives() {
         this.nrOfLives -=1 ;
     }
@@ -75,6 +83,7 @@ public class Player implements Serializable{
     private void setShips(LinkedList<Ship> ships) {
         this.ships = ships;
     }
+
 
     @Override
     public String toString() {

@@ -28,8 +28,7 @@ public class BackgroundFX {
             this.bgBack.add(new RectangleFX(themeColor,r));
         }
         for (Terrain t: background.getTerrainList()) {
-            this.bgFront.add(new TerrainFX(themeColor,t));
-            System.out.println(themeColor);
+            this.terrainList.add(new TerrainFX(themeColor,t));
         }
     }
 

@@ -32,7 +32,6 @@ public class GameController {
             if (source.getText().equals(tc.getName())) {
                 view.setThemeColor(tc);
                 view.changeColor(view.getThemeColor());
-                view.setBorderPaneColor(tc);
             }
         }
     }
@@ -45,20 +44,38 @@ public class GameController {
 
     public void handleKeyPress(KeyEvent ke) {
 
-        //model.getPlayer().addScore(100);
-        //view.updateHUD(model);
+        model.getPlayer().addScore(100);
+        view.updateHUD(model);
         switch (ke.getCode()) {
-            case UP: System.out.println(ke.getCode());break;
-            case DOWN: System.out.println(ke.getCode());break;
-            case RIGHT: System.out.println(ke.getCode());break;
-            case LEFT: System.out.println(ke.getCode());break;
+            case UP: model.getPlayer().setShipVelocity(0,-200);break;
+            case DOWN: model.getPlayer().setShipVelocity(0,200);break;
+            case RIGHT: model.getPlayer().setShipVelocity(200,0);break;
+            case LEFT: model.getPlayer().setShipVelocity(-200,0);break;
             case SPACE: System.out.println(ke.getCode());break;
             case SHIFT: System.out.println(ke.getCode());break;
             case P: handlePause(); break;
-            case ESCAPE: System.out.println(ke.getCode());break;
+            case ESCAPE: System.exit(0);break;
             default:
                 System.out.println("Wrong key");
                 break;
+        }
+    }
+
+    public void handleKeyRelease(KeyEvent ke) {
+        //model.getPlayer().addScore(100);
+        //view.updateHUD(model);
+        switch (ke.getCode()) {
+            case UP: model.getPlayer().setShipVelocity(0,0);
+                System.out.println(model.getPlayer().getCurrentShip().getX());break;
+            case DOWN: model.getPlayer().setShipVelocity(0,0);break;
+            case RIGHT: model.getPlayer().setShipVelocity(0,0);break;
+            case LEFT: model.getPlayer().setShipVelocity(0,0);break;
+            case SPACE: model.makeProjectile();
+                view.updateProjectiles(model);break;
+            case SHIFT: System.out.println(ke.getCode());break;
+            case P: break;
+            case ESCAPE: System.out.println(ke.getCode());break;
+            default: break;
         }
     }
 

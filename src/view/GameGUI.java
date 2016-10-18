@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 import model.GameModel;
+import model.Projectile;
 import view.FX.BackgroundFX;
 import view.FX.ProjectileFX;
 import view.FX.ShapeFX;
@@ -76,8 +77,17 @@ public class GameGUI {
             s.paint(gc);
         }
 
+        for (ShapeFX s: bgFX.getTerrainList()) {
+            s.paint(gc);
+        }
+
         for (ShapeFX s : shipFX.getShipGeometry()) {
             s.paint(gc);
+        }
+        for (ProjectileFX p: pFX) {
+            for (ShapeFX s: p.getProjectileGeometry()) {
+                s.paint(gc);
+            }
         }
     }
 
@@ -201,6 +211,7 @@ public class GameGUI {
         for (ShapeFX s: shipFX.getShipGeometry()) {
             s.setThemeColor(themeColor);
         }
+        setBorderPaneColor(themeColor);
     }
 
     public void startScreen() {
@@ -215,6 +226,13 @@ public class GameGUI {
 
     public void updateHUD(GameModel model) {
         borderPane.setBottom(makeHUD(model));
+    }
+
+    public void updateProjectiles(GameModel model) {
+        pFX.clear();
+        for (Projectile p: model.getProjectiles()) {
+            pFX.add(new ProjectileFX(themeColor, p));
+        }
     }
 
 }

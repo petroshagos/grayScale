@@ -54,16 +54,13 @@ public class GameModel {
         return player;
     }
 
-    public Projectile makeProjectile() {
-        Ship tempShip = ships.getLast();
-        if (tempShip instanceof PlayerShip) {
-            Projectile temp = new Projectile(((PlayerShip) tempShip).getWeaponPosX(), ((PlayerShip) tempShip).getWeaponPosY());
-            for (Shape s: temp.getProjectile()) {
-                s.setVelocity(40,0);
-            }
-            projectiles.add(temp);
-        }
-        return projectiles.getLast();
+    public void makeProjectile() {
+        PlayerShip tempShip = (PlayerShip) ships.getFirst();
+        tempShip.updateWeaponPos();
+        System.out.println(tempShip.getWeaponPosX());
+        System.out.println(tempShip.getWeaponPosY());
+        Projectile temp = new Projectile(tempShip.getWeaponPosX(), tempShip.getWeaponPosY());
+        projectiles.add(temp);
     }
 
     public void move(long elapsedTimeNs) {
@@ -77,6 +74,15 @@ public class GameModel {
         for (Shape s: background.getTerrainList()) {
             s.move(elapsedTimeNs);
         }
+        for (Shape s: player.getCurrentShip().getShipGeometry()) {
+            s.move(elapsedTimeNs);
+        }
+        for (Projectile p: projectiles) {
+            for (Shape s: p.getProjectile()) {
+                s.move(elapsedTimeNs);
+            }
+        }
+
 
     }
 
@@ -95,4 +101,5 @@ public class GameModel {
     public void setPaused(boolean paused) {
         isPaused = paused;
     }
+
 }

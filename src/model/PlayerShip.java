@@ -15,8 +15,8 @@ public class PlayerShip extends Ship {
     public PlayerShip() {
         super(50, 200, 100);
         this.setShipGeometry(makeShip());
-        this.weaponPosX = getX()+75;
-        this.weaponPosY = getY()+25;
+        this.weaponPosX = getShipGeometry().get(0).getX()+75;
+        this.weaponPosY = getShipGeometry().get(0).getY()+25;
     }
 
     @Override
@@ -43,5 +43,18 @@ public class PlayerShip extends Ship {
 
     public double getWeaponPosY() {
         return weaponPosY;
+    }
+
+    public void setWeaponPosX(double weaponPosX) {
+        this.weaponPosX = weaponPosX;
+    }
+
+    public void setWeaponPosY(double weaponPosY) {
+        this.weaponPosY = weaponPosY;
+    }
+
+    public void updateWeaponPos() {
+        setWeaponPosX(getShipGeometry().get(0).getX()+75);
+        setWeaponPosY(getShipGeometry().get(0).getY()+25);
     }
 }

@@ -15,11 +15,11 @@ public class Projectile {
     public Projectile(double x, double y) {
         for (int i=0;i<3;i++){
             for (int j=0;j<2;j++){
-                this.projectile.add(new Rectangle(x+2*i+75,y+2*j+25,2,2,4,true,false,true));
+                this.projectile.add(new Rectangle(x+2*i,y+2*j,4,4,4,true,false,true));
             }
         }
         for (Shape s: this.projectile) {
-            s.setVelocity(40,0);
+            s.setVelocity(250,0);
         }
     }
 

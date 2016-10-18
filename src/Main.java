@@ -59,6 +59,14 @@ public class Main extends Application {
                     }
                 }
             );
+        scene.addEventHandler(KeyEvent.KEY_RELEASED,
+                new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent ke) {
+                        controller.handleKeyRelease(ke);
+                    }
+                }
+        );
     }
 
     private class SpaceTimer extends AnimationTimer {
