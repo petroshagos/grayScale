@@ -19,6 +19,8 @@ public class GameModel {
     private Background background;
     private LinkedList<Ship> ships = new LinkedList<>();
     private LinkedList<Projectile> projectiles = new LinkedList<>();
+    private long now;
+    private boolean isPaused;
 
     public GameModel() {
         this.player = new Player();
@@ -26,6 +28,7 @@ public class GameModel {
         for (Ship s: player.getShips()) {
             ships.add(s);
         }
+        isPaused = false;
     }
 
     public GameModel(Player player) {
@@ -76,5 +79,20 @@ public class GameModel {
         }
 
     }
-    
+
+    public long getNow() {
+        return now;
+    }
+
+    public void setNow(long now) {
+        this.now = now;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public void setPaused(boolean paused) {
+        isPaused = paused;
+    }
 }

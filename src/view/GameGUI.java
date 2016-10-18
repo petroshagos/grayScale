@@ -112,6 +112,7 @@ public class GameGUI {
         MenuItem newGame = new MenuItem("New Game");
         fileMenu.getItems().add(newGame);
         MenuItem pause = new MenuItem("Pause/Play");
+        pause.setOnAction(pauseHandler);
         fileMenu.getItems().add(pause);
         MenuItem highScore = new MenuItem("High score");
         fileMenu.getItems().add(highScore);
@@ -177,6 +178,13 @@ public class GameGUI {
         @Override
         public void handle(ActionEvent event) {
             controller.handleMenuTheme(event);
+        }
+    };
+
+    EventHandler pauseHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.handlePause();
         }
     };
 

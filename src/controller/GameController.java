@@ -44,8 +44,30 @@ public class GameController {
     }
 
     public void handleKeyPress(KeyEvent ke) {
-        System.out.println(ke.getCode());
-        model.getPlayer().addScore(100);
-        view.updateHUD(model);
+
+        //model.getPlayer().addScore(100);
+        //view.updateHUD(model);
+        switch (ke.getCode()) {
+            case UP: System.out.println(ke.getCode());break;
+            case DOWN: System.out.println(ke.getCode());break;
+            case RIGHT: System.out.println(ke.getCode());break;
+            case LEFT: System.out.println(ke.getCode());break;
+            case SPACE: System.out.println(ke.getCode());break;
+            case SHIFT: System.out.println(ke.getCode());break;
+            case P: handlePause(); break;
+            case ESCAPE: System.out.println(ke.getCode());break;
+            default:
+                System.out.println("Wrong key");
+                break;
+        }
+    }
+
+    public void handlePause() {
+        if (!model.isPaused()) {
+            model.setPaused(true);
+        }
+        else {
+            model.setPaused(false);
+        }
     }
 }

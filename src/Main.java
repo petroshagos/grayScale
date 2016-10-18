@@ -1,19 +1,16 @@
 import controller.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import javafx.event.EventHandler;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.GameModel;
-import view.BottomHUD;
 import view.GameGUI;
 import view.HighScore;
-import view.MenuBarTop;
 
 
 /**
@@ -21,28 +18,18 @@ import view.MenuBarTop;
  */
 public class Main extends Application {
 
-    private Canvas canvas;
     private BorderPane borderPane;
     private AnimationTimer timer;
     private GameModel model;
     private GameGUI view;
     private GameController controller;
-    private MenuBarTop menuBar;
-    private BottomHUD bottomHUD;
+    private long pausCounter = 0;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public MenuBarTop menuBarTop() {
-        return menuBar;
-    }
-
-    public BottomHUD getBottomHUD() {
-        return bottomHUD;
     }
 
     @Override
@@ -86,16 +73,19 @@ public class Main extends Application {
          */
         @Override
         public void handle(long nowNs) {
-            if (previousNs == 0) {
-                previousNs = nowNs;
+            if (model.getNow() == 0) {
+                model.setNow(nowNs);
             }
-
-            model.move(nowNs - previousNs); // elapsed time
-            previousNs = nowNs;
+            if (!model.isPaused()) {
+                model.move((nowNs-pausCounter) - model.getNow()); // elapsed time
+                model.setNow(nowNs-pausCounter);
+            }
+            else {
+                pausCounter = nowNs - model.getNow();
+            }
             GraphicsContext gc = view.getCanvas().getGraphicsContext2D();
             gc.setFill(view.getThemeColor().getColor(1));
             gc.fillRect(0, 0, view.getCanvas().getWidth(), view.getCanvas().getHeight());
-            //controller.updateView();
             view.paint(gc); //new paint
         }
     }
