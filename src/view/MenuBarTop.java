@@ -83,7 +83,7 @@ public class MenuBarTop extends MenuBar {
                         ex.printStackTrace();
                     }*/
                 }
-                else if(source.getText().equals("HIGHSCORE")){
+                else if(source.getText().equals("High score")){
                     visibility = !visibility;
                     vbox.setVisible(visibility);
                 }
@@ -107,38 +107,6 @@ public class MenuBarTop extends MenuBar {
         for (ShapeFX s: shipFX.getShipGeometry()) {
             s.setThemeColor(themeColor);
         }
-    }
-
-    class Pause extends Thread {
-        boolean paused = true;
-
-        public void run() {
-            EventHandler pauseHandler = new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent event) {
-                    MenuItem source = (MenuItem) event.getSource();
-                    System.out.println(source.getText());
-                    System.out.println("skriv");
-                    if (source.getText().equals("PAUSE/UNPAUSE")) {
-                        paused = false;
-                    }
-                }
-            };
-            /*while (paused) {
-                try {
-                    System.out.println("hej");
-                    Thread.sleep(200);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }*/
-            return;
-        }
-    }
-
-    public HBox getHBox() {
-        return topBar;
     }
 
     public MenuBar getMenuBar() {

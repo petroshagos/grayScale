@@ -5,9 +5,16 @@
  */
 package model;
 
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 import model.Shape.Shape;
 
 import java.util.LinkedList;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import view.GameGUI;
 
 /**
  *
@@ -16,16 +23,23 @@ import java.util.LinkedList;
 public class GameModel {
 
     private Player player;
+    private int wave = 0;
+    private int numberOfAi = 10;
+    int currentNumberOfAi = 0;
     private Background background;
+    Random rand = new Random();
     private LinkedList<Ship> ships = new LinkedList<>();
+    private LinkedList<EnemyShip> enemies = new LinkedList<>();
     private LinkedList<Projectile> projectiles = new LinkedList<>();
+    private LocalTime comparisonTime;
 
     public GameModel() {
         this.player = new Player();
         this.background = new Background();
-        for (Ship s: player.getShips()) {
+        for (Ship s : player.getShips()) {
             ships.add(s);
         }
+        comparisonTime = LocalTime.now();
     }
 
     public GameModel(Player player) {
@@ -42,7 +56,9 @@ public class GameModel {
     public LinkedList<Ship> getShips() {
         return ships;
     }
-
+    public LinkedList<EnemyShip> getEnemies(){
+        return enemies;
+    }
     public LinkedList<Projectile> getProjectiles() {
         return projectiles;
     }
@@ -55,8 +71,8 @@ public class GameModel {
         Ship tempShip = ships.getLast();
         if (tempShip instanceof PlayerShip) {
             Projectile temp = new Projectile(((PlayerShip) tempShip).getWeaponPosX(), ((PlayerShip) tempShip).getWeaponPosY());
-            for (Shape s: temp.getProjectile()) {
-                s.setVelocity(40,0);
+            for (Shape s : temp.getProjectile()) {
+                s.setVelocity(40, 0);
             }
             projectiles.add(temp);
         }
@@ -64,17 +80,25 @@ public class GameModel {
     }
 
     public void move(long elapsedTimeNs) {
-
-        for (Shape s: background.getBgBack()) {
+        /*for(Shape s: enemies.get().getShipGeometry()){
+            s.move(elapsedTimeNs);
+        }*/
+        for (EnemyShip es : enemies) {
+            for (Shape s : es.getShipGeometry()) {
+                s.move(elapsedTimeNs);
+            }
+        }
+        for (Shape s : background.getBgBack()) {
             s.move(elapsedTimeNs);
         }
-        for (Shape s: background.getBgFront()) {
+        for (Shape s : background.getBgFront()) {
             s.move(elapsedTimeNs);
         }
-        for (Shape s: background.getTerrainList()) {
+        for (Shape s : background.getTerrainList()) {
             s.move(elapsedTimeNs);
         }
 
     }
-    
+
 }
+
