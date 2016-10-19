@@ -13,10 +13,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 import model.GameModel;
 import model.Projectile;
+import model.Ship;
 import view.FX.BackgroundFX;
 import view.FX.ProjectileFX;
 import view.FX.ShapeFX;
@@ -43,6 +45,7 @@ public class GameGUI {
     private MenuBar menuBar;
     private Canvas canvas;
     private GridPane gridPane;
+    private Text t = new Text();
 
    public GameGUI(GameModel model) {
        this.model = model;
@@ -50,6 +53,10 @@ public class GameGUI {
        this.themeColor = ThemeColor.THEME_GRAY;
        bgFX = new BackgroundFX(themeColor, this.model.getBackground());
        shipFX = new ShipFX(themeColor, this.model.getPlayer().getCurrentShip());
+       t.setX(340);
+       t.setY(220);
+       t.setFont(new Font(40));
+       t.setFill(themeColor.getColor(6));
     }
 
     public ThemeColor getThemeColor() {
@@ -86,6 +93,11 @@ public class GameGUI {
         }
         for (ProjectileFX p: pFX) {
             for (ShapeFX s: p.getProjectileGeometry()) {
+                s.paint(gc);
+            }
+        }
+        for (ShipFX e: enemiesFX) {
+            for (ShapeFX s: e.getShipGeometry()) {
                 s.paint(gc);
             }
         }
@@ -150,19 +162,19 @@ public class GameGUI {
         gridPane = new GridPane();
         Text name = new Text("Player: " + model.getPlayer().getName());
         name.setFill(themeColor.getColor(4));
-        //name.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
+        name.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
         name.setFontSmoothingType(FontSmoothingType.LCD);
         Text lives = new Text("Lives: " + model.getPlayer().getNrOfLives());
         lives.setFill(themeColor.getColor(4));
-        //lives.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
+        lives.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
         lives.setFontSmoothingType(FontSmoothingType.LCD);
         Text health = new Text("Health: " + model.getPlayer().getCurrentShip().getHealthPoints() + "%");
         health.setFill(themeColor.getColor(4));
-        //health.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
+        health.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
         health.setFontSmoothingType(FontSmoothingType.LCD);
         Text score = new Text("Score: " + model.getPlayer().getScore());
         score.setFill(themeColor.getColor(4));
-        //score.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
+        score.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
         score.setFontSmoothingType(FontSmoothingType.LCD);
         ColumnConstraints cc1 = new ColumnConstraints();
         cc1.setPercentWidth(25);
@@ -211,6 +223,11 @@ public class GameGUI {
         for (ShapeFX s: shipFX.getShipGeometry()) {
             s.setThemeColor(themeColor);
         }
+        for (ShipFX e: enemiesFX) {
+            for (ShapeFX s: e.getShipGeometry()) {
+                s.setThemeColor(themeColor);
+            }
+        }
         setBorderPaneColor(themeColor);
     }
 
@@ -234,5 +251,21 @@ public class GameGUI {
             pFX.add(new ProjectileFX(themeColor, p));
         }
     }
+
+    public void updateWaveText(int wave){
+        t.setText("Wave: " + wave);
+    }
+    public void updateWaveText(){
+        t.setText("");
+    }
+    public Text getText(){
+        return t;
+    }
+
+    public void addShipFx(Ship ship) {
+        enemiesFX.add(new ShipFX(themeColor, ship));
+    }
+
+
 
 }

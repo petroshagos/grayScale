@@ -8,9 +8,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.EnemyShip;
 import model.GameModel;
 import view.GameGUI;
 import view.HighScore;
+
+import java.time.LocalTime;
+import java.util.LinkedList;
+import java.util.Random;
 
 
 /**
@@ -23,7 +28,7 @@ public class Main extends Application {
     private GameModel model;
     private GameGUI view;
     private GameController controller;
-    private long pausCounter = 0;
+    private long pauseCounter = 0;
 
     /**
      * @param args the command line arguments
@@ -50,6 +55,8 @@ public class Main extends Application {
         stage.show();
         timer = new SpaceTimer();
         timer.start();
+        EnemySpawnThread esThread = new EnemySpawnThread(model.getEnemyShips(), view);
+        esThread.start();
 
         scene.addEventHandler(KeyEvent.KEY_PRESSED,
                 new EventHandler<KeyEvent>() {
@@ -85,16 +92,61 @@ public class Main extends Application {
                 model.setNow(nowNs);
             }
             if (!model.isPaused()) {
-                model.move((nowNs-pausCounter) - model.getNow()); // elapsed time
-                model.setNow(nowNs-pausCounter);
+                model.move((nowNs- pauseCounter) - model.getNow()); // elapsed time
+                model.setNow(nowNs- pauseCounter);
             }
             else {
-                pausCounter = nowNs - model.getNow();
+                pauseCounter = nowNs - model.getNow();
             }
+            model.updateWeaponPos();
             GraphicsContext gc = view.getCanvas().getGraphicsContext2D();
             gc.setFill(view.getThemeColor().getColor(1));
             gc.fillRect(0, 0, view.getCanvas().getWidth(), view.getCanvas().getHeight());
             view.paint(gc); //new paint
+        }
+    }
+
+    class EnemySpawnThread extends Thread {
+
+        LinkedList<EnemyShip> enemies;
+        GameGUI view;
+        int wave = 1;
+
+        public EnemySpawnThread(LinkedList<EnemyShip> enemies, GameGUI view) {
+            this.enemies = enemies;
+            this.view = view;
+        }
+
+        @Override
+        public void run() {
+            Random rand = new Random();
+            double yRange;
+            int hpRange = rand.nextInt(5) + 4;
+            LocalTime time = LocalTime.now();
+            LocalTime comparisonTime = time.minusSeconds(5);
+            while (true) { //timeOut.compareTo(LocalTime.now()) > 0
+                time = LocalTime.now();
+                if (time.compareTo(comparisonTime) > 0) {
+                    comparisonTime = time.plusMinutes(1);
+                    view.updateWaveText(wave);
+                    System.out.println("wave: " + wave++);
+                    try {
+                        Thread.sleep(5000);
+                        view.updateWaveText();
+                    } catch (InterruptedException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+                yRange = rand.nextInt(300) + 25;
+                EnemyShip enemyShip = new EnemyShip(800, yRange, hpRange * wave, false);
+                enemies.add(enemyShip);
+                view.addShipFx(enemyShip);
+                try {
+                    Thread.sleep(rand.nextInt(10000 / wave) + 2000 / wave);
+                } catch (InterruptedException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
         }
     }
 }

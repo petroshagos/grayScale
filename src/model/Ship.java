@@ -13,6 +13,7 @@ abstract public class Ship {
     private boolean isAlive;
     private int healthPoints;
     private ArrayList<Triangle> shipGeometry;
+    private double weaponPosX, weaponPosY;
 
 
     protected Ship(double x, double y, int healthPoints) {
@@ -46,5 +47,27 @@ abstract public class Ship {
         this.shipGeometry = shipGeometry;
     }
 
+    public void setWeaponPosX(double weaponPosX) {
+        this.weaponPosX = weaponPosX;
+    }
+
+    public void setWeaponPosY(double weaponPosY) {
+        this.weaponPosY = weaponPosY;
+    }
+
+    public double getWeaponPosX() {
+        return weaponPosX;
+    }
+
+    public double getWeaponPosY() {
+        return weaponPosY;
+    }
+    public void updateShipWeaponPos(double dx, double dy){
+        setWeaponPosX(dx+75);
+        setWeaponPosY(dy+25);
+    }
+
     public abstract ArrayList<Triangle> makeShip();
+
+
 }

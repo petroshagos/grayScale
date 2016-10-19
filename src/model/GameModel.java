@@ -17,7 +17,8 @@ public class GameModel {
 
     private Player player;
     private Background background;
-    private LinkedList<Ship> ships = new LinkedList<>();
+    private Ship ship;
+    private LinkedList<EnemyShip> enemyShips = new LinkedList<>();
     private LinkedList<Projectile> projectiles = new LinkedList<>();
     private long now;
     private boolean isPaused;
@@ -25,16 +26,14 @@ public class GameModel {
     public GameModel() {
         this.player = new Player();
         this.background = new Background();
-        for (Ship s: player.getShips()) {
-            ships.add(s);
-        }
+        this.ship = player.getCurrentShip();
         isPaused = false;
     }
 
     public GameModel(Player player) {
         this.player = player;
         this.background = new Background();
-        this.ships = new LinkedList<>();
+        this.ship = player.getCurrentShip();
         this.projectiles = new LinkedList<>();
     }
 
@@ -42,8 +41,12 @@ public class GameModel {
         return background;
     }
 
-    public LinkedList<Ship> getShips() {
-        return ships;
+    public LinkedList<EnemyShip> getEnemyShips() {
+        return enemyShips;
+    }
+
+    public Ship getPlayerShip() {
+        return ship;
     }
 
     public LinkedList<Projectile> getProjectiles() {
@@ -55,7 +58,7 @@ public class GameModel {
     }
 
     public void makeProjectile() {
-        PlayerShip tempShip = (PlayerShip) ships.getFirst();
+        PlayerShip tempShip = (PlayerShip) ship;
         tempShip.updateWeaponPos();
         System.out.println(tempShip.getWeaponPosX());
         System.out.println(tempShip.getWeaponPosY());
@@ -74,7 +77,7 @@ public class GameModel {
         for (Shape s: background.getTerrainList()) {
             s.move(elapsedTimeNs);
         }
-        for (Shape s: player.getCurrentShip().getShipGeometry()) {
+        for (Shape s: ship.getShipGeometry()) {
             s.move(elapsedTimeNs);
         }
         for (Projectile p: projectiles) {
@@ -82,8 +85,18 @@ public class GameModel {
                 s.move(elapsedTimeNs);
             }
         }
+        for (Ship e: enemyShips) {
+            for (Shape s: e.getShipGeometry()) {
+                s.move(elapsedTimeNs);
+            }
+        }
+    }
 
-
+    public void updateWeaponPos() {
+        ship.updateShipWeaponPos(ship.getX(),ship.getY());
+        for (EnemyShip e: enemyShips) {
+            e.updateWeaponPos();
+        }
     }
 
     public long getNow() {

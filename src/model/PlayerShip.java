@@ -10,13 +10,12 @@ import java.util.ArrayList;
  */
 public class PlayerShip extends Ship {
 
-    private double weaponPosX, weaponPosY;
 
     public PlayerShip() {
-        super(50, 200, 100);
+        super(-100, 200, 100);
         this.setShipGeometry(makeShip());
-        this.weaponPosX = getShipGeometry().get(0).getX()+75;
-        this.weaponPosY = getShipGeometry().get(0).getY()+25;
+        super.setWeaponPosX(getShipGeometry().get(0).getX()+75);
+        super.setWeaponPosY(getShipGeometry().get(0).getY()+25);
     }
 
     @Override
@@ -35,22 +34,6 @@ public class PlayerShip extends Ship {
         }
         temp.add(new Triangle(x+(4*x2),y+y2,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
         return temp;
-    }
-
-    public double getWeaponPosX() {
-        return weaponPosX;
-    }
-
-    public double getWeaponPosY() {
-        return weaponPosY;
-    }
-
-    public void setWeaponPosX(double weaponPosX) {
-        this.weaponPosX = weaponPosX;
-    }
-
-    public void setWeaponPosY(double weaponPosY) {
-        this.weaponPosY = weaponPosY;
     }
 
     public void updateWeaponPos() {
