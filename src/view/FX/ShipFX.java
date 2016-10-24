@@ -21,7 +21,6 @@ public class ShipFX {
         for (Triangle t: ship.getShipGeometry()) {
             shipGeometry.add(new TriangleFX(themeColor, t));
         }
-        System.out.println(themeColor);
     }
 
     public ArrayList<TriangleFX> getShipGeometry() {

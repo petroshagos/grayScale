@@ -5,7 +5,9 @@
  */
 package model;
 
+import model.Shape.Rectangle;
 import model.Shape.Shape;
+import model.Shape.Triangle;
 
 import java.util.LinkedList;
 
@@ -28,6 +30,8 @@ public class GameModel {
         this.background = new Background();
         this.ship = player.getCurrentShip();
         isPaused = false;
+        enemyShips.add(new EnemyShip(600,100,100, true));
+        enemyShips.add(new EnemyShip(600,250,100, true));
     }
 
     public GameModel(Player player) {
@@ -60,8 +64,6 @@ public class GameModel {
     public void makeProjectile() {
         PlayerShip tempShip = (PlayerShip) ship;
         tempShip.updateWeaponPos();
-        System.out.println(tempShip.getWeaponPosX());
-        System.out.println(tempShip.getWeaponPosY());
         Projectile temp = new Projectile(tempShip.getWeaponPosX(), tempShip.getWeaponPosY());
         projectiles.add(temp);
     }
@@ -92,13 +94,6 @@ public class GameModel {
         }
     }
 
-    public void updateWeaponPos() {
-        ship.updateShipWeaponPos(ship.getX(),ship.getY());
-        for (EnemyShip e: enemyShips) {
-            e.updateWeaponPos();
-        }
-    }
-
     public long getNow() {
         return now;
     }
@@ -113,6 +108,24 @@ public class GameModel {
 
     public void setPaused(boolean paused) {
         isPaused = paused;
+    }
+
+    public void handleCollisions() {
+        for (Projectile p:projectiles) {
+            for(Rectangle r: p.getProjectile()) {
+                for (EnemyShip e: enemyShips) {
+                    for (Triangle es: e.getShipGeometry()) {
+                        if (r.collision(es)) {
+                            r.setCollidable(false);
+                            player.addScore(100);
+                            p.setCollidable(false);
+                            e.explodeShip();
+                            p.explodeProjectile();
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

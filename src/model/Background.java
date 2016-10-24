@@ -20,7 +20,7 @@ public class Background {
     public Background() {
         double[] tempX = makeTerrainPointsX(0);
         double[] tempY = makeTerrainPointsY(350, tempX);
-        terrainList.add(new Terrain(0,350, 0, true, false, false, tempX, tempY));
+        terrainList.add(new Terrain(0,350,0,0, 0, true, false, false, tempX, tempY));
         fill();
         bgFront = makeBG(0,0,3,2);
         bgBack = makeBG(0,0,2,3);
@@ -132,7 +132,7 @@ public class Background {
         for ( int i = 0; i<10; i++ ) {
             tempX = makeTerrainPointsX(getLastTerrainPointX()-1);
             tempY = makeTerrainPointsY(getLastTerrainPointY(), tempX);
-            terrainList.add(new Terrain(getLastTerrainPointX(), getLastTerrainPointY(),
+            terrainList.add(new Terrain(getLastTerrainPointX(), getLastTerrainPointY(),0,0,
                     0, true, false, false, tempX, tempY));
 
         }

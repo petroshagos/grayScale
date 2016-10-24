@@ -20,6 +20,19 @@ public class Projectile {
         }
         for (Shape s: this.projectile) {
             s.setVelocity(250,0);
+
+        }
+    }
+
+    public void setCollidable(boolean b) {
+        for (Shape s: projectile) {
+            s.setCollidable(b);
+        }
+    }
+
+    public void explodeProjectile() {
+        for (Shape s: projectile) {
+            s.explode();
         }
     }
 

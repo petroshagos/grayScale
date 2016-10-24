@@ -12,7 +12,7 @@ public enum ThemeColor {
         Color.rgb(53, 104, 186), Color.rgb(255,255,255)),
     THEME_RED("RED", Color.rgb(73, 3, 11), Color.rgb(160, 85, 93), Color.rgb(234, 53, 75),
         Color.rgb(211, 91, 105), Color.rgb(255,255,255)),
-    THEME_GREEN("GREEN", Color.rgb(18, 86, 0), Color.rgb(102, 170, 83), Color.rgb(125, 214, 100),
+    THEME_GREEN("GREEN", Color.rgb(40, 76, 39), Color.rgb(102, 170, 83), Color.rgb(125, 214, 100),
         Color.rgb(84, 204, 51), Color.rgb(255,255,255));
 
 

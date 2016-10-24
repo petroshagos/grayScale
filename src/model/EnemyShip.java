@@ -35,7 +35,7 @@ public class EnemyShip extends Ship {
             temp.add(new Triangle(x+(i*x2),y+y2,x2,y2, 0, true, false, true, TriangleOrientation.LowerLeft));
         }
         for(Shape s : temp){
-            s.setVelocity(-40.0, 0);
+            s.setVelocity(-20.0, 0);
         }
         return temp;
     }

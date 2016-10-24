@@ -13,15 +13,19 @@ abstract public class Shape {
     private double dx, dy; // velocity measured in pixels/second
     private int color;
     private boolean filled, outOfBounds, collidable;
+    private double width, height;
 
 
-    protected Shape(double x, double y, int color, boolean filled, boolean outOfBounds, boolean collidable) {
+    protected Shape(double x, double y, double width, double height, int color,
+                    boolean filled, boolean outOfBounds, boolean collidable) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.filled = filled;
         this.outOfBounds = outOfBounds;
         this.collidable = collidable;
+        this.width = width;
+        this.height = height;
     }
 
     protected Shape() {
@@ -93,6 +97,14 @@ abstract public class Shape {
      */
     public double getDy() {
         return dy;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
     }
 
     /**
@@ -178,5 +190,7 @@ abstract public class Shape {
         }
         setVelocity(x, y);
     }
+
+    abstract public boolean collision(Shape shape);
 
 }

@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
+import model.EnemyShip;
 import model.GameModel;
 import model.Projectile;
 import model.Ship;
@@ -252,6 +253,13 @@ public class GameGUI {
         }
     }
 
+    public void updateEnemies(GameModel model) {
+        enemiesFX.clear();
+        for (EnemyShip e: model.getEnemyShips()) {
+            enemiesFX.add(new ShipFX(themeColor, e));
+        }
+    }
+
     public void updateWaveText(int wave){
         t.setText("Wave: " + wave);
     }
@@ -265,7 +273,5 @@ public class GameGUI {
     public void addShipFx(Ship ship) {
         enemiesFX.add(new ShipFX(themeColor, ship));
     }
-
-
 
 }

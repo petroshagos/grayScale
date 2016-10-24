@@ -11,9 +11,9 @@ public class Terrain extends Shape {
         super();
     }
 
-    public Terrain(double x, double y, int color, boolean filled,
+    public Terrain(double x, double y, double width, double height, int color, boolean filled,
                    boolean outOfBounds, boolean collidable, double[] xPoints, double[] yPoints) {
-        super(x,y,color,filled,outOfBounds,collidable);
+        super(x,y,width,height,color,filled,outOfBounds,collidable);
         this.xPoints = xPoints;
         this.yPoints = yPoints;
     }
@@ -44,5 +44,10 @@ public class Terrain extends Shape {
         }
         setX(getX() + getDx() * elapsedTimeNs / BILLION);
         setY(getY() + getDy() * elapsedTimeNs / BILLION);
+    }
+
+    @Override
+    public boolean collision(Shape shape) {
+        return false;
     }
 }

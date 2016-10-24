@@ -63,35 +63,6 @@ public class MenuBarTop extends MenuBar {
         for (MenuItem m : color.getItems()) {
             m.setOnAction(colorHandler);
         }
-
-        EventHandler gameStateHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                MenuItem source = (MenuItem) event.getSource();
-                //System.out.println(source.getText());
-                boolean paused = false;
-                if (source.getText().equals("QUIT")) {
-                    System.exit(0);
-                }
-                else if (source.getText().equals("PAUSE/UNPAUSE")) {
-                    //System.out.println("pause");
-                    /*Thread pauseThread = new Pause();
-                    pauseThread.start();
-                    try {
-                        pauseThread.join();
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }*/
-                }
-                else if(source.getText().equals("HIGHSCORE")){
-                    visibility = !visibility;
-                    vbox.setVisible(visibility);
-                }
-            }
-        };
-        quit.setOnAction(gameStateHandler);
-        pause.setOnAction(gameStateHandler);
-        highScore.setOnAction(gameStateHandler);
     }
 
     public void changeColor(ThemeColor themeColor, BackgroundFX bgFx) {

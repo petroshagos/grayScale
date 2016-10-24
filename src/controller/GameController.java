@@ -44,14 +44,15 @@ public class GameController {
 
     public void handleKeyPress(KeyEvent ke) {
 
-        model.getPlayer().addScore(100);
-        view.updateHUD(model);
+        //model.getPlayer().addScore(100);
+        //view.updateHUD(model);
         switch (ke.getCode()) {
             case UP: model.getPlayer().setShipVelocity(0,-200);break;
             case DOWN: model.getPlayer().setShipVelocity(0,200);break;
             case RIGHT: model.getPlayer().setShipVelocity(200,0);break;
             case LEFT: model.getPlayer().setShipVelocity(-200,0);break;
-            case SPACE: System.out.println(ke.getCode());break;
+            case SPACE: model.makeProjectile();
+                view.updateProjectiles(model);break;
             case SHIFT: System.out.println(ke.getCode());break;
             case P: handlePause(); break;
             case ESCAPE: System.exit(0);break;
@@ -65,13 +66,11 @@ public class GameController {
         //model.getPlayer().addScore(100);
         //view.updateHUD(model);
         switch (ke.getCode()) {
-            case UP: model.getPlayer().setShipVelocity(0,0);
-                System.out.println(model.getPlayer().getCurrentShip().getX());break;
+            case UP: model.getPlayer().setShipVelocity(0,0);break;
             case DOWN: model.getPlayer().setShipVelocity(0,0);break;
             case RIGHT: model.getPlayer().setShipVelocity(0,0);break;
             case LEFT: model.getPlayer().setShipVelocity(0,0);break;
-            case SPACE: model.makeProjectile();
-                view.updateProjectiles(model);break;
+            case SPACE: break;
             case SHIFT: System.out.println(ke.getCode());break;
             case P: break;
             case ESCAPE: System.out.println(ke.getCode());break;

@@ -1,5 +1,6 @@
 package model;
 
+import model.Shape.Shape;
 import model.Shape.Triangle;
 
 import java.util.ArrayList;
@@ -65,6 +66,12 @@ abstract public class Ship {
     public void updateShipWeaponPos(double dx, double dy){
         setWeaponPosX(dx+75);
         setWeaponPosY(dy+25);
+    }
+
+    public void explodeShip(){
+        for (Shape s: shipGeometry) {
+            s.explode();
+        }
     }
 
     public abstract ArrayList<Triangle> makeShip();

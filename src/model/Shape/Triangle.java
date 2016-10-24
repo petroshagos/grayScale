@@ -20,18 +20,8 @@ public class Triangle extends Shape {
      */
     public Triangle(double x, double y, double width, double height, int color,
                     boolean filled, boolean outOfBounds, boolean collidable, TriangleOrientation orientation) {
-        super(x,y,color,filled,outOfBounds,collidable);
-        this.width = width;
-        this.height = height;
+        super(x,y,width,height,color,filled,outOfBounds,collidable);
         this.orientation = orientation;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public double getHeight() {
-        return height;
     }
 
     public TriangleOrientation getOrientation() {
@@ -46,5 +36,12 @@ public class Triangle extends Shape {
         this.height = height;
     }
 
-
+    @Override
+    public boolean collision(Shape shape) {
+        if (isCollidable()) {
+            return (getX() > shape.getX() && getX()+width < shape.getX() ||
+                    getY() > shape.getY() && getY()+height < shape.getY());
+        }
+        return false;
+    }
 }

@@ -98,11 +98,13 @@ public class Main extends Application {
             else {
                 pauseCounter = nowNs - model.getNow();
             }
-            model.updateWeaponPos();
             GraphicsContext gc = view.getCanvas().getGraphicsContext2D();
             gc.setFill(view.getThemeColor().getColor(1));
             gc.fillRect(0, 0, view.getCanvas().getWidth(), view.getCanvas().getHeight());
             view.paint(gc); //new paint
+            view.updateHUD(model);
+            model.handleCollisions();
+            view.updateEnemies(model);
         }
     }
 

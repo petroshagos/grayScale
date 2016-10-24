@@ -37,7 +37,7 @@ public class PlayerShip extends Ship {
     }
 
     public void updateWeaponPos() {
-        setWeaponPosX(getShipGeometry().get(0).getX()+75);
+        setWeaponPosX(getShipGeometry().get(0).getX()+80);
         setWeaponPosY(getShipGeometry().get(0).getY()+25);
     }
 }
