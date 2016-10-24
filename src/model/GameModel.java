@@ -31,7 +31,9 @@ public class GameModel {
     private LinkedList<Ship> ships = new LinkedList<>();
     private LinkedList<EnemyShip> enemies = new LinkedList<>();
     private LinkedList<Projectile> projectiles = new LinkedList<>();
+    private LinkedList<PowerUp> powerUps = new LinkedList<PowerUp>();
     private LocalTime comparisonTime;
+    
 
     public GameModel() {
         this.player = new Player();
@@ -78,6 +80,12 @@ public class GameModel {
         }
         return projectiles.getLast();
     }
+    public void addPowerUp(){
+        powerUps.add(new PowerUp(100.0,100.0,rand.nextInt(2)));
+    }
+    public LinkedList<PowerUp> getPowerUps(){
+        return powerUps;
+    }
 
     public void move(long elapsedTimeNs) {
         /*for(Shape s: enemies.get().getShipGeometry()){
@@ -96,6 +104,9 @@ public class GameModel {
         }
         for (Shape s : background.getTerrainList()) {
             s.move(elapsedTimeNs);
+        }
+        for(PowerUp p : powerUps){
+            p.getRect().move(elapsedTimeNs);
         }
 
     }

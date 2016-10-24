@@ -6,6 +6,7 @@
 package controller;
 
 import model.GameModel;
+import model.PowerUp;
 import view.GameGUI;
 
 /**
@@ -23,6 +24,9 @@ public class GameController {
     }
 
     public void updateView() {
-
+        for (PowerUp p: model.getPowerUps()) {
+            view.addPowerUpFx(p);
+        }
+        
     }
 }

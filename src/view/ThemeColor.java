@@ -11,7 +11,10 @@ public enum ThemeColor {
     THEME_BLUE("BLUE", Color.rgb(0,26,68), Color.rgb(67, 94, 137), Color.rgb(96, 141, 214),
         Color.rgb(53, 104, 186), Color.rgb(255,255,255)),
     THEME_RED("RED", Color.rgb(73, 3, 11), Color.rgb(160, 85, 93), Color.rgb(234, 53, 75),
-        Color.rgb(211, 91, 105), Color.rgb(255,255,255));
+        Color.rgb(211, 91, 105), Color.rgb(255,255,255)),
+    POWERUP("POWERUP", Color.rgb(244, 66, 217), Color.rgb(241, 244, 24), Color.rgb(24, 244, 138),
+        Color.rgb(24, 244, 226), Color.rgb(35, 244, 24));
+    
 
 
     public Color getColor(int i) {

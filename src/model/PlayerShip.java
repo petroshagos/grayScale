@@ -11,14 +11,21 @@ import java.util.ArrayList;
 public class PlayerShip extends Ship {
 
     private double weaponPosX, weaponPosY;
+    private int damage;
 
     public PlayerShip() {
         super(50, 200, 100);
+        damage = 5;
         this.setShipGeometry(makeShip());
         this.weaponPosX = getX()+75;
         this.weaponPosY = getY()+25;
     }
-
+    public void multiplyDamage(int multiplier){
+        this.damage = damage*multiplier;
+    }
+    public int getDamage(){
+        return damage;
+    }
     @Override
     public ArrayList<Triangle> makeShip() {
         double x = 50;

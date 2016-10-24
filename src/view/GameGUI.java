@@ -12,7 +12,10 @@ import java.util.LinkedList;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.PowerUp;
 import model.Ship;
+import view.FX.PowerUpFX;
+import view.FX.RectangleFX;
 
 /**
  *
@@ -27,6 +30,7 @@ public class GameGUI {
     private ShipFX shipFX;
     private LinkedList<ShipFX> enemiesFX = new LinkedList<>();
     private LinkedList<ProjectileFX> pFX = new LinkedList<>();
+    private LinkedList<PowerUpFX> powerUps = new LinkedList<>();
     private boolean timerIsOn;
     private Text t = new Text();
 
@@ -40,6 +44,9 @@ public class GameGUI {
         t.setY(220);
         t.setFont(new Font(40));
         t.setFill(Color.WHITE);
+    }
+    public void addPowerUpFx(PowerUp p){
+        powerUps.add(new PowerUpFX(p));
     }
     public void updateWaveText(int wave){
         t.setText("Wave: " + wave);
@@ -86,6 +93,9 @@ public class GameGUI {
             for (ShapeFX sh : s.getShipGeometry()) {
                 sh.paint(gc);
             }
+        }
+        for(PowerUpFX p : powerUps){
+            p.getRectFX().paint(gc);
         }
         /*            for (ShapeFX s : pFX.getFirst().getProjectileGeometry()) {
                 s.paint(gc);
