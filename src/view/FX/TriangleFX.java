@@ -34,14 +34,14 @@ public class TriangleFX extends ShapeFX {
             }
         }
 
-        if (triangle.getOrientation() == TriangleOrientation.UpperRight) {
+        if (triangle.getOrientation() == TriangleOrientation.LowerRight) {
             if (triangle.isFilled()) {
-                gc.fillPolygon(new double[]{triangle.getX(), triangle.getX()+triangle.getWidth(), triangle.getX()},
-                    new double[]{triangle.getY(), triangle.getY()+triangle.getHeight(), triangle.getY()+triangle.getHeight()}, 3);
+                gc.fillPolygon(new double[]{triangle.getX(), triangle.getX(), triangle.getX()+triangle.getWidth()},
+                    new double[]{triangle.getY(), triangle.getY()+triangle.getHeight(), triangle.getY()}, 3);
             }
             else {
-                gc.strokePolygon(new double[]{triangle.getX(), triangle.getX()+triangle.getWidth(), triangle.getX()},
-                        new double[]{triangle.getY(), triangle.getY()+triangle.getHeight(), triangle.getY()+triangle.getHeight()}, 3);
+                gc.strokePolygon(new double[]{triangle.getX(), triangle.getX(), triangle.getX()+triangle.getWidth()},
+                        new double[]{triangle.getY(), triangle.getY()+triangle.getHeight(), triangle.getY()}, 3);;
             }
         }
 
@@ -56,7 +56,7 @@ public class TriangleFX extends ShapeFX {
             }
         }
 
-        if (triangle.getOrientation() == TriangleOrientation.LowerRight) {
+        if (triangle.getOrientation() == TriangleOrientation.UpperRight) {
             if (triangle.isFilled()) {
                 gc.fillPolygon(new double[]{triangle.getX(), triangle.getX(), triangle.getX()+triangle.getWidth()},
                         new double[]{triangle.getY(), triangle.getY()+triangle.getHeight(), triangle.getY()+triangle.getHeight()}, 3);

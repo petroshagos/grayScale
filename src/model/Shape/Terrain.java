@@ -7,10 +7,6 @@ public class Terrain extends Shape {
 
     private double[] xPoints, yPoints;
 
-    public Terrain() {
-        super();
-    }
-
     public Terrain(double x, double y, double width, double height, int color, boolean filled,
                    boolean outOfBounds, boolean collidable, double[] xPoints, double[] yPoints) {
         super(x,y,width,height,color,filled,outOfBounds,collidable);
@@ -50,4 +46,7 @@ public class Terrain extends Shape {
     public boolean collision(Shape shape) {
         return false;
     }
+
+    @Override
+    public void constrain() {}
 }

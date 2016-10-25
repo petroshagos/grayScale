@@ -14,6 +14,7 @@ abstract public class Shape {
     private int color;
     private boolean filled, outOfBounds, collidable;
     private double width, height;
+    public boolean UP, DOWN, LEFT, RIGHT;
 
 
     protected Shape(double x, double y, double width, double height, int color,
@@ -119,7 +120,7 @@ abstract public class Shape {
     }
 
     public boolean isOutOfBounds() {
-        return outOfBounds;
+        return getX()<0 || getX()>808 || getY()<0 || getY()>350;
     }
 
     public void setOutOfBounds(boolean outOfBounds) {
@@ -163,8 +164,8 @@ abstract public class Shape {
      * @param elapsedTimeNs the elapsed time in nanoseconds.
      */
     public void move(long elapsedTimeNs) {
-        x += dx * elapsedTimeNs / BILLION;
-        y += dy * elapsedTimeNs / BILLION;
+        setX(x + dx * elapsedTimeNs / BILLION);
+        setY(y + dy * elapsedTimeNs / BILLION);
     }
 
     /**
@@ -191,6 +192,28 @@ abstract public class Shape {
         setVelocity(x, y);
     }
 
+    public void setDirectionConstraint(Direction direction, boolean b) {
+        switch (direction) {
+            case UP: this.UP=b;break;
+            case DOWN: this.DOWN=b;break;
+            case LEFT: this.LEFT=b;break;
+            case RIGHT: this.RIGHT=b;break;
+            default: break;
+        }
+    }
+
+    public boolean getDirectionConstraint(Direction direction) {
+        switch (direction) {
+            case UP: return this.UP;
+            case DOWN: return this.DOWN;
+            case LEFT: return this.LEFT;
+            case RIGHT: return this.RIGHT;
+            default: return false;
+        }
+    }
+
     abstract public boolean collision(Shape shape);
+
+    abstract public void constrain();
 
 }

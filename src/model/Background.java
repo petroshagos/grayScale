@@ -67,7 +67,7 @@ public class Background {
         double xMax = x;
         double randX;
         coordinatesX.add(x);
-        while (xMax < (x + 500)) {
+        while (xMax < (x + 400)) {
             randX = random.nextDouble()*(30-10)+10;
             coordinatesX.add(xMax+randX);
             xMax+=randX;
@@ -129,13 +129,21 @@ public class Background {
     private void fill() {
         double[] tempX;
         double[] tempY;
-        for ( int i = 0; i<10; i++ ) {
+        for ( int i = 0; i<5; i++ ) {
             tempX = makeTerrainPointsX(getLastTerrainPointX()-1);
             tempY = makeTerrainPointsY(getLastTerrainPointY(), tempX);
             terrainList.add(new Terrain(getLastTerrainPointX(), getLastTerrainPointY(),0,0,
                     0, true, false, false, tempX, tempY));
 
         }
+        setTerrainVelocity(-60,0);
+    }
+
+    public void addTerrain() {
+        double[] tempX = makeTerrainPointsX(getLastTerrainPointX()-1);
+        double[] tempY = makeTerrainPointsY(getLastTerrainPointY(), tempX);
+        terrainList.add(new Terrain(getLastTerrainPointX(), getLastTerrainPointY(),
+                0,0,0,true,false,false,tempX, tempY));
         setTerrainVelocity(-60,0);
     }
 

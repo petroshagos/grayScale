@@ -1,5 +1,6 @@
 package model;
 
+import model.Shape.Direction;
 import model.Shape.Shape;
 import model.Shape.Triangle;
 
@@ -13,7 +14,7 @@ abstract public class Ship {
     private double x, y;
     private boolean isAlive;
     private int healthPoints;
-    private ArrayList<Triangle> shipGeometry;
+    private ArrayList<Triangle> shipGeometry = new ArrayList<>();
     private double weaponPosX, weaponPosY;
 
 
@@ -25,11 +26,15 @@ abstract public class Ship {
     }
 
     public double getX() {
-        return x;
+        if (!shipGeometry.isEmpty())
+            return shipGeometry.get(0).getX();
+        return 0;
     }
 
     public double getY() {
-        return y;
+        if (!shipGeometry.isEmpty())
+            return shipGeometry.get(0).getY();
+        return 0;
     }
 
     public int getHealthPoints() {
@@ -63,6 +68,19 @@ abstract public class Ship {
     public double getWeaponPosY() {
         return weaponPosY;
     }
+
+    public void decreaseHealthPoints(int hP) {
+        this.healthPoints-= hP;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
     public void updateShipWeaponPos(double dx, double dy){
         setWeaponPosX(dx+75);
         setWeaponPosY(dy+25);
@@ -74,7 +92,29 @@ abstract public class Ship {
         }
     }
 
-    public abstract ArrayList<Triangle> makeShip();
+    public boolean getShipConstraint(Direction direction) {
+        for (Shape s: shipGeometry) {
+            return s.getDirectionConstraint(direction);
+        }
+        return false;
+    }
+
+    public void moveShip(double newX, double newY) {
+        for (Shape s: shipGeometry) {
+            s.moveTo(s.getX()+newX,s.getY()+newY);
+        }
+    }
+
+    public boolean isOutOfBounds() {
+
+        for (Shape s: shipGeometry) {
+            if (!s.isOutOfBounds())
+                return false;
+        }
+        return true;
+    }
+
+    public abstract ArrayList<Triangle> makeShip(double x, double y, double width, double height);
 
 
 }

@@ -105,6 +105,9 @@ public class Main extends Application {
             view.updateHUD(model);
             model.handleCollisions();
             view.updateEnemies(model);
+            view.updateBackground(model);
+            model.updateObjectsOnScreen();
+            model.constrainPlayerShip();
         }
     }
 

@@ -19,11 +19,9 @@ import javafx.scene.text.Text;
 import model.EnemyShip;
 import model.GameModel;
 import model.Projectile;
+import model.Shape.Terrain;
 import model.Ship;
-import view.FX.BackgroundFX;
-import view.FX.ProjectileFX;
-import view.FX.ShapeFX;
-import view.FX.ShipFX;
+import view.FX.*;
 
 import java.util.LinkedList;
 import java.util.Optional;
@@ -85,22 +83,24 @@ public class GameGUI {
             s.paint(gc);
         }
 
-        for (ShapeFX s: bgFX.getTerrainList()) {
-            s.paint(gc);
-        }
-
         for (ShapeFX s : shipFX.getShipGeometry()) {
             s.paint(gc);
         }
+
         for (ProjectileFX p: pFX) {
             for (ShapeFX s: p.getProjectileGeometry()) {
                 s.paint(gc);
             }
         }
+
         for (ShipFX e: enemiesFX) {
             for (ShapeFX s: e.getShipGeometry()) {
                 s.paint(gc);
             }
+        }
+
+        for (ShapeFX s: bgFX.getTerrainList()) {
+            s.paint(gc);
         }
     }
 
@@ -134,7 +134,7 @@ public class GameGUI {
         Menu fileMenu = new Menu("Menu");
         MenuItem newGame = new MenuItem("New Game");
         fileMenu.getItems().add(newGame);
-        MenuItem pause = new MenuItem("Pause/Play");
+        MenuItem pause = new MenuItem("Pause/Play (P)");
         pause.setOnAction(pauseHandler);
         fileMenu.getItems().add(pause);
         MenuItem highScore = new MenuItem("High score");
@@ -144,7 +144,7 @@ public class GameGUI {
         for (ThemeColor tc : ThemeColor.values()) {
             color.getItems().add(new MenuItem(tc.getName()));
         }
-        MenuItem quit = new MenuItem("Quit");
+        MenuItem quit = new MenuItem("Quit (ESC)");
         fileMenu.getItems().add(quit);
         menuBar.getMenus().addAll(fileMenu);
 
@@ -257,6 +257,13 @@ public class GameGUI {
         enemiesFX.clear();
         for (EnemyShip e: model.getEnemyShips()) {
             enemiesFX.add(new ShipFX(themeColor, e));
+        }
+    }
+
+    public void updateBackground(GameModel model) {
+        bgFX.getTerrainList().clear();
+        for (Terrain t: model.getBackground().getTerrainList()) {
+            bgFX.getTerrainList().add(new TerrainFX(themeColor, t));
         }
     }
 

@@ -36,6 +36,15 @@ public class Projectile {
         }
     }
 
+    public boolean isOutOfBounds() {
+
+        for (Shape s: projectile) {
+            if (!s.isOutOfBounds())
+            return false;
+        }
+        return true;
+    }
+
     public LinkedList<Rectangle> getProjectile() {
         return this.projectile;
     }

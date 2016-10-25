@@ -28,14 +28,6 @@ public class Triangle extends Shape {
         return this.orientation;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
     @Override
     public boolean collision(Shape shape) {
         if (isCollidable()) {
@@ -43,5 +35,29 @@ public class Triangle extends Shape {
                     getY() > shape.getY() && getY()+height < shape.getY());
         }
         return false;
+    }
+
+    @Override
+    public void constrain() {
+        if (isCollidable()) {
+            if (getX() < 0) {
+                setDirectionConstraint(Direction.LEFT,true);
+            }
+            if (getX()+getWidth() > 800) {
+                setDirectionConstraint(Direction.RIGHT,true);
+            }
+            if (getY() < 0) {
+                setDirectionConstraint(Direction.UP, true);
+            }
+            if (getY()+getHeight() > 350) {
+                setDirectionConstraint(Direction.DOWN, true);
+            }
+            if (getX() > 0 && getX()+getWidth()<800 && getY()>0 && getY()+getHeight()<350) {
+                setDirectionConstraint(Direction.LEFT,false);
+                setDirectionConstraint(Direction.RIGHT,false);
+                setDirectionConstraint(Direction.UP,false);
+                setDirectionConstraint(Direction.DOWN,false);
+            }
+        }
     }
 }

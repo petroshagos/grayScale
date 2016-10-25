@@ -28,5 +28,6 @@ public class Rectangle extends Shape {
         }
         return false;
     }
-
+    @Override
+    public void constrain(){}
 }

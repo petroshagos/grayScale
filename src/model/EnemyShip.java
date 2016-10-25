@@ -12,37 +12,30 @@ import java.util.ArrayList;
 public class EnemyShip extends Ship {
 
     private boolean isOutOfBounds;
-    private double x;
-    private double y;
     public EnemyShip(double x,double y,int healthPoints, boolean isOutOfBounds) {
         super(healthPoints, 900, 200);
-        this.x = x;
-        this.y = y;
         this.isOutOfBounds = isOutOfBounds;
-        this.setShipGeometry(makeShip());
+        this.setShipGeometry(makeShip(x,y,15,15));
         super.setWeaponPosX(getShipGeometry().get(0).getX());
         super.setWeaponPosY(getShipGeometry().get(0).getY()+7);
 
     }
 
     @Override
-    public ArrayList<Triangle> makeShip() {
-        double x2 = 15;
-        double y2 = 15;
+    public ArrayList<Triangle> makeShip(double x, double y, double width, double height) {
         ArrayList<Triangle> temp = new ArrayList<>();
-        for (int i=1;i<2;i++){
-            temp.add(new Triangle(x+(i*x2),y+y2,x2,y2, 0, true, false, true, TriangleOrientation.UpperRight));
-            temp.add(new Triangle(x+(i*x2),y+y2,x2,y2, 0, true, false, true, TriangleOrientation.LowerLeft));
-        }
+        temp.add(new Triangle(x,y,width,height, 2, true, false, true, TriangleOrientation.UpperRight));
+        temp.add(new Triangle(x,y,width,height, 0, true, false, true, TriangleOrientation.LowerLeft));
+        temp.add(new Triangle(x,y+height,width,height, 2, true, false, true, TriangleOrientation.LowerRight));
+        temp.add(new Triangle(x+width,y,width,height, 0, true, false, true, TriangleOrientation.UpperRight));
+        temp.add(new Triangle(x+width,y,width,height, 0, true, false, true, TriangleOrientation.LowerLeft));
+        temp.add(new Triangle(x+width*2,y,width,height, 0, true, false, true, TriangleOrientation.UpperRight));
+        temp.add(new Triangle(x+width*2,y,width,height, 0, true, false, true, TriangleOrientation.LowerLeft));
+        temp.add(new Triangle(x+width*2,y-height,width,height, 0, true, false, true, TriangleOrientation.UpperLeft));
         for(Shape s : temp){
-            s.setVelocity(-20.0, 0);
+            s.setVelocity(-80.0, 0);
         }
         return temp;
-    }
-
-    public void updateWeaponPos() {
-        setWeaponPosX(getShipGeometry().get(0).getX());
-        setWeaponPosY(getShipGeometry().get(0).getY()+7);
     }
 
 }

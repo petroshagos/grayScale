@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import model.GameModel;
+import model.Shape.Direction;
 import view.GameGUI;
 import view.ThemeColor;
 
@@ -47,15 +48,38 @@ public class GameController {
         //model.getPlayer().addScore(100);
         //view.updateHUD(model);
         switch (ke.getCode()) {
-            case UP: model.getPlayer().setShipVelocity(0,-200);break;
-            case DOWN: model.getPlayer().setShipVelocity(0,200);break;
-            case RIGHT: model.getPlayer().setShipVelocity(200,0);break;
-            case LEFT: model.getPlayer().setShipVelocity(-200,0);break;
+            case UP:
+                if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.UP)) {
+                    model.getPlayer().decreaseHealthPoints(10);
+                    model.getPlayer().getCurrentShip().moveShip(0,90);
+                }
+                model.getPlayer().setShipVelocity(0,-200);break;
+            case DOWN:
+                if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.DOWN)) {
+                    model.getPlayer().decreaseHealthPoints(10);
+                    model.getPlayer().getCurrentShip().moveShip(0,-90);
+                }
+                model.getPlayer().setShipVelocity(0,200);break;
+            case RIGHT:
+                if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.RIGHT)) {
+                    model.getPlayer().decreaseHealthPoints(10);
+                    model.getPlayer().getCurrentShip().moveShip(-90,0);
+                }
+                model.getPlayer().setShipVelocity(200,0);break;
+            case LEFT:
+                if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.LEFT)) {
+                    model.getPlayer().decreaseHealthPoints(10);
+                    model.getPlayer().getCurrentShip().moveShip(90,0);
+                }
+                model.getPlayer().setShipVelocity(-200,0);break;
             case SPACE: model.makeProjectile();
                 view.updateProjectiles(model);break;
             case SHIFT: System.out.println(ke.getCode());break;
             case P: handlePause(); break;
             case ESCAPE: System.exit(0);break;
+            case R:
+                System.out.println(model.getProjectiles().size());
+                System.out.println(model.getEnemyShips().size());
             default:
                 System.out.println("Wrong key");
                 break;
@@ -63,8 +87,6 @@ public class GameController {
     }
 
     public void handleKeyRelease(KeyEvent ke) {
-        //model.getPlayer().addScore(100);
-        //view.updateHUD(model);
         switch (ke.getCode()) {
             case UP: model.getPlayer().setShipVelocity(0,0);break;
             case DOWN: model.getPlayer().setShipVelocity(0,0);break;

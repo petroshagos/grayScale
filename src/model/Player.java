@@ -3,7 +3,6 @@ package model;
 import model.Shape.Shape;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 
 /**
  * @author Petros Hagos & Dag Oldenburg.
@@ -12,23 +11,20 @@ public class Player implements Serializable{
     private String name;
     private int score;
     private int nrOfLives;
-    private LinkedList<Ship> ships = new LinkedList<>();
+    private PlayerShip ship;
 
     public Player() {
         this.name = "Player";
         this.score = 0;
         this.nrOfLives = 3;
-        for (int i = 0; i<nrOfLives;i++) {
-            this.ships.add(new PlayerShip());
-        }
-
+        this.ship = new PlayerShip(50,200,100);
     }
 
-    public Player(String name, int score, int hP, int lives, LinkedList<Ship> ships) {
+    public Player(String name, int score, int lives, PlayerShip ship) {
         this.name = name;
         this.score = score;
         this.nrOfLives = lives;
-        this.ships = ships;
+        this.ship = ship;
     }
 
     public String getName() {
@@ -47,25 +43,26 @@ public class Player implements Serializable{
         return this.nrOfLives;
     }
 
-    public LinkedList<Ship> getShips() {
-        return this.ships;
-    }
-
     public void addScore(int score) {
         this.score += score;
     }
 
-    public Ship getCurrentShip() {
-        return ships.get(nrOfLives-1);
+    public PlayerShip getCurrentShip() {
+        return ship;
     }
 
     public void decreaseHealthPoints(int i) {
+        ship.decreaseHealthPoints(i);
     }
 
     public void setShipVelocity(double dx, double dy) {
         for (Shape s: getCurrentShip().getShipGeometry()) {
             s.setVelocity(dx,dy);
         }
+    }
+
+    public void changePlayerShip(double x, double y) {
+        ship = new PlayerShip(x, y, getCurrentShip().getHealthPoints());
     }
 
     public void decreaseNrOfLives() {
@@ -79,11 +76,6 @@ public class Player implements Serializable{
     private void setNrOfLives(int nrOfLives) {
         this.nrOfLives = nrOfLives;
     }
-
-    private void setShips(LinkedList<Ship> ships) {
-        this.ships = ships;
-    }
-
 
     @Override
     public String toString() {
