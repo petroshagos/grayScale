@@ -26,7 +26,7 @@ public class GameController {
         this.model = model;
         this.view = view;
     }
-
+    
     public void handleMenuTheme(ActionEvent event) {
         MenuItem source = (MenuItem) event.getSource();
         for (ThemeColor tc : ThemeColor.values()) {
