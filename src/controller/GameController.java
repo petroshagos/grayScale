@@ -13,6 +13,8 @@ import model.Shape.Direction;
 import view.GameGUI;
 import view.ThemeColor;
 
+import java.io.IOException;
+
 /**
  *
  * @author Petros Hagos & Dag Oldenburg
@@ -36,6 +38,11 @@ public class GameController {
             }
         }
     }
+
+    public void handleHighScore() throws IOException {
+        view.showHighScore();
+    }
+
     public void changePlayerName(String name) {
         model.getPlayer().setName(name);
     }
@@ -82,6 +89,7 @@ public class GameController {
                 System.out.println(model.getPlayer().getCurrentShip().getX());
                 System.out.println(model.getPlayer().getCurrentShip().isAlive());
                 System.out.println(model.getPlayer().getCurrentShip().isExploded());
+                break;
             default:
                 System.out.println("Wrong key");
                 break;
@@ -109,9 +117,5 @@ public class GameController {
         else {
             model.setPaused(false);
         }
-    }
-
-    public void updateModel(GameModel model) {
-        this.model = model;
     }
 }

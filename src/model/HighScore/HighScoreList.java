@@ -19,9 +19,9 @@ public class HighScoreList implements Serializable {
         this.highScoreList = new LinkedList<>();
         try {
             serialise();
-        }catch (IOException ie){
-        }   System.out.println("HighScoreList() IOException");
-        try {
+        } catch (IOException ie){
+            System.out.println("HighScoreList() IOException");
+        } try {
             deserialise();
         } catch (ClassNotFoundException e) {
             //TODO: alerts

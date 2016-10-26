@@ -2,7 +2,6 @@ import controller.GameController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -11,7 +10,6 @@ import javafx.stage.Stage;
 import model.EnemyShip;
 import model.GameModel;
 import view.GameGUI;
-import view.HighScore;
 
 import java.time.LocalTime;
 import java.util.LinkedList;
@@ -42,9 +40,6 @@ public class Main extends Application {
         model = new GameModel();
         view = new GameGUI(model);
         controller = view.getGameController();
-        HighScore highScore = new HighScore();
-        highScore.setPadding(new Insets(10, 200, 50, 200));
-        highScore.getVBox().setVisible(true);
         view.startScreen();
         borderPane = view.makeBorderPane(model);
         stage.setTitle("grayScale");
@@ -105,7 +100,6 @@ public class Main extends Application {
             model.constrainPlayerShip();
             model.updateActiveObjects();
             model.updateGame();
-            controller.updateModel(model);
             view.updateHUD(model);
             view.updateProjectiles(model);
             view.updateEnemies(model);
@@ -138,11 +132,11 @@ public class Main extends Application {
                 time = LocalTime.now();
                 if (time.compareTo(comparisonTime) > 0) {
                     comparisonTime = time.plusMinutes(1);
-                    view.updateWaveText(wave);
+                    view.getCanvasView().updateWaveText(wave);
                     System.out.println("wave: " + wave++);
                     try {
                         Thread.sleep(5000);
-                        view.updateWaveText();
+                        view.getCanvasView().updateWaveText();
                     } catch (InterruptedException ex) {
                         System.out.println(ex.getMessage());
                     }

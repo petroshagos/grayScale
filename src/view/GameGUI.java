@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Menu;
@@ -16,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.EnemyShip;
 import model.GameModel;
 import model.Projectile;
@@ -23,6 +25,7 @@ import model.Shape.Terrain;
 import model.Ship;
 import view.FX.*;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Optional;
 
@@ -42,9 +45,10 @@ public class GameGUI {
     private boolean timerIsOn;
     private BorderPane borderPane;
     private MenuBar menuBar;
-    private Canvas canvas;
+    private CanvasView cv;
     private GridPane gridPane;
-    private Text t = new Text();
+    private Scene highScoreWindow;
+
 
    public GameGUI(GameModel model) {
        this.model = model;
@@ -52,10 +56,8 @@ public class GameGUI {
        this.themeColor = ThemeColor.THEME_GRAY;
        bgFX = new BackgroundFX(themeColor, this.model.getBackground());
        shipFX = new ShipFX(themeColor, this.model.getPlayer().getCurrentShip());
-       t.setX(340);
-       t.setY(220);
-       t.setFont(new Font(40));
-       t.setFill(themeColor.getColor(6));
+
+       cv = new CanvasView(themeColor);
     }
 
     public ThemeColor getThemeColor() {
@@ -72,6 +74,10 @@ public class GameGUI {
 
     public BackgroundFX getBgFX() {
         return bgFX;
+    }
+
+    public CanvasView getCanvasView() {
+        return cv;
     }
 
     public void paint(GraphicsContext gc) {
@@ -109,16 +115,16 @@ public class GameGUI {
     }
 
     public Canvas getCanvas() {
-        return canvas;
+        return cv.getCanvasView();
     }
 
-    public BorderPane makeBorderPane(GameModel model) {
+    public BorderPane makeBorderPane(GameModel model) throws IOException{
         borderPane = new BorderPane();
         borderPane.setBackground(new Background(new BackgroundFill(themeColor.getColor(0),
                 CornerRadii.EMPTY,
                 Insets.EMPTY)));
         borderPane.setTop(makeMenuBar());
-        borderPane.setCenter(makeCanvas());
+        borderPane.setCenter(cv.getCanvasView());
         borderPane.setBottom(makeHUD(model));
         return borderPane;
     }
@@ -129,7 +135,7 @@ public class GameGUI {
                 Insets.EMPTY)));
     }
 
-    public MenuBar makeMenuBar() {
+    public MenuBar makeMenuBar() throws IOException{
         menuBar = new MenuBar();
         Menu fileMenu = new Menu("Menu");
         MenuItem newGame = new MenuItem("New Game");
@@ -138,6 +144,7 @@ public class GameGUI {
         pause.setOnAction(pauseHandler);
         fileMenu.getItems().add(pause);
         MenuItem highScore = new MenuItem("High score");
+        highScore.setOnAction(highScoreHandler);
         fileMenu.getItems().add(highScore);
         Menu color = new Menu("Theme");
         fileMenu.getItems().add(color);
@@ -152,11 +159,6 @@ public class GameGUI {
             m.setOnAction(colorHandler);
         }
         return menuBar;
-    }
-
-    public Canvas makeCanvas() {
-        canvas = new Canvas(808,400);
-        return canvas;
     }
 
     public GridPane makeHUD(GameModel model) {
@@ -211,6 +213,18 @@ public class GameGUI {
         }
     };
 
+    EventHandler highScoreHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            try {
+                controller.handleHighScore();
+            } catch (IOException ie) {
+                System.out.println("HighScoreList() IOException");
+            }
+
+        }
+    };
+
     public void changeColor(ThemeColor themeColor) {
         for (ShapeFX s : bgFX.getBgBack()) {
             s.setThemeColor(themeColor);
@@ -242,6 +256,15 @@ public class GameGUI {
         }
     }
 
+    public void showHighScore() throws IOException {
+        Stage newStage = new Stage();
+        HighScore highScore = new HighScore();
+        highScoreWindow = new Scene(highScore.getVBox(), 300, 400);
+        newStage.setScene(highScoreWindow);
+        newStage.setResizable(false);
+        newStage.show();
+    }
+
     public void updateHUD(GameModel model) {
         borderPane.setBottom(makeHUD(model));
     }
@@ -269,16 +292,6 @@ public class GameGUI {
 
     public void updateObjectsOnScreen(GameModel model) {
         shipFX = new ShipFX(themeColor, model.getPlayer().getCurrentShip());
-    }
-
-    public void updateWaveText(int wave){
-        t.setText("Wave: " + wave);
-    }
-    public void updateWaveText(){
-        t.setText("");
-    }
-    public Text getText(){
-        return t;
     }
 
     public void addShipFx(Ship ship) {
