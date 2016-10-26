@@ -164,8 +164,8 @@ abstract public class Shape {
      * @param elapsedTimeNs the elapsed time in nanoseconds.
      */
     public void move(long elapsedTimeNs) {
-        setX(x + dx * elapsedTimeNs / BILLION);
-        setY(y + dy * elapsedTimeNs / BILLION);
+        x += dx * elapsedTimeNs / BILLION;
+        y += dy * elapsedTimeNs / BILLION;
     }
 
     /**

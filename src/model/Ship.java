@@ -114,6 +114,12 @@ abstract public class Ship {
         return true;
     }
 
+    public void setCollidable(boolean collidable) {
+        for (Shape s: shipGeometry) {
+            s.setCollidable(collidable);
+        }
+    }
+
     public abstract ArrayList<Triangle> makeShip(double x, double y, double width, double height);
 
 

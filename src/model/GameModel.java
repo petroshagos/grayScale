@@ -160,10 +160,11 @@ public class GameModel {
             for(Rectangle r: p.getProjectile()) {
                 for (EnemyShip e: enemyShips) {
                     for (Triangle es: e.getShipGeometry()) {
-                        if (r.collision(es)) {
+                        if (r.collision(es) && r.isCollidable() && es.isCollidable()) {
                             r.setCollidable(false);
                             player.addScore(100);
                             p.setCollidable(false);
+                            e.setCollidable(false);
                             e.setAlive(false);
                             e.explodeShip();
                             p.explodeProjectile();
