@@ -31,7 +31,6 @@ public class HighScore extends VBox {
         scoreCol.setPrefWidth(150);
         table.getColumns().addAll(nameCol, scoreCol);
         vbox.setSpacing(5);
-        //vbox.setPadding(new Insets(10, 200, 50, 200));
         vbox.getChildren().addAll(label, table);
     }
 

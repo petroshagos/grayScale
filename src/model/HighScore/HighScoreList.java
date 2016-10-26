@@ -45,7 +45,7 @@ public class HighScoreList implements Serializable {
         return temp;
     }
 
-    private void serialise() throws IOException {
+    public void serialise() throws IOException {
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
         try {

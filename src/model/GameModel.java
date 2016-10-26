@@ -213,7 +213,14 @@ public class GameModel {
         }
         if (isGameOver) {
             highScoreList.addPlayer(player);
-
+            try {
+                highScoreList.serialise();
+            } catch (IOException ie) {
+                System.out.println("HighScoreList() IOException");
+            }
+            player = new Player();
+            ship = player.getCurrentShip();
+            isGameOver = false;
         }
     }
 
