@@ -90,6 +90,8 @@ public class GameController {
                 System.out.println(model.getPlayer().getCurrentShip().isAlive());
                 System.out.println(model.getPlayer().getCurrentShip().isExploded());
                 break;
+            case Y:
+                view.showGameOver();break;
             default:
                 System.out.println("Wrong key");
                 break;

@@ -273,6 +273,24 @@ public class GameGUI {
         newStage.show();
     }
 
+    public void showGameOver() {
+        Stage newStage = new Stage();
+        GridPane gridPane = new GridPane();
+        Text gameOver = new Text("Game Over");
+        gameOver.setFill(themeColor.getColor(0));
+        gameOver.setFont(Font.loadFont("file:resources/font/redensek.ttf", 36));
+        ColumnConstraints cc = new ColumnConstraints();
+        cc.setPercentWidth(100);
+        cc.setHalignment(HPos.CENTER);
+        gameOver.setFontSmoothingType(FontSmoothingType.LCD);
+        gridPane.getColumnConstraints().addAll(cc);
+        gridPane.add(gameOver,0,0);
+        Scene gameOverScene = new Scene(gridPane, 200, 40);
+        newStage.setScene(gameOverScene);
+        newStage.setResizable(false);
+        newStage.show();
+    }
+
     public void updateHUD(GameModel model) {
         borderPane.setBottom(makeHUD(model));
     }

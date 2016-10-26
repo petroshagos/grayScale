@@ -169,7 +169,7 @@ public class GameModel {
                             es.setCollidable(false);
                             es.setAlive(false);
                             if (ship.getHealthPoints()>25) {
-                                ship.decreaseHealthPoints(25);
+                                ship.decreaseHealthPoints(100);
                             }
                             else {
                                 ship.decreaseHealthPoints(ship.getHealthPoints());
