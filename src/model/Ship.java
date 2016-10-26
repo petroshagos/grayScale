@@ -12,7 +12,7 @@ import java.util.ArrayList;
 abstract public class Ship {
 
     private double x, y;
-    private boolean isAlive;
+    private boolean isAlive, isExploded;
     private int healthPoints;
     private ArrayList<Triangle> shipGeometry = new ArrayList<>();
     private double weaponPosX, weaponPosY;
@@ -23,6 +23,7 @@ abstract public class Ship {
         this.y = y;
         this.isAlive = true;
         this.healthPoints = healthPoints;
+        this.isExploded = false;
     }
 
     public double getX() {
@@ -69,6 +70,14 @@ abstract public class Ship {
         return weaponPosY;
     }
 
+    public void setExploded(boolean exploded) {
+        isExploded = exploded;
+    }
+
+    public boolean isExploded() {
+        return isExploded;
+    }
+
     public void decreaseHealthPoints(int hP) {
         this.healthPoints-= hP;
     }
@@ -79,11 +88,6 @@ abstract public class Ship {
 
     public void setAlive(boolean alive) {
         isAlive = alive;
-    }
-
-    public void updateShipWeaponPos(double dx, double dy){
-        setWeaponPosX(dx+75);
-        setWeaponPosY(dy+25);
     }
 
     public void explodeShip(){
@@ -117,6 +121,12 @@ abstract public class Ship {
     public void setCollidable(boolean collidable) {
         for (Shape s: shipGeometry) {
             s.setCollidable(collidable);
+        }
+    }
+
+    public void setShipVelocity(double dx, double dy) {
+        for (Shape s: shipGeometry) {
+            s.setVelocity(dx,dy);
         }
     }
 

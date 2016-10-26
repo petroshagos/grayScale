@@ -41,12 +41,11 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         model = new GameModel();
         view = new GameGUI(model);
+        controller = view.getGameController();
         HighScore highScore = new HighScore();
         highScore.setPadding(new Insets(10, 200, 50, 200));
         highScore.getVBox().setVisible(true);
         view.startScreen();
-        controller = view.getGameController();
-        borderPane = new BorderPane();
         borderPane = view.makeBorderPane(model);
         stage.setTitle("grayScale");
         Scene scene = new Scene(borderPane, 800, 440);
@@ -101,13 +100,19 @@ public class Main extends Application {
             GraphicsContext gc = view.getCanvas().getGraphicsContext2D();
             gc.setFill(view.getThemeColor().getColor(1));
             gc.fillRect(0, 0, view.getCanvas().getWidth(), view.getCanvas().getHeight());
-            view.paint(gc); //new paint
-            view.updateHUD(model);
             model.handleCollisions();
-            view.updateEnemies(model);
-            view.updateBackground(model);
             model.updateObjectsOnScreen();
             model.constrainPlayerShip();
+            model.updateActiveObjects();
+            model.updateGame();
+            controller.updateModel(model);
+            view.updateHUD(model);
+            view.updateProjectiles(model);
+            view.updateEnemies(model);
+            view.updateBackground(model);
+            view.updateObjectsOnScreen(model);
+            view.paint(gc); //new paint
+
         }
     }
 

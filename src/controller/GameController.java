@@ -53,33 +53,35 @@ public class GameController {
                     model.getPlayer().decreaseHealthPoints(10);
                     model.getPlayer().getCurrentShip().moveShip(0,90);
                 }
-                model.getPlayer().setShipVelocity(0,-200);break;
+                model.getPlayer().getCurrentShip().setShipVelocity(0,-200);break;
             case DOWN:
                 if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.DOWN)) {
                     model.getPlayer().decreaseHealthPoints(10);
                     model.getPlayer().getCurrentShip().moveShip(0,-90);
                 }
-                model.getPlayer().setShipVelocity(0,200);break;
+                model.getPlayer().getCurrentShip().setShipVelocity(0,200);break;
             case RIGHT:
                 if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.RIGHT)) {
                     model.getPlayer().decreaseHealthPoints(10);
                     model.getPlayer().getCurrentShip().moveShip(-90,0);
                 }
-                model.getPlayer().setShipVelocity(200,0);break;
+                model.getPlayer().getCurrentShip().setShipVelocity(200,0);break;
             case LEFT:
                 if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.LEFT)) {
                     model.getPlayer().decreaseHealthPoints(10);
                     model.getPlayer().getCurrentShip().moveShip(90,0);
                 }
-                model.getPlayer().setShipVelocity(-200,0);break;
-            case SPACE: model.makeProjectile();
-                view.updateProjectiles(model);break;
+                model.getPlayer().getCurrentShip().setShipVelocity(-200,0);break;
+            case SPACE: model.makeProjectile();break;
             case SHIFT: System.out.println(ke.getCode());break;
             case P: handlePause(); break;
             case ESCAPE: System.exit(0);break;
             case R:
                 System.out.println(model.getProjectiles().size());
                 System.out.println(model.getEnemyShips().size());
+                System.out.println(model.getPlayer().getCurrentShip().getX());
+                System.out.println(model.getPlayer().getCurrentShip().isAlive());
+                System.out.println(model.getPlayer().getCurrentShip().isExploded());
             default:
                 System.out.println("Wrong key");
                 break;
@@ -107,5 +109,9 @@ public class GameController {
         else {
             model.setPaused(false);
         }
+    }
+
+    public void updateModel(GameModel model) {
+        this.model = model;
     }
 }

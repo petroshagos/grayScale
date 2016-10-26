@@ -31,8 +31,8 @@ public class Triangle extends Shape {
     @Override
     public boolean collision(Shape shape) {
         if (isCollidable()) {
-            return (getX() > shape.getX() && getX()+width < shape.getX() ||
-                    getY() > shape.getY() && getY()+height < shape.getY());
+            return ((getX() + getWidth() > shape.getX() && getX()+getWidth() < shape.getX()+shape.getWidth()) &&
+                    getY() > shape.getY() && getY()+height < shape.getY() + shape.getHeight());
         }
         return false;
     }

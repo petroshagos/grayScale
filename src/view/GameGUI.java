@@ -267,6 +267,10 @@ public class GameGUI {
         }
     }
 
+    public void updateObjectsOnScreen(GameModel model) {
+        shipFX = new ShipFX(themeColor, model.getPlayer().getCurrentShip());
+    }
+
     public void updateWaveText(int wave){
         t.setText("Wave: " + wave);
     }

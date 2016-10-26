@@ -23,13 +23,14 @@ public class GameModel {
     private LinkedList<EnemyShip> enemyShips = new LinkedList<>();
     private LinkedList<Projectile> projectiles = new LinkedList<>();
     private long now;
-    private boolean isPaused;
+    private boolean isPaused,isGameOver;
 
     public GameModel() {
         this.player = new Player();
         this.background = new Background();
         this.ship = player.getCurrentShip();
         isPaused = false;
+        isGameOver = false;
     }
 
     public GameModel(Player player) {
@@ -133,26 +134,6 @@ public class GameModel {
                 background.addTerrain();
             }
         }
-
-        /*for (Ship s: enemyShips) {
-            for (Shape sg: s.getShipGeometry()) {
-                if (sg.isOutOfBounds()) {
-                    enemyShips.remove(s);
-                }
-            }
-        }
-        for (Shape s: getPlayer().getCurrentShip().getShipGeometry()) {
-            if (s.isOutOfBounds()) {
-                getPlayer().getCurrentShip().getShipGeometry().remove(s);
-            }
-        }
-        for (Terrain t:background.getTerrainList()) {
-
-            if (t.getLastPoint()[0] < 0) {
-                background.getTerrainList().remove(t);
-            }
-
-        }*/
     }
 
     public void handleCollisions() {
@@ -166,8 +147,26 @@ public class GameModel {
                             p.setCollidable(false);
                             e.setCollidable(false);
                             e.setAlive(false);
-                            e.explodeShip();
                             p.explodeProjectile();
+                        }
+                    }
+                }
+            }
+        }
+        if (ship.isAlive()) {
+            for (Shape s: ship.getShipGeometry()) {
+                for (EnemyShip es: enemyShips) {
+                    for (Shape r: es.getShipGeometry()) {
+                        if (es.isAlive() && s.collision(r)) {
+                            es.setCollidable(false);
+                            es.setAlive(false);
+                            if (ship.getHealthPoints()>25) {
+                                ship.decreaseHealthPoints(60);
+                            }
+                            else {
+                                ship.decreaseHealthPoints(ship.getHealthPoints());
+                            }
+                            player.addScore(100);
                         }
                     }
                 }
@@ -175,8 +174,39 @@ public class GameModel {
         }
     }
 
+    public void updateActiveObjects() {
+        if (ship.getHealthPoints()<= 0 && ship.isAlive()) {
+            ship.setAlive(false);
+            ship.setCollidable(false);
+        }
+
+        for (EnemyShip es: enemyShips) {
+            if (!es.isAlive() && !es.isExploded()) {
+                es.explodeShip();
+                es.setExploded(true);
+            }
+        }
+        if (!ship.isAlive() && !ship.isExploded()) {
+            ship.explodeShip();
+            ship.setExploded(true);
+        }
+    }
+
+    public void updateGame() {
+        if (!isGameOver) {
+            if (!player.getCurrentShip().isAlive() && player.getNrOfLives()>0) {
+                player.decreaseNrOfLives();
+                player.makeNewPlayerShip(50,200,100);
+                ship = player.getCurrentShip();
+            }
+            else if (!player.getCurrentShip().isAlive() && player.getNrOfLives()<=0) {
+                isGameOver = true;
+            }
+        }
+    }
+
     public void constrainPlayerShip() {
-        for (Shape s: player.getCurrentShip().getShipGeometry()) {
+        for (Shape s: ship.getShipGeometry()) {
             s.constrain();
         }
     }

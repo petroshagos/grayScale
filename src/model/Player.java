@@ -56,13 +56,13 @@ public class Player implements Serializable{
     }
 
     public void setShipVelocity(double dx, double dy) {
-        for (Shape s: getCurrentShip().getShipGeometry()) {
+        for (Shape s: ship.getShipGeometry()) {
             s.setVelocity(dx,dy);
         }
     }
 
-    public void changePlayerShip(double x, double y) {
-        ship = new PlayerShip(x, y, getCurrentShip().getHealthPoints());
+    public void makeNewPlayerShip(double x, double y, int hP) {
+        this.ship = new PlayerShip(x, y, hP);
     }
 
     public void decreaseNrOfLives() {
