@@ -16,25 +16,39 @@ abstract public class Ship {
     private int healthPoints;
     private ArrayList<Triangle> shipGeometry = new ArrayList<>();
     private double weaponPosX, weaponPosY;
+    private int damage;
+    private boolean multiShot;
 
-
-    protected Ship(double x, double y, int healthPoints) {
+    protected Ship(double x, double y, int healthPoints,int damage) {
         this.x = x;
         this.y = y;
         this.isAlive = true;
         this.healthPoints = healthPoints;
         this.isExploded = false;
+        this.damage = damage;
     }
 
     public double getX() {
-        if (!shipGeometry.isEmpty())
+        if (!shipGeometry.isEmpty()) {
             return shipGeometry.get(0).getX();
+        }
         return 0;
     }
 
+    public void updateWeaponPos(boolean player) {
+        if (player) {
+            setWeaponPosX(getShipGeometry().get(0).getX() + 80);
+            setWeaponPosY(getShipGeometry().get(0).getY() + 25);
+        } else {
+            setWeaponPosX(getShipGeometry().get(0).getX() - 10);
+            setWeaponPosY(getShipGeometry().get(0).getY() + 10);
+        }
+    }
+
     public double getY() {
-        if (!shipGeometry.isEmpty())
+        if (!shipGeometry.isEmpty()) {
             return shipGeometry.get(0).getY();
+        }
         return 0;
     }
 
@@ -79,7 +93,7 @@ abstract public class Ship {
     }
 
     public void decreaseHealthPoints(int hP) {
-        this.healthPoints-= hP;
+        this.healthPoints -= hP;
     }
 
     public boolean isAlive() {
@@ -90,47 +104,63 @@ abstract public class Ship {
         isAlive = alive;
     }
 
-    public void explodeShip(){
-        for (Shape s: shipGeometry) {
+    public void explodeShip() {
+        for (Shape s : shipGeometry) {
             s.explode();
         }
     }
 
+    public void multiplyDamage(int multiplier) {
+        this.damage = damage * multiplier;
+    }
+
+    public void setMultiShot(boolean value) {
+        multiShot = value;
+    }
+
+    public boolean getMultiShot() {
+        return multiShot;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
     public boolean getShipConstraint(Direction direction) {
-        for (Shape s: shipGeometry) {
+        for (Shape s : shipGeometry) {
             return s.getDirectionConstraint(direction);
         }
         return false;
     }
 
     public void moveShip(double newX, double newY) {
-        for (Shape s: shipGeometry) {
-            s.moveTo(s.getX()+newX,s.getY()+newY);
+        for (Shape s : shipGeometry) {
+            s.moveTo(s.getX() + newX, s.getY() + newY);
         }
     }
 
     public boolean isOutOfBounds() {
 
-        for (Shape s: shipGeometry) {
-            if (!s.isOutOfBounds())
+        for (Shape s : shipGeometry) {
+            if (!s.isOutOfBounds()) {
                 return false;
+            }
         }
         return true;
     }
 
     public void setCollidable(boolean collidable) {
-        for (Shape s: shipGeometry) {
+        for (Shape s : shipGeometry) {
             s.setCollidable(collidable);
         }
     }
 
     public void setShipVelocity(double dx, double dy) {
-        for (Shape s: shipGeometry) {
-            s.setVelocity(dx,dy);
+        for (Shape s : shipGeometry) {
+            s.setVelocity(dx, dy);
         }
     }
 
     public abstract ArrayList<Triangle> makeShip(double x, double y, double width, double height);
-
 
 }

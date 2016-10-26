@@ -17,7 +17,7 @@ public class Player implements Serializable{
         this.name = "Player";
         this.score = 0;
         this.nrOfLives = 3;
-        this.ship = new PlayerShip(50,200,100);
+        this.ship = new PlayerShip(50,200,100,1);
     }
 
     public Player(String name, int score, int lives, PlayerShip ship) {
@@ -61,8 +61,8 @@ public class Player implements Serializable{
         }
     }
 
-    public void makeNewPlayerShip(double x, double y, int hP) {
-        this.ship = new PlayerShip(x, y, hP);
+    public void makeNewPlayerShip(double x, double y, int hP,int damage) {
+        this.ship = new PlayerShip(x, y, hP,damage);
     }
 
     public void decreaseNrOfLives() {

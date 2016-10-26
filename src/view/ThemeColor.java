@@ -13,7 +13,9 @@ public enum ThemeColor {
     THEME_GREEN("GREEN", Color.rgb(40, 76, 39), Color.rgb(102, 170, 83), Color.rgb(125, 214, 100),
             Color.rgb(84, 204, 51), Color.rgb(255,255,255)),
     THEME_BLUE("BLUE", Color.rgb(0,26,68), Color.rgb(67, 94, 137), Color.rgb(96, 141, 214),
-        Color.rgb(53, 104, 186), Color.rgb(255,255,255));
+        Color.rgb(53, 104, 186), Color.rgb(255,255,255)),
+    POWERUP("POWERUP", Color.rgb(244, 66, 217), Color.rgb(241, 244, 24), Color.rgb(24, 244, 138),
+        Color.rgb(24, 244, 226), Color.rgb(35, 244, 24));
 
 
 

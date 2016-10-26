@@ -20,7 +20,7 @@ public class HighScoreList implements Serializable {
         try {
             serialise();
         }catch (IOException ie){
-        }   System.out.println("HighScoreList() IOException");
+        }
         try {
             deserialise();
         } catch (ClassNotFoundException e) {

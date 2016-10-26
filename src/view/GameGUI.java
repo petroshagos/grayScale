@@ -1,4 +1,3 @@
-
 package view;
 
 import controller.GameController;
@@ -25,6 +24,7 @@ import view.FX.*;
 
 import java.util.LinkedList;
 import java.util.Optional;
+import model.PowerUp;
 
 /**
  *
@@ -39,6 +39,7 @@ public class GameGUI {
     private ShipFX shipFX;
     private LinkedList<ShipFX> enemiesFX = new LinkedList<>();
     private LinkedList<ProjectileFX> pFX = new LinkedList<>();
+    private LinkedList<PowerUpFX> powerUps = new LinkedList<>();
     private boolean timerIsOn;
     private BorderPane borderPane;
     private MenuBar menuBar;
@@ -46,20 +47,24 @@ public class GameGUI {
     private GridPane gridPane;
     private Text t = new Text();
 
-   public GameGUI(GameModel model) {
-       this.model = model;
-       this.controller = new GameController(this.model, this);
-       this.themeColor = ThemeColor.THEME_GRAY;
-       bgFX = new BackgroundFX(themeColor, this.model.getBackground());
-       shipFX = new ShipFX(themeColor, this.model.getPlayer().getCurrentShip());
-       t.setX(340);
-       t.setY(220);
-       t.setFont(new Font(40));
-       t.setFill(themeColor.getColor(6));
+    public GameGUI(GameModel model) {
+        this.model = model;
+        this.controller = new GameController(this.model, this);
+        this.themeColor = ThemeColor.THEME_GRAY;
+        bgFX = new BackgroundFX(themeColor, this.model.getBackground());
+        shipFX = new ShipFX(themeColor, this.model.getPlayer().getCurrentShip());
+        t.setX(340);
+        t.setY(220);
+        t.setFont(new Font(40));
+        t.setFill(themeColor.getColor(6));
     }
 
     public ThemeColor getThemeColor() {
         return themeColor;
+    }
+
+    public void addPowerUpFx(PowerUp p) {
+        powerUps.add(new PowerUpFX(p));
     }
 
     public void setThemeColor(ThemeColor themeColor) {
@@ -87,20 +92,23 @@ public class GameGUI {
             s.paint(gc);
         }
 
-        for (ProjectileFX p: pFX) {
-            for (ShapeFX s: p.getProjectileGeometry()) {
+        for (ProjectileFX p : pFX) {
+            for (ShapeFX s : p.getProjectileGeometry()) {
                 s.paint(gc);
             }
         }
 
-        for (ShipFX e: enemiesFX) {
-            for (ShapeFX s: e.getShipGeometry()) {
+        for (ShipFX e : enemiesFX) {
+            for (ShapeFX s : e.getShipGeometry()) {
                 s.paint(gc);
             }
         }
 
-        for (ShapeFX s: bgFX.getTerrainList()) {
+        for (ShapeFX s : bgFX.getTerrainList()) {
             s.paint(gc);
+        }
+        for (PowerUpFX p : powerUps) {
+            p.getRectFX().paint(gc);
         }
     }
 
@@ -141,7 +149,11 @@ public class GameGUI {
         fileMenu.getItems().add(highScore);
         Menu color = new Menu("Theme");
         fileMenu.getItems().add(color);
+        int i = 0;
         for (ThemeColor tc : ThemeColor.values()) {
+            if (i++ > 3) {
+                break;
+            }
             color.getItems().add(new MenuItem(tc.getName()));
         }
         MenuItem quit = new MenuItem("Quit (ESC)");
@@ -155,7 +167,7 @@ public class GameGUI {
     }
 
     public Canvas makeCanvas() {
-        canvas = new Canvas(808,400);
+        canvas = new Canvas(808, 400);
         return canvas;
     }
 
@@ -221,11 +233,11 @@ public class GameGUI {
         for (ShapeFX s : bgFX.getTerrainList()) {
             s.setThemeColor(themeColor);
         }
-        for (ShapeFX s: shipFX.getShipGeometry()) {
+        for (ShapeFX s : shipFX.getShipGeometry()) {
             s.setThemeColor(themeColor);
         }
-        for (ShipFX e: enemiesFX) {
-            for (ShapeFX s: e.getShipGeometry()) {
+        for (ShipFX e : enemiesFX) {
+            for (ShapeFX s : e.getShipGeometry()) {
                 s.setThemeColor(themeColor);
             }
         }
@@ -248,22 +260,29 @@ public class GameGUI {
 
     public void updateProjectiles(GameModel model) {
         pFX.clear();
-        for (Projectile p: model.getProjectiles()) {
+        for (Projectile p : model.getProjectiles()) {
             pFX.add(new ProjectileFX(themeColor, p));
         }
     }
 
     public void updateEnemies(GameModel model) {
         enemiesFX.clear();
-        for (EnemyShip e: model.getEnemyShips()) {
+        for (EnemyShip e : model.getEnemyShips()) {
             enemiesFX.add(new ShipFX(themeColor, e));
         }
     }
 
     public void updateBackground(GameModel model) {
         bgFX.getTerrainList().clear();
-        for (Terrain t: model.getBackground().getTerrainList()) {
+        for (Terrain t : model.getBackground().getTerrainList()) {
             bgFX.getTerrainList().add(new TerrainFX(themeColor, t));
+        }
+    }
+
+    public void updatePowerUps(GameModel model) {
+        powerUps.clear();
+        for (PowerUp p : model.getPowerUps()) {
+            powerUps.add(new PowerUpFX(p));
         }
     }
 
@@ -271,13 +290,15 @@ public class GameGUI {
         shipFX = new ShipFX(themeColor, model.getPlayer().getCurrentShip());
     }
 
-    public void updateWaveText(int wave){
+    public void updateWaveText(int wave) {
         t.setText("Wave: " + wave);
     }
-    public void updateWaveText(){
+
+    public void updateWaveText() {
         t.setText("");
     }
-    public Text getText(){
+
+    public Text getText() {
         return t;
     }
 
