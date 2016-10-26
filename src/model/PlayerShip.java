@@ -24,7 +24,14 @@ public class PlayerShip extends Ship {
         super.setWeaponPosX(getShipGeometry().get(0).getX()+75);
         super.setWeaponPosY(getShipGeometry().get(0).getY()+25);
     }
-
+    /**
+     * Creates the player ship
+     * @param x x value
+     * @param y y value
+     * @param width width
+     * @param height height
+     * @return 
+     */
     @Override
     public ArrayList<Triangle> makeShip(double x, double y, double width, double height) {
 

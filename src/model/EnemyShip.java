@@ -24,7 +24,14 @@ public class EnemyShip extends Ship {
         super.setWeaponPosX(getShipGeometry().get(0).getX()+75);
         super.setWeaponPosY(getShipGeometry().get(0).getY()-25);
     }
-
+    /**
+     * Creates a ship build of smaller triangles
+     * @param x x value
+     * @param y y value
+     * @param width width
+     * @param height height
+     * @return An array list of Triangles
+     */
     @Override
     public ArrayList<Triangle> makeShip(double x, double y, double width, double height) {
         ArrayList<Triangle> temp = new ArrayList<>();
@@ -41,7 +48,6 @@ public class EnemyShip extends Ship {
         }
         return temp;
     }
-    
     public LocalTime getLastShot(){
         return time;
     }

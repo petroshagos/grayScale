@@ -99,11 +99,17 @@ abstract public class Shape {
     public double getDy() {
         return dy;
     }
-
+    /**
+     * Get width
+     * @return width
+     */
     public double getWidth() {
         return width;
     }
-
+    /**
+     * Height
+     * @return height 
+     */
     public double getHeight() {
         return height;
     }
@@ -114,11 +120,17 @@ abstract public class Shape {
     public boolean isFilled() {
         return filled;
     }
-
+    /**
+     * Sets if the shape is filled or not
+     * @param filled true or false
+     */
     public void setFilled(boolean filled) {
         this.filled = filled;
     }
-
+    /**
+     * Checks is the shape is out of bounds
+     * @return true or false
+     */
     public boolean isOutOfBounds() {
         return getX()<0 || getX()>808 || getY()<0 || getY()>350;
     }
@@ -191,7 +203,11 @@ abstract public class Shape {
         }
         setVelocity(x, y);
     }
-
+    /**
+     * Sets constraint 
+     * @param direction a direction
+     * @param b true or false
+     */
     public void setDirectionConstraint(Direction direction, boolean b) {
         switch (direction) {
             case UP: this.UP=b;break;
@@ -201,7 +217,11 @@ abstract public class Shape {
             default: break;
         }
     }
-
+    /**
+     * 
+     * @param direction a direction
+     * @return true or false
+     */
     public boolean getDirectionConstraint(Direction direction) {
         switch (direction) {
             case UP: return this.UP;

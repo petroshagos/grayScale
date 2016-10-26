@@ -28,7 +28,10 @@ public class Background {
         setBgBackVelocity(-6,0);
         setBgFrontVelocity(-9,0);
     }
-
+    /**
+     * Gets the last x value of terrain
+     * @return x value
+     */
     public double getLastTerrainPointX() {
         if (terrainList.size()>0) {
             Terrain temp = terrainList.get(terrainList.size() - 1);
@@ -36,7 +39,11 @@ public class Background {
         }
         return 0;
     }
-
+    /**
+     * Gets the last y value of terrain
+     * 
+     * @return y value
+     */
     public double getLastTerrainPointY() {
         if (terrainList.size()>0) {
             Terrain temp = terrainList.get(terrainList.size() - 1);
@@ -44,7 +51,14 @@ public class Background {
         }
         return 350;
     }
-
+    /**
+     * 
+     * @param x x value 
+     * @param y y value 
+     * @param size width and height
+     * @param color color of the rectangle
+     * @return LinkedList<Shape>
+     */
     public LinkedList makeBG(double x, double y, double size, int color) {
         LinkedList<Shape> temp = new LinkedList<>();
         int i = 0;
@@ -60,7 +74,12 @@ public class Background {
         }
         return temp;
     }
-
+    /**
+     * makes a terrain point X, which you need to draw the terrain
+     * 
+     * @param x x value
+     * @return x value
+     */
     public double[] makeTerrainPointsX(double x) {
         ArrayList<Double> coordinatesX = new ArrayList<>();
         Random random = new Random();
@@ -81,7 +100,12 @@ public class Background {
         coordinatesX.clear();
         return temp;
     }
-
+    /**
+     * makes a terrain point Y, which you need to draw the terrain
+     * @param y y value
+     * @param xPoints list of x values
+     * @return y value
+     */
     public double[] makeTerrainPointsY(double y, double[] xPoints) {
         ArrayList<Double> coordinatesY = new ArrayList<>();
         Random random = new Random();
@@ -98,7 +122,6 @@ public class Background {
         coordinatesY.clear();
         return temp;
     }
-
     public LinkedList<Rectangle> getBgFront() {
         return bgFront;
     }
@@ -106,17 +129,29 @@ public class Background {
     public LinkedList<Rectangle> getBgBack() {
         return bgBack;
     }
-
+    /**
+     * Sets the speed of the shapes in the back of the background
+     * @param dx x velocity
+     * @param dy y velocity 
+     */
     public void setBgBackVelocity(double dx, double dy) {
         for (Shape s: bgBack)
             s.setVelocity(dx, dy);
     }
-
+/**
+     * Sets the speed of the shapes in the front of the background
+     * @param dx x velocity
+     * @param dy y velocity 
+     */
     public void setBgFrontVelocity(double dx, double dy) {
         for (Shape s: bgFront)
             s.setVelocity(dx, dy);
     }
-
+    /**
+     * Sets the speed of the fast the terrain rolls past
+     * @param dx x velocity
+     * @param dy y velocity 
+     */
     public void setTerrainVelocity(double dx, double dy) {
         for (Shape s: terrainList)
             s.setVelocity(dx, dy);
@@ -125,7 +160,9 @@ public class Background {
     public LinkedList<Terrain> getTerrainList() {
         return terrainList;
     }
-
+    /**
+     * Fills the terrain
+     */
     private void fill() {
         double[] tempX;
         double[] tempY;
@@ -138,7 +175,9 @@ public class Background {
         }
         setTerrainVelocity(-60,0);
     }
-
+    /**
+     * Adds a terrain
+     */
     public void addTerrain() {
         double[] tempX = makeTerrainPointsX(getLastTerrainPointX()-1);
         double[] tempY = makeTerrainPointsY(getLastTerrainPointY(), tempX);

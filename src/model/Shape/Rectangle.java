@@ -19,7 +19,11 @@ public class Rectangle extends Shape {
     public void setHeight(double height) {
         this.height = height;
     }
-
+    /**
+     * Checks if the shape collides with another shape
+     * @param shape other shape
+     * @return 
+     */
     @Override
     public boolean collision(Shape shape) {
         if (isCollidable()) {

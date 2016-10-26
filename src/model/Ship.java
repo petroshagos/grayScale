@@ -34,7 +34,10 @@ abstract public class Ship {
         }
         return 0;
     }
-
+    /**
+     * Updates a position relative to the ship to represent a weapon
+     * @param player 
+     */
     public void updateWeaponPos(boolean player) {
         if (player) {
             setWeaponPosX(getShipGeometry().get(0).getX() + 80);
@@ -109,11 +112,17 @@ abstract public class Ship {
             s.explode();
         }
     }
-
+    /**
+     * Multiplies the ships current damage with the multiplier
+     * @param multiplier the multiplier
+     */
     public void multiplyDamage(int multiplier) {
         this.damage = damage * multiplier;
     }
-
+    /**
+     * Toggles multi shot
+     * @param value multi shot true or false
+     */
     public void setMultiShot(boolean value) {
         multiShot = value;
     }
@@ -125,20 +134,31 @@ abstract public class Ship {
     public int getDamage() {
         return damage;
     }
-
+    /**
+     * 
+     * @param direction
+     * @return 
+     */
     public boolean getShipConstraint(Direction direction) {
         for (Shape s : shipGeometry) {
             return s.getDirectionConstraint(direction);
         }
         return false;
     }
-
+    /**
+     * Forcefully moves the ship to position 
+     * @param newX x value
+     * @param newY y value
+     */
     public void moveShip(double newX, double newY) {
         for (Shape s : shipGeometry) {
             s.moveTo(s.getX() + newX, s.getY() + newY);
         }
     }
-
+    /**
+     * Checks if the ship is out of bounds
+     * @return true or false
+     */
     public boolean isOutOfBounds() {
 
         for (Shape s : shipGeometry) {
@@ -148,13 +168,20 @@ abstract public class Ship {
         }
         return true;
     }
-
+    /**
+     * Sets collidablity of the ship
+     * @param collidable true or false
+     */
     public void setCollidable(boolean collidable) {
         for (Shape s : shipGeometry) {
             s.setCollidable(collidable);
         }
     }
-
+    /**
+     * Sets the velocity of the ship
+     * @param dx x velocity
+     * @param dy y velocity
+     */
     public void setShipVelocity(double dx, double dy) {
         for (Shape s : shipGeometry) {
             s.setVelocity(dx, dy);

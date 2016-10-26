@@ -42,7 +42,7 @@ public class GameModel {
         this.ship = player.getCurrentShip();
         this.projectiles = new LinkedList<>();
     }
-
+    
     public Background getBackground() {
         return background;
     }
@@ -62,18 +62,27 @@ public class GameModel {
     public Player getPlayer() {
         return player;
     }
-
+    /**
+     * Adds a collidable power up to the powerUps list
+     * @param x
+     * @param y 
+     */
     private void addPowerUp(double x, double y) {
         Random rand = new Random();
         PowerUp tempPwrUp = new PowerUp(x, y, rand.nextInt(3));
         tempPwrUp.getRect().setCollidable(true);
         powerUps.add(tempPwrUp);
     }
-
+    
     public LinkedList<PowerUp> getPowerUps() {
         return powerUps;
     }
-
+    /**
+     * Creates a projectile
+     * @param tempShip the ship that calls the method
+     * @param xVel how fast in what x direction the projectile will travel
+     * @param isPlayer tells if the projectile belongs to the player or not
+     */
     public void makeProjectile(Ship tempShip, double xVel, boolean isPlayer) {
         //PlayerShip tempShip = (PlayerShip) currentShip;
         tempShip.updateWeaponPos(isPlayer);
@@ -91,7 +100,10 @@ public class GameModel {
             projectiles.add(temp);
         }
     }
-
+    /**
+     * Moves the model objects
+     * @param elapsedTimeNs 
+     */
     public void move(long elapsedTimeNs) {
 
         for (Shape s : background.getBgBack()) {
@@ -120,7 +132,9 @@ public class GameModel {
             p.getRect().move(elapsedTimeNs);
         }
     }
-
+    /**
+     * Controls the AIs firing pattern
+     */
     public void aiShoot() {
         for (EnemyShip es : enemyShips) {
             if (LocalTime.now().isAfter(es.getLastShot().plusSeconds(2))) {
@@ -145,7 +159,9 @@ public class GameModel {
     public void setPaused(boolean paused) {
         isPaused = paused;
     }
-
+    /**
+     * Updates the objects in the various lists to be removed if they aren't needed anymore
+     */
     public void updateObjectsOnScreen() {
         if (projectiles.size() > 0) {
             for (int i = 0; i < projectiles.size(); i++) {
@@ -180,7 +196,10 @@ public class GameModel {
         }
         
     }
-
+    /**
+     * Is called when an enemies HP is below 0
+     * @param e The enemy ship that dies
+     */
     public void aiDeath(EnemyShip e) {
         Random rand = new Random();
         e.setCollidable(false);
@@ -189,7 +208,10 @@ public class GameModel {
         if(rand.nextBoolean())
             addPowerUp(e.getX(), e.getY());
     }
-
+    /**
+     * Handles collisions of all objects in the world that have collision,
+     * what happens when different collisions occur is also handled
+     */
     public void handleCollisions() {
         for (Projectile p : projectiles) {
             for (Rectangle r : p.getProjectile()) {
@@ -245,7 +267,9 @@ public class GameModel {
             }
         }
     }
-
+    /**
+     * Checks if objects are dead, if they are they explode
+     */
     public void updateActiveObjects() {
         if (ship.getHealthPoints() <= 0 && ship.isAlive()) {
             ship.setAlive(false);
@@ -262,7 +286,9 @@ public class GameModel {
             ship.setExploded(true);
         }
     }
-
+    /**
+     * Updates if the game is over and if the player is dead
+     */
     public void updateGame() {
         if (!isGameOver) {
             if (!player.getCurrentShip().isAlive() && player.getNrOfLives() > 0) {
@@ -274,7 +300,9 @@ public class GameModel {
             }
         }
     }
-
+    /**
+     * Sees to it that playerShip stays without game boundries
+     */
     public void constrainPlayerShip() {
         for (Shape s : ship.getShipGeometry()) {
             s.constrain();

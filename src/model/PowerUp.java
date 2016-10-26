@@ -48,12 +48,24 @@ public class PowerUp {
             case 2: System.out.println("bs"); bonusScore(player); break;
         }
     }
+    /**
+     * Doubles the current player ships damage
+     * @param playerShip current player ship
+     */
     private void doubleDamage(Ship playerShip){ //whichPowerUp 0
         playerShip.multiplyDamage(2);
     }
+    /**
+     * Updates the pattern of how projectiles are created for this ship
+     * @param playerShip 
+     */
     private void multiShot(Ship playerShip){ //whichPowerUp 1
         playerShip.setMultiShot(true);
     }
+    /**
+     * Adds 5000 score
+     * @param player player
+     */
     private void bonusScore(Player player){ //whichPowerUp 2
         player.addScore(5000);
     }
