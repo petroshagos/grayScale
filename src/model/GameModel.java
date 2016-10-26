@@ -5,10 +5,12 @@
  */
 package model;
 
+import model.HighScore.HighScoreList;
 import model.Shape.Rectangle;
 import model.Shape.Shape;
 import model.Shape.Triangle;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -18,6 +20,7 @@ import java.util.LinkedList;
 public class GameModel {
 
     private Player player;
+    private HighScoreList highScoreList;
     private Background background;
     private Ship ship;
     private LinkedList<EnemyShip> enemyShips = new LinkedList<>();
@@ -31,6 +34,11 @@ public class GameModel {
         this.ship = player.getCurrentShip();
         isPaused = false;
         isGameOver = false;
+        try {
+            highScoreList = new HighScoreList();
+        } catch (IOException ie) {
+            System.out.println("HighScoreList() IOException");
+        }
     }
 
     public GameModel(Player player) {
@@ -202,6 +210,10 @@ public class GameModel {
             else if (!player.getCurrentShip().isAlive() && player.getNrOfLives()<=0) {
                 isGameOver = true;
             }
+        }
+        if (isGameOver) {
+            highScoreList.addPlayer(player);
+
         }
     }
 
