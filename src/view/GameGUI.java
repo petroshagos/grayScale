@@ -13,16 +13,14 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.EnemyShip;
-import model.GameModel;
-import model.Projectile;
+import model.*;
 import model.Shape.Terrain;
-import model.Ship;
 import view.FX.*;
 
 import java.io.IOException;
@@ -42,6 +40,7 @@ public class GameGUI {
     private ShipFX shipFX;
     private LinkedList<ShipFX> enemiesFX = new LinkedList<>();
     private LinkedList<ProjectileFX> pFX = new LinkedList<>();
+    private LinkedList<PowerUpFX> powerUps = new LinkedList<>();
     private boolean timerIsOn;
     private BorderPane borderPane;
     private MenuBar menuBar;
@@ -103,6 +102,10 @@ public class GameGUI {
             for (ShapeFX s: e.getShipGeometry()) {
                 s.paint(gc);
             }
+        }
+
+        for (PowerUpFX p : powerUps) {
+            p.getRectFX().paint(gc);
         }
 
         for (ShapeFX s: bgFX.getTerrainList()) {
@@ -306,6 +309,13 @@ public class GameGUI {
         enemiesFX.clear();
         for (EnemyShip e: model.getEnemyShips()) {
             enemiesFX.add(new ShipFX(themeColor, e));
+        }
+    }
+
+    public void updatePowerUps(GameModel model) {
+        powerUps.clear();
+        for (PowerUp p : model.getPowerUps()) {
+            powerUps.add(new PowerUpFX(p));
         }
     }
 

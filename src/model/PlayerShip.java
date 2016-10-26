@@ -12,14 +12,14 @@ public class PlayerShip extends Ship {
 
 
     public PlayerShip() {
-        super(50, 200, 100);
+        super(50, 200, 100,1);
         this.setShipGeometry(makeShip(getX(), getY(), 15, 15));
         super.setWeaponPosX(getShipGeometry().get(0).getX()+75);
         super.setWeaponPosY(getShipGeometry().get(0).getY()+25);
     }
 
-    public PlayerShip(double x, double y, int hP) {
-        super(x,y,hP);
+    public PlayerShip(double x, double y, int hP,int damage) {
+        super(x,y,hP,damage);
         this.setShipGeometry(makeShip(x, y, 15, 15));
         super.setWeaponPosX(getShipGeometry().get(0).getX()+75);
         super.setWeaponPosY(getShipGeometry().get(0).getY()+25);

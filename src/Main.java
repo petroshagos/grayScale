@@ -100,11 +100,13 @@ public class Main extends Application {
             model.constrainPlayerShip();
             model.updateActiveObjects();
             model.updateGame();
+            model.aiShoot();
             view.updateHUD(model);
             view.updateProjectiles(model);
             view.updateEnemies(model);
             view.updateBackground(model);
             view.updateObjectsOnScreen(model);
+            view.updatePowerUps(model);
             view.paint(gc); //new paint
 
         }
@@ -125,24 +127,24 @@ public class Main extends Application {
         public void run() {
             Random rand = new Random();
             double yRange;
-            int hpRange = rand.nextInt(5) + 4;
+            int hpRange = rand.nextInt(4) + 2;
             LocalTime time = LocalTime.now();
             LocalTime comparisonTime = time.minusSeconds(5);
             while (true) { //timeOut.compareTo(LocalTime.now()) > 0
                 time = LocalTime.now();
                 if (time.compareTo(comparisonTime) > 0) {
                     comparisonTime = time.plusMinutes(1);
-                    view.getCanvasView().updateWaveText(wave);
+                    //view.updateWaveText(wave);
                     System.out.println("wave: " + wave++);
                     try {
                         Thread.sleep(5000);
-                        view.getCanvasView().updateWaveText();
+                        //view.updateWaveText();
                     } catch (InterruptedException ex) {
                         System.out.println(ex.getMessage());
                     }
                 }
                 yRange = rand.nextInt(300) + 25;
-                EnemyShip enemyShip = new EnemyShip(800, yRange, hpRange * wave, false);
+                EnemyShip enemyShip = new EnemyShip(800, yRange, hpRange * wave, false,1*wave);
                 enemies.add(enemyShip);
                 view.addShipFx(enemyShip);
                 try {

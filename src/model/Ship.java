@@ -16,14 +16,17 @@ abstract public class Ship {
     private int healthPoints;
     private ArrayList<Triangle> shipGeometry = new ArrayList<>();
     private double weaponPosX, weaponPosY;
+    private int damage;
+    private boolean multiShot;
 
 
-    protected Ship(double x, double y, int healthPoints) {
+    protected Ship(double x, double y, int healthPoints, int damage) {
         this.x = x;
         this.y = y;
         this.isAlive = true;
         this.healthPoints = healthPoints;
         this.isExploded = false;
+        this.damage = damage;
     }
 
     public double getX() {
@@ -96,6 +99,16 @@ abstract public class Ship {
         }
     }
 
+    public void updateWeaponPos(boolean player) {
+        if (player) {
+            setWeaponPosX(getShipGeometry().get(0).getX() + 80);
+            setWeaponPosY(getShipGeometry().get(0).getY() + 25);
+        } else {
+            setWeaponPosX(getShipGeometry().get(0).getX() - 10);
+            setWeaponPosY(getShipGeometry().get(0).getY() + 10);
+        }
+    }
+
     public boolean getShipConstraint(Direction direction) {
         for (Shape s: shipGeometry) {
             return s.getDirectionConstraint(direction);
@@ -130,7 +143,24 @@ abstract public class Ship {
         }
     }
 
-    public abstract ArrayList<Triangle> makeShip(double x, double y, double width, double height);
+    public void multiplyDamage(int multiplier) {
+        this.damage = damage * multiplier;
+    }
+
+    public void setMultiShot(boolean value) {
+        multiShot = value;
+    }
+
+    public boolean getMultiShot() {
+        return multiShot;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+
+        public abstract ArrayList<Triangle> makeShip(double x, double y, double width, double height);
 
 
 }

@@ -51,35 +51,32 @@ public class GameController {
     }
 
     public void handleKeyPress(KeyEvent ke) {
-
-        //model.getPlayer().addScore(100);
-        //view.updateHUD(model);
         switch (ke.getCode()) {
             case UP:
                 if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.UP)) {
                     model.getPlayer().decreaseHealthPoints(10);
                     model.getPlayer().getCurrentShip().moveShip(0,90);
                 }
-                model.getPlayer().getCurrentShip().setShipVelocity(0,-200);break;
+                model.getPlayer().getCurrentShip().setShipVelocity(model.getPlayer().getCurrentShip().getShipGeometry().get(0).getDx(),-200);break;
             case DOWN:
                 if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.DOWN)) {
                     model.getPlayer().decreaseHealthPoints(10);
                     model.getPlayer().getCurrentShip().moveShip(0,-90);
                 }
-                model.getPlayer().getCurrentShip().setShipVelocity(0,200);break;
+                model.getPlayer().getCurrentShip().setShipVelocity(model.getPlayer().getCurrentShip().getShipGeometry().get(0).getDx(),200);break;
             case RIGHT:
                 if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.RIGHT)) {
                     model.getPlayer().decreaseHealthPoints(10);
                     model.getPlayer().getCurrentShip().moveShip(-90,0);
                 }
-                model.getPlayer().getCurrentShip().setShipVelocity(200,0);break;
+                model.getPlayer().getCurrentShip().setShipVelocity(200,model.getPlayer().getCurrentShip().getShipGeometry().get(0).getDy());break;
             case LEFT:
                 if (model.getPlayer().getCurrentShip().getShipConstraint(Direction.LEFT)) {
                     model.getPlayer().decreaseHealthPoints(10);
                     model.getPlayer().getCurrentShip().moveShip(90,0);
                 }
-                model.getPlayer().getCurrentShip().setShipVelocity(-200,0);break;
-            case SPACE: model.makeProjectile();break;
+                model.getPlayer().getCurrentShip().setShipVelocity(-200,model.getPlayer().getCurrentShip().getShipGeometry().get(0).getDy());break;
+            case SPACE: break;
             case SHIFT: System.out.println(ke.getCode());break;
             case P: handlePause(); break;
             case ESCAPE: System.exit(0);break;
@@ -89,9 +86,6 @@ public class GameController {
                 System.out.println(model.getPlayer().getCurrentShip().getX());
                 System.out.println(model.getPlayer().getCurrentShip().isAlive());
                 System.out.println(model.getPlayer().getCurrentShip().isExploded());
-                break;
-            case Y:
-                view.showGameOver();break;
             default:
                 System.out.println("Wrong key");
                 break;
@@ -100,11 +94,11 @@ public class GameController {
 
     public void handleKeyRelease(KeyEvent ke) {
         switch (ke.getCode()) {
-            case UP: model.getPlayer().setShipVelocity(0,0);break;
-            case DOWN: model.getPlayer().setShipVelocity(0,0);break;
-            case RIGHT: model.getPlayer().setShipVelocity(0,0);break;
-            case LEFT: model.getPlayer().setShipVelocity(0,0);break;
-            case SPACE: break;
+            case UP: model.getPlayer().setShipVelocity(model.getPlayer().getCurrentShip().getShipGeometry().get(0).getDx(),0);break;
+            case DOWN: model.getPlayer().setShipVelocity(model.getPlayer().getCurrentShip().getShipGeometry().get(0).getDx(),0);break;
+            case RIGHT: model.getPlayer().setShipVelocity(0,model.getPlayer().getCurrentShip().getShipGeometry().get(0).getDy());break;
+            case LEFT: model.getPlayer().setShipVelocity(0,model.getPlayer().getCurrentShip().getShipGeometry().get(0).getDy());break;
+            case SPACE: model.makeProjectile(model.getPlayerShip(),250,true);break;
             case SHIFT: System.out.println(ke.getCode());break;
             case P: break;
             case ESCAPE: System.out.println(ke.getCode());break;

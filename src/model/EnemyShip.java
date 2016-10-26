@@ -4,6 +4,7 @@ import model.Shape.Shape;
 import model.Shape.Triangle;
 import model.Shape.TriangleOrientation;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -12,8 +13,10 @@ import java.util.ArrayList;
 public class EnemyShip extends Ship {
 
     private boolean isOutOfBounds;
-    public EnemyShip(double x,double y,int healthPoints, boolean isOutOfBounds) {
-        super(healthPoints, 900, 200);
+    private LocalTime time = LocalTime.now();
+
+    public EnemyShip(double x,double y,int healthPoints, boolean isOutOfBounds,int damage) {
+        super(x, y, healthPoints,damage);
         this.isOutOfBounds = isOutOfBounds;
         this.setShipGeometry(makeShip(x,y,15,15));
         super.setWeaponPosX(getShipGeometry().get(0).getX());
@@ -37,5 +40,14 @@ public class EnemyShip extends Ship {
         }
         return temp;
     }
+
+    public LocalTime getLastShot(){
+        return time;
+    }
+    public void setLastShot(){
+        time = LocalTime.now();
+    }
+
+
 
 }

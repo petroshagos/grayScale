@@ -11,7 +11,9 @@ import model.Shape.Shape;
 import model.Shape.Triangle;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  *
@@ -19,12 +21,14 @@ import java.util.LinkedList;
  */
 public class GameModel {
 
+
     private Player player;
     private HighScoreList highScoreList;
     private Background background;
     private Ship ship;
     private LinkedList<EnemyShip> enemyShips = new LinkedList<>();
     private LinkedList<Projectile> projectiles = new LinkedList<>();
+    private LinkedList<PowerUp> powerUps = new LinkedList<>();
     private long now;
     private boolean isPaused,isGameOver;
 
@@ -68,11 +72,33 @@ public class GameModel {
         return player;
     }
 
-    public void makeProjectile() {
-        PlayerShip tempShip = (PlayerShip) ship;
-        tempShip.updateWeaponPos();
-        Projectile temp = new Projectile(tempShip.getWeaponPosX(), tempShip.getWeaponPosY());
+    private void addPowerUp(double x, double y) {
+        Random rand = new Random();
+        PowerUp tempPwrUp = new PowerUp(x, y, rand.nextInt(3));
+        tempPwrUp.getRect().setCollidable(true);
+        powerUps.add(tempPwrUp);
+    }
+
+    public LinkedList<PowerUp> getPowerUps() {
+        return powerUps;
+    }
+
+    public void makeProjectile(Ship tempShip, double xVel, boolean isPlayer) {
+        //PlayerShip tempShip = (PlayerShip) currentShip;
+        tempShip.updateWeaponPos(isPlayer);
+        System.out.println(tempShip.getWeaponPosX());
+        System.out.println(tempShip.getWeaponPosY());
+        Projectile temp = new Projectile(tempShip.getWeaponPosX(), tempShip.getWeaponPosY(), isPlayer, tempShip.getDamage());
+        temp.setVelocity(xVel, 0);
         projectiles.add(temp);
+        if (tempShip.getMultiShot()) {
+            temp = new Projectile(tempShip.getWeaponPosX(), tempShip.getWeaponPosY(), isPlayer, tempShip.getDamage());
+            temp.setVelocity(xVel, 50);
+            projectiles.add(temp);
+            temp = new Projectile(tempShip.getWeaponPosX(), tempShip.getWeaponPosY(), isPlayer, tempShip.getDamage());
+            temp.setVelocity(xVel, -50);
+            projectiles.add(temp);
+        }
     }
 
     public void move(long elapsedTimeNs) {
@@ -97,6 +123,15 @@ public class GameModel {
         for (Ship e: enemyShips) {
             for (Shape s: e.getShipGeometry()) {
                 s.move(elapsedTimeNs);
+            }
+        }
+    }
+
+    public void aiShoot() {
+        for (EnemyShip es : enemyShips) {
+            if (LocalTime.now().isAfter(es.getLastShot().plusSeconds(2))) {
+                makeProjectile(es, -250, false);
+                es.setLastShot();
             }
         }
     }
@@ -142,20 +177,50 @@ public class GameModel {
                 background.addTerrain();
             }
         }
+
+        for(PowerUp p : powerUps){
+            if(p.getRect().isOutOfBounds()){
+                System.out.println("POWERUP REMOVED");
+                powerUps.remove(p);
+            }
+        }
     }
 
+    public void aiDeath(EnemyShip e) {
+        Random rand = new Random();
+        e.setCollidable(false);
+        e.setAlive(false);
+        player.addScore(100);
+        if (rand.nextBoolean())
+            addPowerUp(e.getX(), e.getY());
+    }
+
+
     public void handleCollisions() {
-        for (Projectile p:projectiles) {
-            for(Rectangle r: p.getProjectile()) {
-                for (EnemyShip e: enemyShips) {
-                    for (Triangle es: e.getShipGeometry()) {
+        for (Projectile p : projectiles) {
+            for (Rectangle r : p.getProjectile()) {
+                if (p.isPlayer()) {
+                    for (EnemyShip e : enemyShips) {
+                        for (Triangle es : e.getShipGeometry()) {
+                            if (r.collision(es) && r.isCollidable() && es.isCollidable()) {
+                                r.setCollidable(false);
+                                p.setCollidable(false);
+                                System.out.println("asdasd"+player.getCurrentShip().getDamage()+" "+e.getHealthPoints());
+                                p.explodeProjectile();
+                                e.decreaseHealthPoints(player.getCurrentShip().getDamage());
+                                if(e.getHealthPoints() <= 0){
+                                    aiDeath(e);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    for (Triangle es : player.getCurrentShip().getShipGeometry()) {
                         if (r.collision(es) && r.isCollidable() && es.isCollidable()) {
                             r.setCollidable(false);
-                            player.addScore(100);
                             p.setCollidable(false);
-                            e.setCollidable(false);
-                            e.setAlive(false);
                             p.explodeProjectile();
+                            player.decreaseHealthPoints(p.getDamage());
                         }
                     }
                 }
@@ -176,6 +241,12 @@ public class GameModel {
                             }
                             player.addScore(100);
                         }
+                    }
+                }
+                for (PowerUp p : powerUps) {
+                    if (p.getRect().collision(s)) {
+                        p.getPowerUp(ship, player);
+                        powerUps.remove(p);
                     }
                 }
             }
@@ -204,7 +275,7 @@ public class GameModel {
         if (!isGameOver) {
             if (!player.getCurrentShip().isAlive() && player.getNrOfLives()>0) {
                 player.decreaseNrOfLives();
-                player.makeNewPlayerShip(50,200,100);
+                player.makeNewPlayerShip(50,200,100,1);
                 ship = player.getCurrentShip();
             }
             else if (!player.getCurrentShip().isAlive() && player.getNrOfLives()<=0) {
