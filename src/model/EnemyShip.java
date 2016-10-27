@@ -44,10 +44,9 @@ public class EnemyShip extends Ship {
     public LocalTime getLastShot(){
         return time;
     }
+
     public void setLastShot(){
         time = LocalTime.now();
     }
-
-
 
 }

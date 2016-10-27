@@ -39,9 +39,4 @@ public class PlayerShip extends Ship {
         temp.add(new Triangle(x+(4*width),y+height,width,height, 0, true, false, true, TriangleOrientation.UpperRight));
         return temp;
     }
-
-    public void updateWeaponPos() {
-        setWeaponPosX(getShipGeometry().get(0).getX()+80);
-        setWeaponPosY(getShipGeometry().get(0).getY()+25);
-    }
 }

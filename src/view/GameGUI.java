@@ -44,7 +44,6 @@ public class GameGUI {
     private LinkedList<ShipFX> enemiesFX = new LinkedList<>();
     private LinkedList<ProjectileFX> pFX = new LinkedList<>();
     private LinkedList<PowerUpFX> powerUps = new LinkedList<>();
-    private boolean timerIsOn;
     private BorderPane borderPane;
     private MenuBar menuBar;
     private CanvasView cv;
@@ -187,31 +186,23 @@ public class GameGUI {
         score.setFill(themeColor.getColor(4));
         score.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
         score.setFontSmoothingType(FontSmoothingType.LCD);
-        Text wave = new Text("WAVE: " + model.getPlayer().getScore());
-        wave.setFill(themeColor.getColor(4));
-        wave.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
-        wave.setFontSmoothingType(FontSmoothingType.LCD);
         ColumnConstraints cc1 = new ColumnConstraints();
-        cc1.setPercentWidth(20);
+        cc1.setPercentWidth(25);
         cc1.setHalignment(HPos.CENTER);
         ColumnConstraints cc2 = new ColumnConstraints();
-        cc2.setPercentWidth(20);
+        cc2.setPercentWidth(25);
         cc2.setHalignment(HPos.CENTER);
         ColumnConstraints cc3 = new ColumnConstraints();
-        cc3.setPercentWidth(20);
+        cc3.setPercentWidth(25);
         cc3.setHalignment(HPos.CENTER);
         ColumnConstraints cc4 = new ColumnConstraints();
-        cc4.setPercentWidth(20);
+        cc4.setPercentWidth(25);
         cc4.setHalignment(HPos.CENTER);
-        ColumnConstraints cc5 = new ColumnConstraints();
-        cc5.setPercentWidth(20);
-        cc5.setHalignment(HPos.CENTER);
-        gridPane.getColumnConstraints().addAll(cc1, cc2, cc3, cc4, cc5);
+        gridPane.getColumnConstraints().addAll(cc1, cc2, cc3, cc4);
         gridPane.add(name, 0, 0);
         gridPane.add(lives, 1, 0);
         gridPane.add(health, 2, 0);
         gridPane.add(score, 3, 0);
-        gridPane.add(wave, 4, 0);
         return gridPane;
     }
 
@@ -311,6 +302,7 @@ public class GameGUI {
 
     public void showHighscore() {
         Stage newStage = new Stage();
+        newStage.setTitle("grayScale");
         GridPane gridPane = new GridPane();
         Text player = new Text("PLAYER");
         player.setFill(themeColor.getColor(0));

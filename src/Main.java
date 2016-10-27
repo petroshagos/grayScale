@@ -124,6 +124,10 @@ public class Main extends Application {
             this.view = view;
         }
 
+        public int getWave() {
+            return wave;
+        }
+
         @Override
         public void run() {
             Random rand = new Random();

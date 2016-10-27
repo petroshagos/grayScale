@@ -66,10 +66,6 @@ public class GameModel {
         return highScoreList;
     }
 
-    public void setHighScoreList(HighScoreList highScoreList) {
-        this.highScoreList = highScoreList;
-    }
-
     public Background getBackground() {
         return background;
     }
@@ -102,7 +98,6 @@ public class GameModel {
     }
 
     public void makeProjectile(Ship tempShip, double xVel, boolean isPlayer) {
-        //PlayerShip tempShip = (PlayerShip) currentShip;
         tempShip.updateWeaponPos(isPlayer);
         Projectile temp = new Projectile(tempShip.getWeaponPosX(), tempShip.getWeaponPosY(), isPlayer, tempShip.getDamage());
         temp.setVelocity(xVel, 0);
@@ -296,17 +291,17 @@ public class GameModel {
             }
         }
         if (isGameOver) {
-            try {
-                highScoreList.serialise();
-            } catch (IOException ie) {
-
-            }
+            highScoreList.addPlayer(player);
             gameOver();
         }
     }
 
     public void gameOver() {
-        highScoreList.addPlayer(player);
+        try {
+            highScoreList.serialise();
+        } catch (IOException ie) {
+
+        }
         String temp = player.getName();
         enemyShips.clear();
         projectiles.clear();
