@@ -333,12 +333,8 @@ public class GameGUI {
         ArrayList<Player> temp = model.getHighScoreList().getHighScoreList();
         Collections.sort(temp, new CompareScore());
         for (int i=0; i<5;i++) {
-            Text pl = new Text("------");
-            Text sc = new Text("------");
-            if (!temp.isEmpty()) {
-                pl = new Text(temp.get(i).getName());
-                sc = new Text(String.valueOf(temp.get(i).getScore()));
-            }
+            Text pl = new Text(temp.get(i).getName());
+            Text sc = new Text(String.valueOf(temp.get(i).getScore()));
             pl.setFill(themeColor.getColor(0));
             pl.setFontSmoothingType(FontSmoothingType.LCD);
             pl.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
@@ -348,7 +344,7 @@ public class GameGUI {
             sc.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
             gridPane.add(sc,1,i+1);
         }
-        Scene highScore = new Scene(gridPane, 150, 200);
+        Scene highScore = new Scene(gridPane, 150, 150);
         newStage.setScene(highScore);
         newStage.setResizable(false);
         newStage.show();
