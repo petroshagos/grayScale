@@ -307,9 +307,11 @@ public class GameModel {
 
     public void gameOver() {
         highScoreList.addPlayer(player);
+        String temp = player.getName();
         enemyShips.clear();
         projectiles.clear();
         this.player = new Player();
+        player.setName(temp);
         this.background = new Background();
         this.ship = player.getCurrentShip();
         isPaused = false;

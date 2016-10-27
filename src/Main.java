@@ -117,7 +117,7 @@ public class Main extends Application {
 
         LinkedList<EnemyShip> enemies;
         GameGUI view;
-        int wave = 1;
+        int wave = 0;
 
         public EnemySpawnThread(LinkedList<EnemyShip> enemies, GameGUI view) {
             this.enemies = enemies;
@@ -132,27 +132,33 @@ public class Main extends Application {
             LocalTime time = LocalTime.now();
             LocalTime comparisonTime = time.minusSeconds(5);
             while (true) { //timeOut.compareTo(LocalTime.now()) > 0
-                time = LocalTime.now();
-                if (time.compareTo(comparisonTime) > 0) {
-                    comparisonTime = time.plusMinutes(1);
-                    //view.updateWaveText(wave);
-                    System.out.println("wave: " + wave++);
+                if (!model.isPaused()) {
+                    if (model.isGameOver()) {
+                        wave = 0;
+                    }
+                    time = LocalTime.now();
+                    if (time.compareTo(comparisonTime) > 0) {
+                        comparisonTime = time.plusMinutes(1);
+                        //view.updateWaveText(wave);
+                        System.out.println("wave: " + ++wave);
+                        try {
+                            Thread.sleep(5000);
+                            //view.updateWaveText();
+                        } catch (InterruptedException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                    yRange = rand.nextInt(300) + 25;
+                    EnemyShip enemyShip = new EnemyShip(850, yRange, hpRange * wave, false,1*wave);
+                    enemies.add(enemyShip);
+                    view.addShipFx(enemyShip);
                     try {
-                        Thread.sleep(5000);
-                        //view.updateWaveText();
+                        Thread.sleep(rand.nextInt(10000 / wave) + 2000 / wave);
                     } catch (InterruptedException ex) {
                         System.out.println(ex.getMessage());
                     }
                 }
-                yRange = rand.nextInt(300) + 25;
-                EnemyShip enemyShip = new EnemyShip(800, yRange, hpRange * wave, false,1*wave);
-                enemies.add(enemyShip);
-                view.addShipFx(enemyShip);
-                try {
-                    Thread.sleep(rand.nextInt(10000 / wave) + 2000 / wave);
-                } catch (InterruptedException ex) {
-                    System.out.println(ex.getMessage());
-                }
+
             }
         }
     }

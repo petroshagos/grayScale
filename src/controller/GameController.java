@@ -43,6 +43,7 @@ public class GameController {
     }
 
     public void handleNewGame(ActionEvent event) {
+        model.getHighScoreList().addPlayer(model.getPlayer());
         model.setGameOver(true);
         try {
             model.getHighScoreList().serialise();
