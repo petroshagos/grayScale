@@ -11,6 +11,7 @@ import model.EnemyShip;
 import model.GameModel;
 import view.GameGUI;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.Random;
@@ -36,7 +37,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws IOException {
         model = new GameModel();
         view = new GameGUI(model);
         controller = view.getGameController();

@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @author Petros Hagos & Dag Oldenburg.
  */
-public class Player implements Serializable{
+public class Player implements Serializable {
     private String name;
     private int score;
     private int nrOfLives;

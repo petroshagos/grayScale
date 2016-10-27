@@ -1,5 +1,6 @@
 package view;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -8,10 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.HighScore.HighScoreList;
-import javafx.collections.FXCollections;
 import model.Player;
-
-import java.io.IOException;
 
 /**
  *
@@ -26,7 +24,7 @@ public class HighScore extends VBox {
     private HighScoreList highScoreList;
     private VBox vbox = new VBox();
 
-    public HighScore() throws IOException {
+    public HighScore() throws Exception {
         this.highScoreList = new HighScoreList();
         for (int i=0; i<highScoreList.getHighScoreList().size();i++) {
             data.add(highScoreList.getHighScoreList().get(i));

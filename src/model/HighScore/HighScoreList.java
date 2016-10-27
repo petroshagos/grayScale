@@ -3,25 +3,19 @@ package model.HighScore;
 import model.Player;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
-
-import static java.lang.System.exit;
 
 /**
  * @author Petros Hagos & Dag Oldenburg
  */
-public class HighScoreList implements Serializable {
+public class HighScoreList {
 
-    private LinkedList<Player> highScoreList;
+    private ArrayList<Player> highScoreList;
 
-    public HighScoreList() throws FileNotFoundException, IOException {
-        this.highScoreList = new LinkedList<>();
-        try {
-            serialise();
-        } catch (IOException ie){
-            System.out.println("HighScoreList() IOException");
-        } try {
+    public HighScoreList() {
+        this.highScoreList = new ArrayList<>();
+        /*try {
             deserialise();
         } catch (ClassNotFoundException e) {
             //TODO: alerts
@@ -31,61 +25,66 @@ public class HighScoreList implements Serializable {
             //TODO: alerts
             System.out.println("HighScoreList() FileNotFoundException");
             exit(0);
-        }
+        } try {
+            serialise();
+        } catch (IOException ie){
+            System.out.println("HighScoreList() IOException");
+        }*/
     }
 
     public void addPlayer(Player p) {
         this.highScoreList.add(p);
     }
 
-    public LinkedList<Player> getHighScoreList() {
-        LinkedList<Player> temp = new LinkedList<>();
+    public ArrayList<Player> getHighScoreList() {
+        ArrayList<Player> temp = new ArrayList<>();
         temp.addAll(this.highScoreList);
         Collections.sort(temp, new CompareScore());
         return temp;
     }
 
     public void serialise() throws IOException {
-        FileOutputStream fout = null;
-        ObjectOutputStream oos = null;
-        try {
-            fout = new FileOutputStream("highScore.ser");
-            oos = new ObjectOutputStream(fout);
-            oos.writeObject(highScoreList);
-            System.out.println("Serialisation Complete");
+        ObjectOutputStream out = null;
 
+        try {
+            out = new ObjectOutputStream(
+                    new FileOutputStream("highscore.ser"));
+            out.writeObject(highScoreList);
+            System.out.println("Serialisation Complete");
+        }
+        finally {
+            try {
+                if(out != null)	out.close();
+            } catch(Exception e) {}
+        }
+    }
+
+    public void deserialise() throws ClassNotFoundException, FileNotFoundException {
+
+        ObjectInputStream in = null;
+
+        try {
+            in = new ObjectInputStream(new FileInputStream("highscore.ser"));
+            highScoreList = (ArrayList<Player>) in.readObject();
+            System.out.println("Deserialisation complete");
+        } catch (IOException ex) {
         } finally {
             try {
-                if (fout != null) {
-                    fout.close();
+                if (in != null) {
+                    in.close();
                 }
             } catch (IOException ie) {
             }
         }
     }
 
-    public void deserialise() throws ClassNotFoundException, FileNotFoundException {
-
-        ObjectInputStream ois = null;
-        FileInputStream fin = null;
-        try {
-            fin = new FileInputStream("highScore.ser");
-            ois = new ObjectInputStream(fin);
-            LinkedList<Player> highScoreList = (LinkedList<Player>) ois.readObject();
-            System.out.println("Deserialisation complete");
-            for (Player p : highScoreList) {
-                System.out.println(p.toString());
-            }
-
-        } catch (IOException ex) {
-        } finally {
-            try {
-                if (fin != null) {
-                    fin.close();
-                }
-            } catch (IOException ie) {
-            }
+    @Override
+    public String toString() {
+        String temp = "";
+        for (Player p: highScoreList) {
+            temp += p.getName();
         }
+        return temp;
     }
 
 }

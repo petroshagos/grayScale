@@ -4,12 +4,13 @@ import model.Shape.Direction;
 import model.Shape.Shape;
 import model.Shape.Triangle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * @author Petros Hagos & Dag Oldenburg.
  */
-abstract public class Ship {
+abstract public class Ship implements Serializable {
 
     private double x, y;
     private boolean isAlive, isExploded;

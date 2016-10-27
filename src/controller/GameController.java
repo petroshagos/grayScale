@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import javafx.event.ActionEvent;
@@ -39,15 +34,36 @@ public class GameController {
         }
     }
 
-    public void handleHighScore() throws IOException {
-        view.showHighScore();
+    public void handleHighScore() {
+        try {
+            model.getHighScoreList().serialise();
+        } catch (IOException ie) {
+        }
+        view.showHighscore();
+    }
+
+    public void handleNewGame(ActionEvent event) {
+        model.setGameOver(true);
+        try {
+            model.getHighScoreList().serialise();
+        } catch (IOException ie) {
+        }
+        handleGameOver();
+
+    }
+
+    public void handleQuit() {
+        model.getHighScoreList().addPlayer(model.getPlayer());
+        try {
+            model.getHighScoreList().serialise();
+        } catch (IOException ie) {
+
+        }
+        System.exit(0);
     }
 
     public void changePlayerName(String name) {
         model.getPlayer().setName(name);
-    }
-    public void updateHUD() {
-
     }
 
     public void handleKeyPress(KeyEvent ke) {
@@ -79,13 +95,36 @@ public class GameController {
             case SPACE: break;
             case SHIFT: System.out.println(ke.getCode());break;
             case P: handlePause(); break;
-            case ESCAPE: System.exit(0);break;
+            case ESCAPE:
+                model.getHighScoreList().addPlayer(model.getPlayer());
+                try {
+                    model.getHighScoreList().serialise();
+                } catch (IOException ie) {
+
+                }
+                System.exit(0);break;
             case R:
                 System.out.println(model.getProjectiles().size());
                 System.out.println(model.getEnemyShips().size());
                 System.out.println(model.getPlayer().getCurrentShip().getX());
                 System.out.println(model.getPlayer().getCurrentShip().isAlive());
                 System.out.println(model.getPlayer().getCurrentShip().isExploded());
+                break;
+            case Y:
+                model.getHighScoreList().addPlayer(model.getPlayer());
+                System.out.println(model.getHighScoreList().toString()); break;
+            case U:
+                try {
+                    model.getHighScoreList().serialise();
+                    System.out.println("Serialized Success");
+                } catch (IOException ie) {
+                    System.out.println("Serialization Failed");
+
+                }break;
+            case I:
+                System.out.println(model.getHighScoreList().toString());
+
+
             default:
                 System.out.println("Wrong key");
                 break;
@@ -114,4 +153,13 @@ public class GameController {
             model.setPaused(false);
         }
     }
+
+    public void handleGameOver() {
+        if (model.isGameOver()) {
+            model.gameOver();
+            view.startScreen();
+        }
+
+    }
+
 }

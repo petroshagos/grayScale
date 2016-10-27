@@ -20,10 +20,13 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
+import model.HighScore.CompareScore;
 import model.Shape.Terrain;
 import view.FX.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Optional;
 
@@ -142,6 +145,7 @@ public class GameGUI {
         menuBar = new MenuBar();
         Menu fileMenu = new Menu("Menu");
         MenuItem newGame = new MenuItem("New Game");
+        newGame.setOnAction(newGameHandler);
         fileMenu.getItems().add(newGame);
         MenuItem pause = new MenuItem("Pause/Play (P)");
         pause.setOnAction(pauseHandler);
@@ -155,6 +159,7 @@ public class GameGUI {
             color.getItems().add(new MenuItem(tc.getName()));
         }
         MenuItem quit = new MenuItem("Quit (ESC)");
+        quit.setOnAction(quitHandler);
         fileMenu.getItems().add(quit);
         menuBar.getMenus().addAll(fileMenu);
 
@@ -210,6 +215,13 @@ public class GameGUI {
         return gridPane;
     }
 
+    EventHandler newGameHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.handleNewGame(event);
+        }
+    };
+
     EventHandler colorHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
@@ -227,12 +239,15 @@ public class GameGUI {
     EventHandler highScoreHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
-            try {
-                controller.handleHighScore();
-            } catch (IOException ie) {
-                System.out.println("HighScoreList() IOException");
-            }
+            controller.handleHighScore();
 
+        }
+    };
+
+    EventHandler quitHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.handleQuit();
         }
     };
 
@@ -267,7 +282,7 @@ public class GameGUI {
         }
     }
 
-    public void showHighScore() throws IOException {
+    public void showHighScore() throws Exception {
         Stage newStage = new Stage();
         HighScore highScore = new HighScore();
         highScoreWindow = new Scene(highScore.getVBox(), 300, 400);
@@ -290,6 +305,51 @@ public class GameGUI {
         gridPane.add(gameOver,0,0);
         Scene gameOverScene = new Scene(gridPane, 200, 40);
         newStage.setScene(gameOverScene);
+        newStage.setResizable(false);
+        newStage.show();
+    }
+
+    public void showHighscore() {
+        Stage newStage = new Stage();
+        GridPane gridPane = new GridPane();
+        Text player = new Text("PLAYER");
+        player.setFill(themeColor.getColor(0));
+        player.setFontSmoothingType(FontSmoothingType.LCD);
+        player.setFont(Font.loadFont("file:resources/font/redensek.ttf", 24));
+        Text score = new Text("SCORE");
+        score.setFill(themeColor.getColor(0));
+        score.setFontSmoothingType(FontSmoothingType.LCD);
+        score.setFont(Font.loadFont("file:resources/font/redensek.ttf", 24));
+        ColumnConstraints cc1 = new ColumnConstraints();
+        cc1.setPercentWidth(50);
+        cc1.setHalignment(HPos.CENTER);
+        player.setFontSmoothingType(FontSmoothingType.LCD);
+        ColumnConstraints cc2 = new ColumnConstraints();
+        cc2.setPercentWidth(50);
+        cc2.setHalignment(HPos.CENTER);
+        gridPane.getColumnConstraints().addAll(cc1,cc2);
+        gridPane.add(player,0,0);
+        gridPane.add(score,1,0);
+        ArrayList<Player> temp = model.getHighScoreList().getHighScoreList();
+        Collections.sort(temp, new CompareScore());
+        for (int i=0; i<5;i++) {
+            Text pl = new Text("------");
+            Text sc = new Text("------");
+            if (!temp.isEmpty()) {
+                pl = new Text(temp.get(i).getName());
+                sc = new Text(String.valueOf(temp.get(i).getScore()));
+            }
+            pl.setFill(themeColor.getColor(0));
+            pl.setFontSmoothingType(FontSmoothingType.LCD);
+            pl.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
+            gridPane.add(pl,0,i+1);
+            sc.setFill(themeColor.getColor(0));
+            sc.setFontSmoothingType(FontSmoothingType.LCD);
+            sc.setFont(Font.loadFont("file:resources/font/redensek.ttf", 22));
+            gridPane.add(sc,1,i+1);
+        }
+        Scene highScore = new Scene(gridPane, 150, 200);
+        newStage.setScene(highScore);
         newStage.setResizable(false);
         newStage.show();
     }

@@ -1,11 +1,12 @@
 package model.Shape;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * @author Petros Hagos & Dag Oldenburg.
  */
-abstract public class Shape {
+abstract public class Shape implements Serializable{
 
     public static final double BILLION = 1_000_000_000.0;
 

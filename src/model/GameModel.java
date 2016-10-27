@@ -38,9 +38,11 @@ public class GameModel {
         this.ship = player.getCurrentShip();
         isPaused = false;
         isGameOver = false;
+        highScoreList = new HighScoreList();
         try {
-            highScoreList = new HighScoreList();
-        } catch (IOException ie) {
+            highScoreList.deserialise();
+            System.out.println("Deserialized Success");
+        } catch (Exception ie) {
             System.out.println("HighScoreList() IOException");
         }
     }
@@ -50,6 +52,22 @@ public class GameModel {
         this.background = new Background();
         this.ship = player.getCurrentShip();
         this.projectiles = new LinkedList<>();
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        isGameOver = gameOver;
+    }
+
+    public HighScoreList getHighScoreList() {
+        return highScoreList;
+    }
+
+    public void setHighScoreList(HighScoreList highScoreList) {
+        this.highScoreList = highScoreList;
     }
 
     public Background getBackground() {
@@ -86,8 +104,6 @@ public class GameModel {
     public void makeProjectile(Ship tempShip, double xVel, boolean isPlayer) {
         //PlayerShip tempShip = (PlayerShip) currentShip;
         tempShip.updateWeaponPos(isPlayer);
-        System.out.println(tempShip.getWeaponPosX());
-        System.out.println(tempShip.getWeaponPosY());
         Projectile temp = new Projectile(tempShip.getWeaponPosX(), tempShip.getWeaponPosY(), isPlayer, tempShip.getDamage());
         temp.setVelocity(xVel, 0);
         projectiles.add(temp);
@@ -157,7 +173,6 @@ public class GameModel {
             for (int i = 0; i < projectiles.size(); i++) {
                 if (projectiles.get(i).isOutOfBounds()) {
                     projectiles.remove(i);
-                    System.out.println(projectiles.size());
                 }
             }
         }
@@ -180,7 +195,6 @@ public class GameModel {
 
         for(PowerUp p : powerUps){
             if(p.getRect().isOutOfBounds()){
-                System.out.println("POWERUP REMOVED");
                 powerUps.remove(p);
             }
         }
@@ -205,7 +219,6 @@ public class GameModel {
                             if (r.collision(es) && r.isCollidable() && es.isCollidable()) {
                                 r.setCollidable(false);
                                 p.setCollidable(false);
-                                System.out.println("asdasd"+player.getCurrentShip().getDamage()+" "+e.getHealthPoints());
                                 p.explodeProjectile();
                                 e.decreaseHealthPoints(player.getCurrentShip().getDamage());
                                 if(e.getHealthPoints() <= 0){
@@ -283,16 +296,32 @@ public class GameModel {
             }
         }
         if (isGameOver) {
-            highScoreList.addPlayer(player);
             try {
                 highScoreList.serialise();
             } catch (IOException ie) {
-                System.out.println("HighScoreList() IOException");
+
             }
-            player = new Player();
-            ship = player.getCurrentShip();
-            isGameOver = false;
+            gameOver();
         }
+    }
+
+    public void gameOver() {
+        highScoreList.addPlayer(player);
+        enemyShips.clear();
+        projectiles.clear();
+        this.player = new Player();
+        this.background = new Background();
+        this.ship = player.getCurrentShip();
+        isPaused = false;
+        isGameOver = false;
+        highScoreList = new HighScoreList();
+        try {
+            highScoreList.deserialise();
+            System.out.println("Deserialized Success");
+        } catch (Exception ie) {
+            System.out.println("HighScoreList() IOException");
+        }
+
     }
 
     public void constrainPlayerShip() {
